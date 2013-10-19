@@ -1,10 +1,10 @@
 Preface
 
 Part one
-Setup
-Vagrant
-Virtualbox note VMware
-Omnibus install vs gem install
+setup
+vagrant
+vm-setup
+omnibus install vs gem install
 
 Part two
 Chef-solo
