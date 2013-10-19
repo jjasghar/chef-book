@@ -26,7 +26,6 @@ mkdir /etc/chef/
 if ! [ -a /etc/chef/client.pem ]; then
   curl -L https://www.opscode.com/chef/install.sh | sudo bash
 fi
-ntpdate tick.uh.edu
 SCRIPT
 
 Vagrant::Config.run do |config|
