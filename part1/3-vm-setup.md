@@ -30,9 +30,9 @@ ntpdate tick.uh.edu
 SCRIPT
 
 Vagrant::Config.run do |config|
-  config.vm.box = "vagrant"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box"
-  config.vm.host_name = 'vagrant'
+  config.vm.box = "chef-book"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.host_name = 'chef-book'
 
   config.vm.provision :shell, :inline => $script
 end
@@ -54,4 +54,7 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
+After it's been pulled down, you should see that the machines is `Machine booted and ready!`. You'll be able to go into the box right then and there by `vagrant ssh` or you can `vagrant provision`.
 Then you should see a lot of provisioning text. That's good. Let it run, grab some coffee, or energy drink, what ever is your fancy.
+
+NOTE: after the initial import of the box, it'll always go through the provisioning automatically.

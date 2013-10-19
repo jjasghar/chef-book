@@ -25,9 +25,9 @@ ntpdate tick.uh.edu
 SCRIPT
 
 Vagrant::Config.run do |config|
-  config.vm.box = "vagrant"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box"
-  config.vm.host_name = 'vagrant'
+  config.vm.box = "chef-book"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.host_name = 'chef-book'
 
   config.vm.provision :shell, :inline => $script
 end
