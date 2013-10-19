@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 $script = <<SCRIPT
 apt-get update
-apt-get upgrade -y
 apt-get install git-core curl build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev -y
 if ! [ -a /usr/local/bin/gem ]; then
   cd /tmp
