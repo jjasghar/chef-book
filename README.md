@@ -4,7 +4,7 @@ chef-book
 
 The Prereqs you need before reading this book
 ----------------------------------------------
-The first and foremost is that I'm writing this for Linux based OSes. I understand chef can can run on Windows and MacOS, but that's not what I want to focus on.
+The first and foremost is that I'm writing this for Linux based OSes. I understand chef can can run on Windows and OSX, but that's not what I want to focus on.
 So please if these commands don't make sense to you, you should probably look for another book before reading this one.
 
 - `grep`
@@ -27,10 +27,10 @@ The situations you might be in that brought you to read/look for this book
 Contents
 --------
 Part one
-- 1-setup
+- 1-virtualbox
 - 2-vagrant
 - 3-vm-setup
-- 4 omnibus install vs gem install
+- 4-omnibus-install-vs-gem-install
 
 Directories
 -----------
