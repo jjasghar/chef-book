@@ -34,6 +34,11 @@ Part one
 - 3-vm-setup
 - 4-omnibus-install-vs-gem-install
 
+Part two
+- 5-chef-solo
+- 6-write-simple-base-cookbook
+- 7-vagrant-provisioning-vs-local-chef-solo
+
 Directories
 -----------
 meta: stuff for the book that isn't the book.
