@@ -29,10 +29,10 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 Contents
 --------
 Part one
-- 1-virtualbox
-- 2-vagrant
-- 3-vm-setup
-- 4-omnibus-install-vs-gem-install
+- [1-virtualbox](https://github.com/jjasghar/chef-book/blob/master/part1/1-virtualbox.md)
+- [2-vagrant](https://github.com/jjasghar/chef-book/blob/master/part1/2-vagrant.md)
+- [3-vm-setup](https://github.com/jjasghar/chef-book/blob/master/part1/3-vm-setup.md)
+- [4-omnibus-install-vs-gem-install](https://github.com/jjasghar/chef-book/blob/master/part1/4-omnibus-install-vs-gem-install.md)
 
 Part two
 - 5-chef-solo
