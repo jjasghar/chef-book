@@ -27,8 +27,8 @@ Yep, not that hard. I created a more verbose [script](http://jjasghar.github.io/
 
 Go ahead and `chmod +x converge.sh` and run it.
 ```bash
-root@chef-book:~/base# chmod +x converge.sh
-root@chef-book:~/base# ./converge.sh
+root@chef-book:~/solo# chmod +x converge.sh
+root@chef-book:~/solo# ./converge.sh
 [2013-10-21T15:10:17-05:00] WARN: *****************************************
 [2013-10-21T15:10:17-05:00] WARN: Did not find config file: solo.rb, using command line options.
 [2013-10-21T15:10:17-05:00] WARN: *****************************************
@@ -60,15 +60,15 @@ This is the "run_list" for `chef-solo`.  It tells it that `chef-solo` needs to g
 
 Go ahead and run `./converge.sh` again, it should be different:
 ```bash
-root@chef-book:~/base# ./converge.sh
+root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
 Compiling Cookbooks...
 [2013-10-21T15:21:36-05:00] ERROR: Running exception handlers
 [2013-10-21T15:21:36-05:00] ERROR: Exception handlers complete
-[2013-10-21T15:21:36-05:00] FATAL: Stacktrace dumped to /root/base/chef-stacktrace.out
+[2013-10-21T15:21:36-05:00] FATAL: Stacktrace dumped to /root/solo/chef-stacktrace.out
 Chef Client failed. 0 resources updated
 [2013-10-21T15:21:36-05:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
-root@chef-book:~/base# cat /root/base/chef-stacktrace.out
+root@chef-book:~/base# cat /root/solo/chef-stacktrace.out
 ```
 The most important part about the chef-stacktrace.out is this one:
 ```ruby
@@ -79,24 +79,24 @@ And that's expected, you haven't created one yet!
 base cookbook
 -------------
 
-Ok, you are at `~/base` right? Good, go ahead and type `mkdir -p cookbooks/base/recipes/` and `cd` to that directory.
+Ok, you are at `~/solo` right? Good, go ahead and type `mkdir -p cookbooks/solo/recipes/` and `cd` to that directory.
 ```bash
-root@chef-book:~/base# mkdir -p cookbooks/base/recipes/
-root@chef-book:~/base# cd cookbooks/base/recipes/
-root@chef-book:~/base/cookbooks/base/recipes#
+root@chef-book:~/solo# mkdir -p cookbooks/base/recipes/
+root@chef-book:~/solo# cd cookbooks/base/recipes/
+root@chef-book:~/solo/cookbooks/base/recipes#
 ```
 Now we need to create the `default.rb` file. Open up your favorite text editor and write the following. Now you'll notice that I'm using `nano` here, it's not my favor, far be it, but this is to show the first installation of software.
 ```bash
-root@chef-book:~/base/cookbooks/base/recipes# nano default.rb
+root@chef-book:~/solo/cookbooks/base/recipes# nano default.rb
 ```
 
 ```ruby
 package 'vim'
 ```
-Now logically this will install `vim` right? Yep, and we're about to see that. Go ahead and go up to `~/base`, and run `./converge.sh`, you should see something like this:
+Now logically this will install `vim` right? Yep, and we're about to see that. Go ahead and go up to `~/solo`, and run `./converge.sh`, you should see something like this:
 ```bash
-root@chef-book:~/base/cookbooks/base/recipes# cd ~/base
-root@chef-book:~/base# ./converge.sh
+root@chef-book:~/solo/cookbooks/base/recipes# cd ~/solo
+root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
 Compiling Cookbooks...
 Converging 1 resources
@@ -105,24 +105,24 @@ Recipe: base::default
     - install version 2:7.3.429-2ubuntu2.1 of package vim
 
 Chef Client finished, 1 resources updated
-root@chef-book:~/base#
+root@chef-book:~/solo#
 ```
 Congratulations! You have successfully installed the greatest editor using `chef-solo`! Don't believe me? type `vim`. Go ahead and run `./converge.sh` again, it should look like this:
 ```bash
-root@chef-book:~/base# ./converge.sh
+root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
 Compiling Cookbooks...
 Converging 1 resources
 Recipe: base::default
   * package[vim] action install (up to date)
 Chef Client finished, 0 resources updated
-root@chef-book:~/base#
+root@chef-book:~/solo#
 ```
 This is important, as you can see it didn't _reinstall_ it. It just checked that `vim` was installed and then it moved on. Badass.
 
 If you want to skip ahead, check out the [resources](http://docs.opscode.com/resource.html) and see what cool things you can do. Don't worry I'll walk y'all through some more.
 
-So let's add a couple more packages to our base recipe (`~/base/cookbooks/base/recipes/default.rb`), there are two ways you can do this. One is just add line by line, like:
+So let's add a couple more packages to our base recipe (`~/solo/cookbooks/base/recipes/default.rb`), there are two ways you can do this. One is just add line by line, like:
 ```ruby
 package 'vim'
 package 'ntp'
@@ -136,9 +136,9 @@ Or you can do:
   end
 end
 ```
-Both are basiclly, the same, the second one is just more rubyish. Go ahead and `cd ~/base/` and run `./convege.sh` again.
+Both are basiclly, the same, the second one is just more rubyish. Go ahead and `cd ~/solo/` and run `./convege.sh` again.
 ```bash
-root@chef-book:~/base# ./converge.sh
+root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
 Compiling Cookbooks...
 Converging 3 resources
@@ -147,7 +147,7 @@ Recipe: base::default
   * package[ntp] action install (up to date)
   * package[build-essential] action install (up to date)
 Chef Client finished, 0 resources updated
-root@chef-book:~/base#
+root@chef-book:~/solo#
 ```
 
 Congrats man, no you can install packages via chef and confirm that they are there.
