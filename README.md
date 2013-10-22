@@ -31,10 +31,10 @@ Contents
 
 ### Part one
 
-1. [Virtualbox](https://github.com/jjasghar/chef-book/blob/master/part1/1-virtualbox.md)
-2. [Vagrant](https://github.com/jjasghar/chef-book/blob/master/part1/2-vagrant.md)
-3. [VM setup](https://github.com/jjasghar/chef-book/blob/master/part1/3-vm-setup.md)
-4. [Omnibus install vs gem install](https://github.com/jjasghar/chef-book/blob/master/part1/4-omnibus-install-vs-gem-install.md)
+1. [Virtualbox](part1/1-virtualbox.md)
+2. [Vagrant](part1/2-vagrant.md)
+3. [VM setup](part1/3-vm-setup.md)
+4. [Omnibus install vs gem install](part1/4-omnibus-install-vs-gem-install.md)
 
 ### Part two
 
