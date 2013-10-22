@@ -20,7 +20,7 @@ I am writing this to me "open-source" so if there is a place that should be fles
 
 The situations you might be in that brought you to read/look for this book
 --------------------------------------------------------------------------
-The first situation is the one that I came from.  I started my journey with chef about 2-3 years ago, as a supporter of a `chef_repo` that was already way to complex. I had no idea what I was looking at and was overwhelmed. I used [puppet](http://puppetlabs.com/) extensively but chef just seemed baffling. I did my damnest to read all the blog posts, [wiki](https://wiki.opscode.com/display/chef/Home) sites, and how-tos I could find. I eventually threw up my hands and said no. If you have just been whelmed with the chef and [this](http://www.youtube.com/watch?v=UpHKVkLDBtU) video still intrigues you hopefully this book will make you're journey easier. I'm writing this book to my old past self who would have KILLED for all this information in one location.
+The first situation is the one that I came from.  I started my journey with chef about 2-3 years ago, as a supporter of a `chef_repo` that was already way to complex. I had no idea what I was looking at and was overwhelmed. I used [puppet](http://puppetlabs.com/) extensively but chef just seemed baffling. I did my damnest to read all the blog posts, [wiki](https://wiki.opscode.com/display/chef/Home) sites, and how-tos I could find. I eventually threw up my hands and said no. If you have just been whelmed with the chef and [this](http://www.youtube.com/watch?v=UpHKVkLDBtU) video still intrigues you hopefully this book will make your journey easier. I'm writing this book to my old past self who would have KILLED for all this information in one location.
 
 The second situation is a simpler one, you're a new Junior Linux Sysadmin (or Developer), and your team uses chef. You have no idea what you are looking at, and your boss just told you to create a new cookbook to control something. This book will walk you through you building a test environment; and hopefully the foundation to be able to confidently write a cookbook to do what your boss wants done.
 
@@ -28,16 +28,19 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 Contents
 --------
-Part one
-- [1-virtualbox](https://github.com/jjasghar/chef-book/blob/master/part1/1-virtualbox.md)
-- [2-vagrant](https://github.com/jjasghar/chef-book/blob/master/part1/2-vagrant.md)
-- [3-vm-setup](https://github.com/jjasghar/chef-book/blob/master/part1/3-vm-setup.md)
-- [4-omnibus-install-vs-gem-install](https://github.com/jjasghar/chef-book/blob/master/part1/4-omnibus-install-vs-gem-install.md)
 
-Part two
-- 5-chef-solo
-- 6-write-simple-base-cookbook
-- 7-vagrant-provisioning-vs-local-chef-solo
+### Part one
+
+1. [Virtualbox](part1/1-virtualbox.md)
+2. [Vagrant](part1/2-vagrant.md)
+3. [VM setup](part1/3-vm-setup.md)
+4. [Omnibus install vs gem install](part1/4-omnibus-install-vs-gem-install.md)
+
+### Part two
+
+1. 5-chef-solo
+2. 6-write-simple-base-cookbook
+3. 7-vagrant-provisioning-vs-local-chef-solo
 
 Directories
 -----------
