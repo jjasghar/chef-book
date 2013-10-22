@@ -16,7 +16,7 @@ I'm looking to aim this at a Junior Level Linux Sysadmin, or a Intermediate Leve
 
 You should be able to get in and out of the editor that you choose. You should have a relatively comfortable with the command line in general.
 Like most technology howto books, I want to get to the meat of the system as quickly as possible. I'm apologizing ahead of time if you are confused; most if not all should be fixed via a [google](http://lmgtfy.com/) search pretty easily.
-I am writing this to me "open-source" so if there is a place that should be fleshed out better, don't hesitated to put a comment in or hell, make a PR and flesh it out yourself!
+I am writing this to me "open-source" so if there is a place that should be fleshed out better, don't hesitated to put a comment in or hell, make a [pull request](https://github.com/jjasghar/chef-book/pulls) and flesh it out yourself!
 
 The situations you might be in that brought you to read/look for this book
 --------------------------------------------------------------------------
