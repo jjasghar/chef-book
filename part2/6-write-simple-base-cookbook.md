@@ -275,4 +275,16 @@ root@chef-book:~/solo#
 
 Nice, we now have the ability to install a package, install a config file, and confirm that the service is up and running.
 
+Ok, if you have any chef knowalage, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? Well honestly, I wanted to show how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` idea, all you have to do is the following, `vim ~/solo/solo.json` and:
+```json
+{
+    "run_list": [ "recipe[base::default]","recipe[base::ssh]" ]
+}
+```
+Don't get me wrong this is extremely important, but I was going to revisit this when we started adding external cookbooks. You made me jump my gun. :P
+
 Now lets go on to the deploy user.
+
+deploy user
+----------
+
