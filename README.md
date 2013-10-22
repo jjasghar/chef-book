@@ -38,9 +38,9 @@ Contents
 
 ### Part two
 
-1. 5-chef-solo
-2. 6-write-simple-base-cookbook
-3. 7-vagrant-provisioning-vs-local-chef-solo
+5. [chef-solo](part2/5-chef-solo.md)
+6. [Write a simple base cookbook](part2/6-write-simple-base-cookbook.md)
+7. [vagrant provisioning vs local chef-solo](part2/7-vagrant-provisioning-vs-local-chef-solo.md)
 
 Directories
 -----------
