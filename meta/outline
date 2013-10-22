@@ -10,6 +10,7 @@ Part two
 Chef-solo
 Write simple "base" cookbook
   Ntp vim/rc bashrc zshrc
+  tri-fect
 Tie in vagrant provisioning vs local chef-solo
 
 Part three
