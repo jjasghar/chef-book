@@ -212,7 +212,7 @@ root@chef-book:~/solo/cookbooks/base# mkdir -p files/default
 root@chef-book:~/solo/cookbooks/base# cd files/default/
 root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 ```
-As you can see the `cookbook_file` is the stanza that tells chef-solo, that you need to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks at. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not templatized files. We'll get there in a bit.
+As you can see the `cookbook_file` is the stanza that tells chef-solo, that you need to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks at. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not template-ized files. We'll get there in a bit.
 
 Go ahead and run your `./converge` again, you should see something like this:
 ```bash
@@ -267,7 +267,7 @@ root@chef-book:~/solo# diff -u /etc/ssh/ssh_config cookbooks/base/files/default/
  # users, and the values can be changed in per-user configuration files
 root@chef-book:~/solo#
 ```
-Go ahead and run the `./converge.sh` again. You should see no differance now.
+Go ahead and run the `./converge.sh` again. You should see no difference now.
 ```bash
 root@chef-book:~/solo# diff -u /etc/ssh/ssh_config cookbooks/base/files/default/ssh_config
 root@chef-book:~/solo#
@@ -275,7 +275,7 @@ root@chef-book:~/solo#
 
 Nice, we now have the ability to install a package, install a config file, and confirm that the service is up and running.
 
-Ok, if you have any chef knowalage, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? Well honestly, I wanted to show how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` idea, all you have to do is the following, `vim ~/solo/solo.json` and:
+Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? Well honestly, I wanted to show how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` idea, all you have to do is the following, `vim ~/solo/solo.json` and:
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]" ]
@@ -283,8 +283,159 @@ Ok, if you have any chef knowalage, you are probably wondering why we didn't add
 ```
 Don't get me wrong this is extremely important, but I was going to revisit this when we started adding external cookbooks. You made me jump my gun. :P
 
-Now lets go on to the deploy user.
+Now lets go on to the deployer user.
 
-deploy user
-----------
+deployer user
+-------------
+
+If you want to [read](http://docs.opscode.com/resource_user.html) about this here's the [link](http://docs.opscode.com/resource_user.html).
+
+Now first thing first; we need to create ssh-keys, or you can use your own. If you don't know what ssh-keys are, you probably, should read [this](https://wiki.archlinux.org/index.php/SSH_Keys) and if this doesn't make sense....sigh, you probably shouldn't have read this far.
+
+Ok, so I'm lazy so I'll set up my keys with root on the vm that I created:
+```bash
+root@chef-book:~# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Created directory '/root/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+87:c2:46:95:9a:bc:a6:d9:88:a3:fa:68:e0:c1:c3:75 root@chef-book
+The key's randomart image is:
++--[ RSA 2048]----+
+|        ..       |
+|       ..        |
+|     ..o         |
+|   . E+  .       |
+|o . . +.S .      |
+|.=   .o. .       |
+|o o. *           |
+| +o + .          |
+|*o..             |
++-----------------+
+root@chef-book:~#
+```
+Great, now we go to your base cookbook recipe's and we can start the deployer user.
+```
+root@chef-book:~# cd solo/cookbooks/base/recipes/
+root@chef-book:~/solo/cookbooks/base/recipes# vim deployer.rb
+```
+Let's start out the file:
+```ruby
+group "deployer" do
+  gid 15000
+  action :create
+end
+
+user "deployer" do
+  supports :manage_home => true
+  comment "D-Deployer"
+  uid 15000
+  gid 15000
+  home "/home/deployer"
+  shell "/bin/bash"
+end
+
+directory "/home/deployer/.ssh" do
+  owner "deployer"
+  group "deployer"
+  action :create
+end
+
+cookbook_file "/home/deployer/.ssh/authorized_keys" do
+  source "deployer_key.pub"
+  owner "deployer"
+  group "deployer"
+  action :create_if_missing
+  mode 0600
+end
+```
+Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy that key you created in and put it as `depolyer_key.pub`.
+```bash
+root@chef-book:~/solo/cookbooks/base/recipes# cd ../files/default/
+root@chef-book:~/solo/cookbooks/base/files/default# cp ~/.ssh/id_rsa.pub deployer_key.pub
+```
+And let's converge.
+```bash
+root@chef-book:~# cd ~/solo/
+root@chef-book:~/solo# ./converge.sh
+Starting Chef Client, version 11.6.2
+Compiling Cookbooks...
+Converging 6 resources
+Recipe: base::default
+  * package[vim] action install (up to date)
+  * package[ntp] action install (up to date)
+  * package[build-essential] action install (up to date)
+Recipe: base::ssh
+  * package[openssh-server] action install (up to date)
+  * service[ssh] action enable (up to date)
+  * service[ssh] action start (up to date)
+  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
+Chef Client finished, 0 resources updated
+root@chef-book:~/solo#
+```
+Do'h we did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
+```bash
+root@chef-book:~/solo# vim solo.json
+```
+And change the file to look like this:
+```json
+{
+    "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
+}
+```
+Now `./converge` and you should see something like this, being I debugged this as I was writing it, it'll be a tad bit different, but you get the point :):
+```bash
+root@chef-book:~/solo# ./converge.sh
+Starting Chef Client, version 11.6.2
+Compiling Cookbooks...
+Converging 10 resources
+Recipe: base::default
+  * package[vim] action install (up to date)
+  * package[ntp] action install (up to date)
+  * package[build-essential] action install (up to date)
+Recipe: base::ssh
+  * package[openssh-server] action install (up to date)
+  * service[ssh] action enable (up to date)
+  * service[ssh] action start (up to date)
+  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
+Recipe: base::deployer
+  * group[deployer] action create (up to date)
+  * user[deployer] action create (up to date)
+  * directory[/home/deployer/.ssh] action create (up to date)
+  * cookbook_file[/home/deployer/.ssh/authorized_keys] action create_if_missing
+    - create new file /home/deployer/.ssh/authorized_keys
+    - update content in file /home/deployer/.ssh/authorized_keys from none to d8b45a
+        --- /home/deployer/.ssh/authorized_keys 2013-10-23 11:04:00.880898901 -0500
+        +++ /tmp/.authorized_keys20131023-3087-wza2om 2013-10-23 11:04:00.880898901 -0500
+        @@ -0,0 +1 @@
+        +ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkm+Ak5Vmyjq4AzoiqN7NXjPLHgsb62TMYg8TkXB72HDOqqI6e32GVqLRqi4ML08rsQQhRKM/XmGC4LbUplcBt/uPDIidPcT/tl16/M6d9vfvCtQwXvVCxB3gkh61UlxJPayYyJgIeNTVTsgKIiR3+q0KSvGLqpmlCob1tsTgVLFhRKojjUs9OasmY0he4niDQAcMrGYCGiA/I0pTqjcc8NE98bZvqFLlrXEGZP2qvssREfAUYWKm3xK24Viv6VGasNEry3BkhqKUG2JO7QokUp6Chn7PXBElOi2XY9QWG5cEPeb83RZjUEuTaTmYuNBVs9Aewewd5gRXDbj+vrOqx root@chef-book
+    - change mode from '' to '0600'
+    - change owner from '' to 'deployer'
+    - change group from '' to 'deployer'
+
+Chef Client finished, 1 resources updated
+root@chef-book:~/solo#
+```
+Now let's test this out.
+```bash
+root@chef-book:~/solo# ssh deployer@localhost
+Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+Welcome to your Vagrant-built virtual machine.
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+deployer@chef-book:~$
+```
+Badass! Now you can create a default deployer user and change things around as needed. (This will be much more useful later on in the book when we start spinning machines up in the "cloud")
 
