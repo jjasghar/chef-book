@@ -58,3 +58,5 @@ In a more elegant quote from the [docs](http://docs.opscode.com/chef_solo.html) 
 > chef-solo is an open source version of the chef-client that allows using cookbooks with nodes without requiring access to a server. chef-solo runs locally and requires that a cookbook (and any of its dependencies) be on the same physical disk as the node.
 
 Now let's go on to actually running it successfully!
+
+Move on to [A simple cookbook](part2/6-write-simple-base-cookbook.md)
