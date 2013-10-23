@@ -1,5 +1,5 @@
-Running chef-solo via vagrant provisioning
-------------------------------------------
+Running vagrant provisioning vs a local chef-solo run
+-----------------------------------------------------
 
 With a working `chef-solo` converge, this is a good time to talk about using local chef-solo and running chef outside via vagrant. As I am developing/testing a cookbook I personally prefer the local chef-solo install. It allows for a faster iterations which is great. But when you get your cookbook where you want it to be,`vagrant provision` is the way to go. For fun let's convert the cookbook we wrote `base` to the `Vagrant` file.
 
