@@ -11,14 +11,14 @@ apt-get upgrade -y
 apt-get install git-core curl build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev -y
 if ! [ -a /usr/local/bin/gem ]; then
   cd /tmp
-  wget http://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p0.tar.gz
-  tar -xvzf ruby-2.0.0-p0.tar.gz
-  cd ruby-2.0.0-p0/
+  wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
+  tar -xvzf ruby-2.0.0-p247.tar.gz
+  cd ruby-2.0.0-p247/
   ./configure --prefix=/usr/local
   make
   make install
   cd /tmp
-  rm -rf ruby-2.0.0-p0*
+  rm -rf ruby-2.0.0-p247*
 fi
 echo "America/Chicago" > /etc/timezone # because this is the timezone where I live ;)
 dpkg-reconfigure -f noninteractive tzdata
