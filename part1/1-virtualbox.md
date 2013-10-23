@@ -13,3 +13,5 @@ Next I strongly suggest downloading something called iTerm2 if you are on OSX.  
 _NOTE_: You don't have to use this, on OSX, you can use Terminal but iTerm2 is just better in general, trust me.
 
 Wow, that was...easy right? Well continue on to the next section, it'll start heating up.
+
+Move on to [vagrant](2-vagrant.md)

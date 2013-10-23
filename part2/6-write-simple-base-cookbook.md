@@ -79,7 +79,7 @@ And that's expected, you haven't created one yet!
 base cookbook
 -------------
 
-Ok, you are at `~/solo` right? Good, go ahead and type `mkdir -p cookbooks/solo/recipes/` and `cd` to that directory.
+Ok, you are at `~/solo` right? Good, go ahead and type `mkdir -p cookbooks/base/recipes/` and `cd` to that directory.
 ```bash
 root@chef-book:~/solo# mkdir -p cookbooks/base/recipes/
 root@chef-book:~/solo# cd cookbooks/base/recipes/
@@ -439,3 +439,4 @@ deployer@chef-book:~$
 ```
 Badass! Now you can create a default deployer user and change things around as needed. (This will be much more useful later on in the book when we start spinning machines up in the "cloud")
 
+Move on to [Running vagrant provisioning vs a local chef-solo run](7-vagrant-provisioning-vs-local-chef-solo.md)
