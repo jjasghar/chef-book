@@ -58,4 +58,4 @@ Then you should see a lot of provisioning text. That's good. Let it run, grab so
 
 NOTE: after the initial import of the box, it'll always go through the provisioning automatically.
 
-Move on to [omnibus vs gem](part1/4-omnibus-install-vs-gem-install.md)
+Move on to [omnibus vs gem](4-omnibus-install-vs-gem-install.md)

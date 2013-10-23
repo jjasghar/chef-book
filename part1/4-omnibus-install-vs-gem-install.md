@@ -17,4 +17,4 @@ If you are already a ruby leaning person, the gem install is not much of a step 
 
 You might have realized also that the base box that comes from vagrant already has chef and puppet installed. Yes this is true, but you never know if it's up to date or not. Hence the reinstall with the omnibus package.
 
-Move on to [chef-solo](part2/5-chef-solo.md)
+Move on to [chef-solo](../part2/5-chef-solo.md)

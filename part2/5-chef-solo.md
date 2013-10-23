@@ -59,4 +59,4 @@ In a more elegant quote from the [docs](http://docs.opscode.com/chef_solo.html) 
 
 Now let's go on to actually running it successfully!
 
-Move on to [A simple cookbook](part2/6-write-simple-base-cookbook.md)
+Move on to [A simple cookbook](6-write-simple-base-cookbook.md)
