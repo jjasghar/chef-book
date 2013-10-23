@@ -47,7 +47,15 @@ Contents
 
 7\. [vagrant provisioning vs local chef-solo](part2/7-vagrant-provisioning-vs-local-chef-solo.md) 
 
+Buliding the PDF
+----------------
+TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
+
 Directories
 -----------
 meta: stuff for the book that isn't the book.
+
+Acknowledgements
+----------------
+To [everyone](meta/acknowledgements.md) I bugged and poked about helping me out, thanks so much. 
 
