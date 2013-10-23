@@ -439,3 +439,4 @@ deployer@chef-book:~$
 ```
 Badass! Now you can create a default deployer user and change things around as needed. (This will be much more useful later on in the book when we start spinning machines up in the "cloud")
 
+Move on to [Running vagrant provisioning vs a local chef-solo run](7-vagrant-provisioning-vs-local-chef-solo.md)

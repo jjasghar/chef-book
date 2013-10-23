@@ -57,3 +57,5 @@ After it's been pulled down, you should see that the machines is `Machine booted
 Then you should see a lot of provisioning text. That's good. Let it run, grab some coffee, or energy drink, what ever is your fancy. I also noticed that my terminal started throwing funky looking characters.  From what I could tell it was doing what it was supposed to, but you might have to close your terminal and reopen in to `vagrant ssh` into the box. If you are truly paranoid, you can `vagrant provision` again, to make sure everything is what you expect before `vagrant ssh`.
 
 NOTE: after the initial import of the box, it'll always go through the provisioning automatically.
+
+Move on to [omnibus vs gem](4-omnibus-install-vs-gem-install.md)
