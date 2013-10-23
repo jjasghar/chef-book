@@ -31,16 +31,21 @@ Contents
 
 ### Part one
 
-1. [Virtualbox](part1/1-virtualbox.md)
-2. [Vagrant](part1/2-vagrant.md)
-3. [VM setup](part1/3-vm-setup.md)
-4. [Omnibus install vs gem install](part1/4-omnibus-install-vs-gem-install.md)
+1. [virtualbox](part1/1-virtualbox.md)
+
+2. [vagrant](part1/2-vagrant.md)
+
+3. [vm setup](part1/3-vm-setup.md)
+
+4. [omnibus install vs gem install](part1/4-omnibus-install-vs-gem-install.md)
 
 ### Part two
 
-5. [chef-solo](part2/5-chef-solo.md)
-6. [Write a simple base cookbook](part2/6-write-simple-base-cookbook.md)
-7. [vagrant provisioning vs local chef-solo](part2/7-vagrant-provisioning-vs-local-chef-solo.md)
+5\. [chef-solo](part2/5-chef-solo.md) 
+
+6\. [Write a simple base cookbook](part2/6-write-simple-base-cookbook.md) 
+
+7\. [vagrant provisioning vs local chef-solo](part2/7-vagrant-provisioning-vs-local-chef-solo.md) 
 
 Directories
 -----------
