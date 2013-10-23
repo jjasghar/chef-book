@@ -79,7 +79,7 @@ And that's expected, you haven't created one yet!
 base cookbook
 -------------
 
-Ok, you are at `~/solo` right? Good, go ahead and type `mkdir -p cookbooks/solo/recipes/` and `cd` to that directory.
+Ok, you are at `~/solo` right? Good, go ahead and type `mkdir -p cookbooks/base/recipes/` and `cd` to that directory.
 ```bash
 root@chef-book:~/solo# mkdir -p cookbooks/base/recipes/
 root@chef-book:~/solo# cd cookbooks/base/recipes/
