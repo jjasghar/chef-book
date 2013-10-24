@@ -12,6 +12,7 @@ knife spork is a great tool for multiple chefs working with one chef-server. I'm
 
 knife-solo
 ----------
+So [knife-solo](http://matschaffer.github.io/knife-solo/) as I say above is a poor mans chef-server. 
 
 knife rackspace
 ----------
