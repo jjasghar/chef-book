@@ -10,9 +10,9 @@ knife ec2, is the amazon version of knife rackspace if you will, there aren't te
 
 knife spork is a great tool for multiple chefs working with one chef-server. I'm only going to touch on it briefly, being again, we _shouldn't_ have a chef-server running....yet.
 
-knife-solo
+knife solo
 ----------
-So [knife-solo](http://matschaffer.github.io/knife-solo/) as I say above is a poor mans chef-server. 
+So [knife solo](http://matschaffer.github.io/knife-solo/) as I say above is a poor mans chef-server. 
 
 knife rackspace
 ----------
