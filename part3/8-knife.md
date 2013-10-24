@@ -57,3 +57,62 @@ knife xargs [COMMAND]
 root@chef-book:~#
 ```
 Holy crap that's a lot of stuff. I'm not going to go through each and every one, but if you saw it, then great you're ready to start. If not...well you might want to confirm chef is installed correctly on your vm.
+
+knife.rb
+-------
+
+The [knife.rb](http://docs.opscode.com/config_rb_knife.html) file is the configuration file for using knife. Apropos right? Lets start setting one up, if you clicked on the link you'll see that there are a good amount of options, but let's go through the basic configurations you should keep with you. By the way let's start doing this in the  chef-book vm, but you could easyily do these same things on a Mac/Linux box too.
+```bash
+root@chef-book:~# mkdir .chef
+root@chef-book:~# touch .chef/knife.rb
+root@chef-book:~# vim .chef/knife.rb
+```
+
+```ruby
+log_level                :info
+log_location             STDOUT
+node_name                'chef-book'
+client_key               '/etc/chef/chef-book.pem'
+validation_client_name   'chef-validator'
+validation_key           '/etc/chef/chef-validator.pem'
+chef_server_url          'https://awesomechef-server.at.some.domain.com'
+cookbook_path            ["~/cookbooks"]
+cache_type               'BasicFile'
+cookbook_copyright       "My company that want's the copyright"
+cookbook_license         "apachev2"
+cookbook_email           "jj.asghar@peopleadmin.com"
+```
+
+So this is just an example, but this will be much useful when we move on to the chef-server and knife plugins. The most important out of these are probably `log_level` how much data you want to see, `log_location` where to log it, `cookbook_path` the path to your cookbooks, and the `cookbook_[copyright|licence|email]` because if you fill them out here you want need to do it for `knife cookbook create`.
+
+So let's talk about `knife cookbook create`. Originally you created a simple cookbook, by making the directories, adding the files, good ol' knife creates a foundation for you. As an example:
+```bash
+root@chef-book:~# mkdir cookbooks
+root@chef-book:~# cd cookbooks/
+root@chef-book:~/cookbooks# knife cookbook create new_cookbook
+** Creating cookbook new_cookbook
+** Creating README for cookbook: new_cookbook
+** Creating CHANGELOG for cookbook: new_cookbook
+** Creating metadata for cookbook: new_cookbook
+root@chef-book:~/cookbooks# find new_cookbook/
+new_cookbook/
+new_cookbook/recipes
+new_cookbook/recipes/default.rb
+new_cookbook/definitions
+new_cookbook/README.md
+new_cookbook/CHANGELOG.md
+new_cookbook/attributes
+new_cookbook/files
+new_cookbook/files/default
+new_cookbook/providers
+new_cookbook/metadata.rb
+new_cookbook/resources
+new_cookbook/libraries
+new_cookbook/templates
+new_cookbook/templates/default
+root@chef-book:~/cookbooks#
+```
+
+As you can see, you have your `recipes/default.rb` your `files/default/` directory. Laziness wins out! Oh, I should mention you didn't have to run `knife cookbook create new_cookbook` from the `~/cookbooks` directory, I just did it so I could run `find new_cookbook/` for the demonstration.
+
+Ok, let's move on to [knife-plugins](9-knife-plugins.md), you are probably wondering why, mainly because `knife` is designed to interact with something provisioning, so lets add pick up some plugins.
