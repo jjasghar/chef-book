@@ -1,5 +1,4 @@
-knife plugins
-=============
+# knife plugins
 There are a TON more of [knife-plugins](http://docs.opscode.com/plugin_knife.html), then officially posted on the docs site.  [Github](https://github.com/search?q=knife+plugin&type=Repositories&ref=searchresults) is a great place to look but I'm going to focus on 4 here. 
 
 So far all the knife plugins I've seen are ruby gems.  So before you can use any of these be sure you have an ability to use `gem install`.
@@ -12,8 +11,7 @@ knife ec2, is the amazon version of knife rackspace if you will, there aren't te
 
 knife spork is a great tool for multiple chefs working with one chef-server. I'm only going to touch on it briefly, being again, we _shouldn't_ have a chef-server running....yet.
 
-knife solo
-----------
+## knife solo
 So [knife solo](http://matschaffer.github.io/knife-solo/) as I say above is a poor mans chef-server. In a nutshell it takes your local directory/cookbooks, uploads them to your box, and runs chef-solo. This is different than how [chef-server|chef-client] so keep that in mind as you work with it.  Lets get it working :)
 
 First thing first, installation. You can either add it to a Gemfile, or in my case I like just using 'gem install knife-solo`.  Notice the "-" between the name. You should see something like this:
@@ -196,12 +194,225 @@ root@chef-book:~/.ssh#
 ```
 If that works, we're ready to start playing with `knife solo`.
 
+Hop up to `~/knife_solo`.
+```base
+root@chef-book:~/knife_solo/site-cookbooks# cd ..
+root@chef-book:~/knife_solo#
+```
+Lets start with a `knife solo prepare` just to see it work:
+```bash
+root@chef-book:~/knife_solo# knife solo prepare root@localhost
+Bootstrapping Chef...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  6790  100  6790    0     0  22815      0 --:--:-- --:--:-- --:--:-- 40658
+Downloading Chef 11.6.2 for ubuntu...
+Installing Chef 11.6.2
+(Reading database ... 65355 files and directories currently installed.)
+Preparing to replace chef 11.6.2-1.ubuntu.12.04 (using .../chef_11.6.2_amd64.deb) ...
+Unpacking replacement chef ...
+Setting up chef (11.6.2-1.ubuntu.12.04) ...
+Thank you for installing Chef!
+root@chef-book:~/knife_solo#
+```
+As you can see it does check the version of chef, then download and install the newsest for you.
 
-knife rackspace
-----------
+Now lets go on to `knife solo cook`:
+```bash
+root@chef-book:~/knife_solo# knife solo cook root@localhost
+Running Chef on localhost...
+Checking Chef version...
+Uploading the kitchen...
+Generating solo config...
+Running Chef...
+Starting Chef Client, version 11.6.2
+Compiling Cookbooks...
+Converging 10 resources
+Recipe: base::default
+  * package[vim] action install (up to date)
+  * package[ntp] action install (up to date)
+  * package[build-essential] action install (up to date)
+Recipe: base::ssh
+  * package[openssh-server] action install (up to date)
+  * service[ssh] action enable (up to date)
+  * service[ssh] action start (up to date)
+  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
+Recipe: base::deployer
+  * group[deployer] action create (up to date)
+  * user[deployer] action create (up to date)
+  * directory[/home/deployer/.ssh] action create (up to date)
+  * cookbook_file[/home/deployer/.ssh/authorized_keys] action create_if_missing (up to date)
+Chef Client finished, 0 resources updated
+root@chef-book:~/knife_solo#
+```
+CHA-CHING! Awesome. Bonus Round: use `knife solo bootstrap`.
 
-knife ec2
-----------
+Now image this with a "cloud" box that you have root access to.  You just provisioned a box with recipes you wrote.
 
-knife spork
-----------
+## knife rackspace/knife ec2
+[knife rackspace](https://github.com/opscode/knife-rackspace) and [knife ec2](https://github.com/opscode/knife-ec2) are front ends to talk to the respected cloud providers.  They both install with a gem:
+
+### knife rackspace
+```bash
+root@chef-book:~# gem install knife-rackspace
+Fetching: eventmachine-1.0.0.beta.3.gem (100%)
+Building native extensions.  This could take a while...
+Successfully installed eventmachine-1.0.0.beta.3
+Fetching: ffi-1.9.0.gem (100%)
+Building native extensions.  This could take a while...
+Successfully installed ffi-1.9.0
+Fetching: gssapi-1.0.3.gem (100%)
+Successfully installed gssapi-1.0.3
+Fetching: httpclient-2.3.4.1.gem (100%)
+Successfully installed httpclient-2.3.4.1
+Fetching: mini_portile-0.5.2.gem (100%)
+Successfully installed mini_portile-0.5.2
+Fetching: nokogiri-1.6.0.gem (100%)
+Building native extensions.  This could take a while...
+Successfully installed nokogiri-1.6.0
+Fetching: rubyntlm-0.1.1.gem (100%)
+Successfully installed rubyntlm-0.1.1
+Fetching: uuidtools-2.1.4.gem (100%)
+Successfully installed uuidtools-2.1.4
+Fetching: builder-3.2.2.gem (100%)
+Successfully installed builder-3.2.2
+Fetching: nori-1.1.5.gem (100%)
+Successfully installed nori-1.1.5
+Fetching: rack-1.5.2.gem (100%)
+Successfully installed rack-1.5.2
+Fetching: httpi-0.9.7.gem (100%)
+
+[-- snip --]
+
+Parsing documentation for ruby-hmac-0.4.0
+Installing ri documentation for ruby-hmac-0.4.0
+Parsing documentation for unicode-0.4.4
+unable to convert "\xF0" from ASCII-8BIT to UTF-8 for lib/unicode, skipping
+Installing ri documentation for unicode-0.4.4
+Parsing documentation for fog-1.16.0
+Installing ri documentation for fog-1.16.0
+Parsing documentation for knife-rackspace-0.8.1
+Installing ri documentation for knife-rackspace-0.8.1
+Done installing documentation for eventmachine, ffi, gssapi, httpclient, mini_portile, nokogiri, rubyntlm, uuidtools, builder, nori, rack, httpi, wasabi, gyoku, akami, savon, little-plugger, multi_json, logging, winrm, em-winrm, knife-windows, excon, formatador, net-scp, ruby-hmac, unicode, fog, knife-rackspace (303 sec).
+29 gems installed
+```
+
+There is a nasty catch with knife-rackspace.  You can't have multiple of the gems installing so you need to run:
+
+```bash
+$> gem list --local | grep knife-rackspace
+knife-rackspace (0.6.2, 0.5.12)
+$> gem uninstall knife-rackspace -v "= 0.5.12"
+Successfully uninstalled knife-rackspace-0.5.12
+$> gem list --local | grep knife-rackspace
+knife-rackspace (0.6.2)
+```
+To confirm you only have one edition running. Keep this in mind.
+
+After installing it, you need to add this to your `knife.rb` file:
+
+```ruby
+knife[:rackspace_api_username] = "Your Rackspace API username"
+knife[:rackspace_api_key] = "Your Rackspace API Key"
+```
+
+Run `knife rackspace server list` and you should see your cloud machines.
+
+Go ahead and attempt to spin up a box:
+```bash
+root@chef-book:~# knife rackspace server create --server-name test -f 4
+Instance ID: 17c3d362-6930-452f-86f4-7f4ce0a9453e
+Name: test
+Flavor: 2GB Standard Instance
+Image: Ubuntu 10.04 LTS (Lucid Lynx)
+Metadata: []
+RackConnect Wait: no
+ServiceLevel Wait: no
+...............................................................................................Metadata: []
+
+Waiting server.
+Public DNS Name: 192.43.66.2.static.cloud-ips.com
+Public IP Address: 192.43.66.2
+Private IP Address: 10.208.154.177
+Password: aoeu534234
+Metadata: []
+
+Waiting for sshddone
+Bootstrapping Chef on 192.43.66.2
+192.43.66.2 --2013-10-25 21:58:07--  https://www.opscode.com/chef/install.sh
+192.43.66.2 Resolving www.opscode.com... 184.106.28.83
+192.43.66.2 Connecting to www.opscode.com|184.106.28.83|:443...
+192.43.66.2 connected.
+192.43.66.2 HTTP request sent, awaiting response... 200 OK
+192.43.66.2 Length: 6790 (6.6K) [application/x-sh]
+192.43.66.2 Saving to: `STDOUT'
+192.43.66.2
+ 0% [                                       ] 0           --.-K/s
+ 100%[======================================>] 6,790       --.-K/s   in 0s
+ 192.43.66.2
+ 192.43.66.2 2013-10-25 21:58:07 (778 MB/s) - written to stdout [6790/6790]
+ 192.43.66.2
+ 192.43.66.2 Downloading Chef 11.6.2 for ubuntu...
+ 192.43.66.2 Installing Chef 11.6.2
+ 192.43.66.2 Selecting previously deselected package chef.
+ 192.43.66.2 (Reading database ...
+ (Reading database ... 70%
+ (Reading database ... 75%
+ (Reading database ... 85%
+ (Reading database ... 90%
+ (Reading database ... 95%
+ (Reading database ... 15859 files and directories currently installed.)
+ 192.43.66.2 Unpacking chef (from .../chef_11.6.2_amd64.deb) ...
+ 192.43.66.2 Setting up chef (11.6.2-1.ubuntu.10.04) ...
+ 192.43.66.2 Thank you for installing Chef!
+ 192.43.66.2
+ 192.43.66.2 Starting Chef Client, version 11.6.2
+ 192.43.66.2 Creating a new client identity for test using the validator key.
+ 192.43.66.2 resolving cookbooks for run list: []
+ 192.43.66.2 Synchronizing Cookbooks:
+ 192.43.66.2 Compiling Cookbooks...
+ 192.43.66.2 [2013-10-25T21:58:20+00:00] WARN: Node test has an empty run list.
+ 192.43.66.2 Converging 0 resources
+ 192.43.66.2 Chef Client finished, 0 resources updated
+
+ Instance ID: 17c3d362-6930-452f-86f4-7f4ce0a9453e
+ Host ID: a8db57a86005a2d4b96f63ccb3ac4a0a67fe284ba1928e4eb39ea1a3
+ Name: test
+ Flavor: 2GB Standard Instance
+ Image: Ubuntu 10.04 LTS (Lucid Lynx)
+ Metadata: []
+ Public DNS Name: 192.43.66.2.static.cloud-ips.com
+ Public IP Address: 192.43.66.2
+ Private IP Address: 10.208.154.177
+ Password: aoeu534234
+ Environment: _default
+root@chef-book:~#
+```
+Bonus Round: Try running the `knife rackspace server list` and maybe `knife solo bootstrap` would work here? 
+
+### knife ec2
+
+`knife ec2` is pretty much the same game, you can install it via the gem. I installed knife-rackspace on my chef-book vm and they have a lot of the same dependancies, so there aren't a lot of gems to fetch.
+```bash
+root@chef-book:~# gem install knife-ec2
+Fetching: knife-ec2-0.6.4.gem (100%)
+Successfully installed knife-ec2-0.6.4
+Parsing documentation for knife-ec2-0.6.4
+Installing ri documentation for knife-ec2-0.6.4
+Done installing documentation for knife-ec2 (0 sec).
+1 gem installed
+root@chef-book:~#
+```
+You'll need to edit your `knife.rb` file and add these lines to it:
+```ruby
+knife[:aws_access_key_id] = "Your AWS Access Key ID"
+knife[:aws_secret_access_key] = "Your AWS Secret Access Key"
+```
+You have more or less the same tools as `knife rackspace` but here's an example:
+```bash
+root@chef-book:~# knife ec2 server create -I ami-7000f019 -f m1.small
+```
+
+There are a ton more options, but this will get you started. 
+
+## knife spork
