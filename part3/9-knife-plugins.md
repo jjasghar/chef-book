@@ -416,3 +416,110 @@ root@chef-book:~# knife ec2 server create -I ami-7000f019 -f m1.small
 There are a ton more options, but this will get you started. 
 
 ## knife spork
+
+When it comes to knife spork, it's a workflow tool instead of a API tool. I wrote a [blog](http://jjasghar.github.io/blog/2013/10/04/moving-from-one-chef-to-multiple-chefs/) post about it, but I'll rip out a good portion of it and put it here.  I should mention this plugin is in relation to the chef-server, so if this doesn't make sense yet, don't worry, the next section is going start on chef-server.
+
+Obviously the first thing you need to do is install it. Luckily it's a gem so you can just do the following. If you read the docs there are a bunch of places that you `.yml` gets read from, but I chose this because I like having all my chef stuff in `.chef` so I don't have to think about pulling anything other than `.chef` if I want to move boxes.
+
+```bash
+gem install knife-spork
+touch ~/.chef/spork-config.yml
+```
+
+After installing the gem and touching the file, you can run `knife spork info`, it should say everything is disabled.  If so, then you are read to create the config file.
+
+The example [config](https://raw.github.com/jonlives/knife-spork/master/README.md) is on the main site, but I copied the demo one here too.
+
+```yaml
+default_environments:
+  - development
+  - production
+environment_groups:
+  qa_group:
+    - quality_assurance
+    - staging
+  test_group:
+    - user_testing
+    - acceptance_testing
+version_change_threshold: 2
+environment_path: "/home/me/environments"
+plugins:
+  campfire:
+    account: myaccount
+    token: a1b2c3d4...
+  hipchat:
+    api_token: ABC123
+    rooms:
+      - General
+      - Web Operations
+    notify: true
+    color: yellow
+  jabber:
+    username: YOURUSER
+    password: YOURPASSWORD
+    nickname: Chef Bot
+    server_name: your.jabberserver.com
+    server_port: 5222
+    rooms:
+      - engineering@your.conference.com/spork
+      - systems@your.conference.com/spork
+  git:
+    enabled: true
+  irccat:
+    server: irccat.mydomain.com
+    port: 12345
+    gist: "/usr/bin/gist"
+    channel: ["chef-annoucements"]
+  graphite:
+    server: graphite.mydomain.com
+    port: 2003
+  eventinator:
+    url: http://eventinator.mydomain.com/events/oneshot
+```
+
+All in all this seems pretty self [explanatory](https://github.com/jonlives/knife-spork#default-environments) but the most important things to change are `environment_path` and disabling the plugins (by removing them) here.  For my company I only used the git plugin and...well that was it. :)
+
+By the way there are only a few plugins, [here](https://github.com/jonlives/knife-spork/tree/master/plugins) is a link to the different .md files on each.
+
+Ok, so you have everything set up, what do you do now?
+
+Usage
+-----
+
+The first step is to run `knife spork check COOKBOOK --all` where COOKBOOK is one of your commonly updated/tweaked cookbooks.  Spork checks against what you have locally compared to what's in the server, like this:
+
+```
+knife spork check COOKBOOK --all
+```
+
+Here's an example:
+```bash
+Checking versions for cookbook nagios...
+
+Local Version:
+  5.1.5
+
+Remote Versions: (* indicates frozen)
+  5.1.5
+  5.1.4
+  5.1.3
+  5.1.2
+
+ERROR: The version 5.1.5 exists on the server and is not frozen. Uploading will overwrite!
+```
+
+As you can see with the error, it's pretty self explaintory.
+
+The second step is to bump the version:
+```bash
+knife spork bump nagios patch
+Git: Pulling latest changes from /Users/jasghar/repo/chef_repo/environments
+Pulling latest changes from git submodules (if any)
+Git: Pulling latest changes from /Users/jasghar/repo/chef_repo/cookbooks/nagios
+Pulling latest changes from git submodules (if any)
+Successfully bumped nagios to v5.1.6!
+```
+
+Now as you can see I have the git plugin working, and it without thinking about it, updates the metadata.rb so you don't have to. (I HATE that part of chef, I always forget.) Now you can go off make your changes.
+
+Now lets start talking about [chef-server](part3/10-opensource-vs-hosted-chefserver.md)!
