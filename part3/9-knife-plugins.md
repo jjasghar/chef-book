@@ -158,7 +158,8 @@ I'd like to take a quick moment to talk about the _two_ directories that are her
 root@chef-book:~/knife_solo# cd site-cookbooks/
 root@chef-book:~/knife_solo/site-cookbooks# cp -r ~/solo/cookbooks/base/ ./
 ```
-Great, now go up a directory to the `nodes/` directory, and create a file called `localhost.json````bash
+Great, now go up a directory to the `nodes/` directory, and create a file called `localhost.json`
+```bash
 root@chef-book:~/knife_solo/site-cookbooks# cd ../nodes/
 root@chef-book:~/knife_solo/nodes# vim localhost.json
 ```
