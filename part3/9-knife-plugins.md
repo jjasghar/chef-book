@@ -522,4 +522,4 @@ Successfully bumped nagios to v5.1.6!
 
 Now as you can see I have the git plugin working, and it without thinking about it, updates the metadata.rb so you don't have to. (I HATE that part of chef, I always forget.) Now you can go off make your changes.
 
-Now lets start talking about [chef-server](part3/10-opensource-vs-hosted-chefserver.md)!
+Now lets start talking about [chef-server](10-opensource-vs-hosted-chefserver.md)!
