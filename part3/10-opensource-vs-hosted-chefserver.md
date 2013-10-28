@@ -122,7 +122,7 @@ root@ip-10-141-164-25:~#
 
 Awesome, now go ahead and hit the _HTTPS_ website, you should see Open source chef server! The http to https forward is a tad bit funky, I found a [fix](http://jjasghar.github.io/blog/2013/10/05/how-to-fix-https-slash-slash-chef-defaulting-running-chef-client-on-open-source-chef-server/) for it, but lets just get it working before messing with it. 
 
-You'll see a Login page, the default username and password is: admin/p@ssw0rd1 you should be able to login. It'll ask for a new password, so I'd suggest something strong. Be sure to click "Regenerate Private Key" and click "Save User." Let's talk about that "Private Key" now.
+You'll see a Login page, the default user name and password is: admin/p@ssw0rd1 you should be able to login. It'll ask for a new password, so I'd suggest something strong. Be sure to click "Regenerate Private Key" and click "Save User." Let's talk about that "Private Key" now.
 
 The next screen that pops up is the Public and Private key for the main admin user to talking to your new chef server. These keys are _EXTREMELY_ important. Copy it out of your web browser, put it in at least 2 locations, because you really should have a backup.
 
@@ -163,7 +163,25 @@ root@chef-book:~#
 
 Congrats! You now can upload and manipulate your new chef server! Now just for completion sake lets try this with hosted chef. copy your `.chef` location to something else, we'll want to keep it around.
 
-## Hosted Server
+## Hosted Chef Server
 
-First thing you'll need to do is go [here](https://getchef.opscode.com/signup) fill in the relivant data, and click the Get Started button.
+NOTE: Hosted chef is free up to 5 nodes, so you should easily be able to test this out with chef-book vm.
 
+First thing you'll need to do is go [here](https://getchef.opscode.com/signup) fill in the relevant data, and click the Get Started button.
+The most important part of it is your `Chef Organization` name. That is the unique name that identifies your grouping of machines.Last time I checked you can't change it, so pick something important enough but unique at the same time.
+
+The next window that comes up is the "Thank you for choosing Enterprise Chef" and gives you 3 steps to get going. Go ahead and click the "Set up your workstation" you can come back to the "Download Starter Kit" at another time. So you can see it clicks you over to [here](https://learnchef.opscode.com/quickstart/workstation-setup/) and must if not all of it should make sense by now ;). Awesome lets move on.
+
+Go ahead and find the `Sign In` page, I did it by refreshing the page. It seems odd that there isn't a way directly to it from all that information, but meh, I found it.  Login and you should see "Opscode Manage" in the top right.  This is the main site to work from.
+
+Now we need a key right? Lets get one going.  Go ahead and click "Administrative" at the top, and click your user. Click "Reset Key" on the left hand side, and you should see something that looks extremely familiar. Go ahead and copy that off in 2 locations because that's how you talk to your Org at opscode.
+
+Go ahead and click on "Organizations" and click on the little Gear by your organization name. There is a drop down box that allows a creation of a `knife.rb`, and take that data and put it in your `knife.rb`. The most important parts obviously is the `chef_server_url` and the `client_key` make sure that's correct, and run your `knife client list` and you should see:
+```bash
+root@chef-book:~/.chef# knife client list
+jonathanasghar-validator
+root@chef-book:~/.chef#
+```
+Congrats, you just got Hosted Chef running. Yes significantly easier than Open source chef, but where's the fun in that?
+
+Now there are a ton more things you can do with the different chef servers, but for now I'm going to focus only on open source. Open source is actually just a subset of Hosted, so everything you learn from now on should be functional. (some way or another in Hosted)
