@@ -83,4 +83,4 @@ Because the machine is gone. You can simply run `vagrant up` to re-create it. Yo
 
 Bonus round: Try to set up an apache server/nginx server and use the [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant and be able to hit your http://localhost:8080 and see the default page for it.
 
-Move on to [The beginning of your playground](3-vm-setup.md)
+Move on to [The beginning of your playground](03-vm-setup.md)
