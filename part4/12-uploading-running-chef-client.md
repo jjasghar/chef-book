@@ -96,4 +96,4 @@ Chef Client finished, 0 resources updated
 ```
 CHA-CHING!!!! Congrats you have uploaded your cookbook and run the client to apply it. Awesome!
 
-Lets talk about that [metadata.rb](part4/13-metadata.rb-primer.md).
+Lets talk about that [metadata.rb](13-metadata.rb-primer.md).
