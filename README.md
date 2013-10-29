@@ -53,6 +53,14 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 11\. [Connecting Open Source or Hosted Chef to a VM](part3/11-connecting-node-to-chef-server.md)
 
+### Part four
+
+12\. [Uploading your cookbook to your Chef Server](part4/12-uploading-running-chef-client.md)
+
+13\. [metadata.rb](part4/13-metadata.md)
+
+14\. [Environments, Roles, oh-my](part4/environments-roles-oh-my.md)
+
 ## Buliding the PDF
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 
