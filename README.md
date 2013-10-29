@@ -27,27 +27,27 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 ### Part one
 
-1\. [virtualbox](part1/1-virtualbox.md)
+1\. [virtualbox](part1/01-virtualbox.md)
 
-2\. [vagrant](part1/2-vagrant.md)
+2\. [vagrant](part1/02-vagrant.md)
 
-3\. [vm setup](part1/3-vm-setup.md)
+3\. [vm setup](part1/03-vm-setup.md)
 
-4\. [omnibus install vs gem install](part1/4-omnibus-install-vs-gem-install.md)
+4\. [omnibus install vs gem install](part1/04-omnibus-install-vs-gem-install.md)
 
 ### Part two
 
-5\. [chef-solo](part2/5-chef-solo.md)
+5\. [chef-solo](part2/05-chef-solo.md)
 
-6\. [Write a simple base cookbook](part2/6-write-simple-base-cookbook.md)
+6\. [Write a simple base cookbook](part2/06-write-simple-base-cookbook.md)
 
-7\. [vagrant provisioning vs local chef-solo](part2/7-vagrant-provisioning-vs-local-chef-solo.md)
+7\. [vagrant provisioning vs local chef-solo](part2/07-vagrant-provisioning-vs-local-chef-solo.md)
 
 ### Part three
 
-8\. [knife](part3/8-knife.md)
+8\. [knife](part3/08-knife.md)
 
-9\. [knife plugins](part3/9-knife-plugins.md)
+9\. [knife plugins](part3/09-knife-plugins.md)
 
 10\. [Open Source Chef Server vs Hosted Chef Server](part3/10-opensource-vs-hosted-chefserver.md)
 
