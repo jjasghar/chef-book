@@ -14,4 +14,4 @@ _NOTE_: You don't have to use this, on OSX, you can use Terminal but iTerm2 is j
 
 Wow, that was...easy right? Well continue on to the next section, it'll start heating up.
 
-Move on to [vagrant](2-vagrant.md)
+Move on to [vagrant](02-vagrant.md)
