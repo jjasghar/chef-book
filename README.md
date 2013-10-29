@@ -51,6 +51,8 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 10\. [Open Source Chef Server vs Hosted Chef Server](part3/10-opensource-vs-hosted-chefserver.md)
 
+11\. [Connecting Open Source or Hosted Chef to a VM](part3/11-connecting-node-to-chef-server.md)
+
 ## Buliding the PDF
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 

@@ -8,5 +8,62 @@ Being that Hosted chef and open source chef have a tad differance hooking up nod
 
 ## Open Source Chef server
 
+With the open source chef server, the best way to get a random machince to "check-in" with it, is using the `vaildation.pem` or `chef-validator`. In order to get it, you need to go to the chef-webui, and click on the client tab  then edit by "chef-validator" and then click the box "Regenerate Private Key", then "Save Client", copy the Private Key down put it in 2 locations calling it `validation.pem`. This is your "key" into the open source chef server box.
+
+On the vm do this:
+```bash
+root@chef-book:~# mkdir /etc/chef
+root@chef-book:~# cp opensource_vaildation.pem /etc/chef/validation.pem
+```
+Now open your `knife.rb` and make these changes.
+
+```ruby
+log_level                :info
+log_location             STDOUT
+node_name                'admin'
+client_key               '~/.chef/admin.pem'
+chef_server_url          'https://awesome-chef-server.domain.com'
+syntax_check_cache_path  '/root/.chef/syntax_check_cache'
+validation_client_name   'chef-validator'
+validation_key           '/etc/chef/validation.pem'
+```
+Next create a `/etc/chef/client.rb` file:
+```ruby
+log_level        :info
+log_location     STDOUT
+chef_server_url  "https://awesome-chef-server.domain.com"
+validation_client_name "chef-validator"
+node_name "chef-book"
+```
+Now run `chef-client` and you should see something like this:
+```bash
+root@chef-book:~# chef-client
+[2013-10-29T16:51:12+00:00] INFO: Forking chef instance to converge...
+Starting Chef Client, version 11.6.2
+[2013-10-29T16:51:12+00:00] INFO: *** Chef 11.6.2 ***
+Creating a new client identity for chef-book using the validator key.
+[2013-10-29T16:51:12+00:00] INFO: Client key /etc/chef/client.pem is not present - registering
+[2013-10-29T16:51:13+00:00] INFO: Run List is []
+[2013-10-29T16:51:13+00:00] INFO: Run List expands to []
+[2013-10-29T16:51:13+00:00] INFO: Starting Chef Run for chef-book
+[2013-10-29T16:51:13+00:00] INFO: Running start handlers
+[2013-10-29T16:51:13+00:00] INFO: Start handlers complete.
+resolving cookbooks for run list: []
+[2013-10-29T16:51:14+00:00] INFO: Loading cookbooks []
+Synchronizing Cookbooks:
+Compiling Cookbooks...
+[2013-10-29T16:51:14+00:00] WARN: Node chef-book has an empty run list.
+Converging 0 resources
+[2013-10-29T16:51:14+00:00] INFO: Chef Run complete in 0.983694725 seconds
+[2013-10-29T16:51:14+00:00] INFO: Running report handlers
+[2013-10-29T16:51:14+00:00] INFO: Report handlers complete
+Chef Client finished, 0 resources updated
+root@chef-book:~#
+```
+
+HUZZAH! You have successfully connected your chef-book vm to your opensource chef server, check the WebUI again and you should see `chef-book` under nodes and clients.
+
+Congrats! 
+
 
 ## Hosted Chef server
