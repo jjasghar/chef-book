@@ -122,6 +122,6 @@ root@chef-book:~#
 ```
 Congrats! You've connected a your chef-book vm to Hosted Chef!
 
-Now lets go on to [uploading cookbooks](part4/12-uploading-running-chef-client.md).
+Now lets go on to [uploading cookbooks](../part4/12-uploading-running-chef-client.md).
 
 
