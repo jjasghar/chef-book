@@ -57,7 +57,7 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 12\. [Uploading your cookbook to your Chef Server](part4/12-uploading-running-chef-client.md)
 
-13\. [metadata.rb](part4/13-metadata.md)
+13\. [metadata.rb](part4/13-metadata-primer.md)
 
 14\. [Environments, Roles, oh-my](part4/environments-roles-oh-my.md)
 
