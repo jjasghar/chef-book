@@ -115,4 +115,4 @@ root@chef-book:~/cookbooks#
 
 As you can see, you have your `recipes/default.rb` your `files/default/` directory. Laziness wins out! Oh, I should mention you didn't have to run `knife cookbook create new_cookbook` from the `~/cookbooks` directory, I just did it so I could run `find new_cookbook/` for the demonstration.
 
-Ok, let's move on to [knife-plugins](9-knife-plugins.md), you are probably wondering why, mainly because `knife` is designed to interact with something provisioning, so lets add pick up some plugins.
+Ok, let's move on to [knife-plugins](09-knife-plugins.md), you are probably wondering why, mainly because `knife` is designed to interact with something provisioning, so lets add pick up some plugins.
