@@ -186,4 +186,4 @@ Congrats, you just got Hosted Chef running. Yes significantly easier than Open s
 
 Now there are a ton more things you can do with the different chef servers, but for now I'm going to focus only on open source. Open source is actually just a subset of Hosted, so everything you learn from now on should be functional. (some way or another in Hosted)
 
-Lets move on to [Connecting your vm to the servers](part3/11-connecting-node-to-chef-server.md).
+Lets move on to [Connecting your vm to the servers](11-connecting-node-to-chef-server.md).
