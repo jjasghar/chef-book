@@ -61,6 +61,12 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 14\. [Environments, Roles, oh-my](part4/14-environments-roles-oh-my.md)
 
+15\. [Places to find cookbooks](part4/15-places-to-find-cookbooks.md)
+
+### Part five
+
+16\. [Berkshelf Primer](part5/16-berkshelf-primer.md)
+
 ## Buliding the PDF
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 
