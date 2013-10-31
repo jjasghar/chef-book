@@ -49,4 +49,4 @@ If environments are to pin versions of cookbooks to certain groups of servers, [
 ```
 As you can see it has some of the same options as the environtments but the `run_list` is the most important part of this json. In this example i'm using the client recipe from the nagios cookbook, installing apache, and calling another role called base. So you can have roles call other roles so you have have super set if you want.
 
-So lets start talking about getting more cookbooks so this could be more relevent. 
+So lets start talking about [getting more cookbooks](15-places-to-find-cookbooks.md) so this could be more relevent. 
