@@ -1,12 +1,13 @@
 # chef-book
 (Read this first)
 
-## The Prereqs you need before reading this book
+NOTE: This has been inspired from [this post](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/) I made. If you want a some back ground click that link. :)
+
+## The Prerequisites (skills) you need before reading this book
 The first and foremost is that I'm writing this for Linux based OSes. I understand chef can run on Windows and OSX, but that's not what I want to focus on.
 So please if these commands don't make sense to you, you should probably look for another book before reading this one.
 
-- `grep`
-- `cd` `ls` `cat`
+- `cd` OR `ls` OR `mkdir` or `grep`
 - `vim` OR `emacs` OR `nano`
 - `bash` OR `zsh`
 
@@ -67,8 +68,28 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 16\. [Berkshelf Primer](part5/16-berkshelf-primer.md)
 
+17\. I know something should go here
+
+18\. I know something should go here
+
+19\. I know something should go here
+
+### Part six
+
+20\. [Testing with chef](part6/20-testing-with-chef.md)
+
+21\. [minitest handler cookbook](part6/21-minitest-handler.md)
+
+22\. [Server Spec](part6/22-serverspec.md)
+
+23\. [chefspec](part6/23-chefspec.md)
+
+24\. [Integrating with Jenkins or CI in general](part6/24-integrating-with-jenkin-ci.md)
+
+
 ## Buliding the PDF
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
+I need suggestions here, [pandoc](http://johnmacfarlane.net/pandoc/installing.html) looks extremely promising
 
 ## Directories
 meta: stuff for the book that isn't the book.
