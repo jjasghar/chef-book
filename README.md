@@ -91,6 +91,8 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 I need suggestions here, [pandoc](http://johnmacfarlane.net/pandoc/installing.html) looks extremely promising
 
+Even more promising: https://github.com/schacon/git-scribe
+
 ## Directories
 meta: stuff for the book that isn't the book.
 
