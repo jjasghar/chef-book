@@ -123,12 +123,56 @@ Now you can do a straight `bundle exec kitchen test` here, but before we do that
 `bundle exec kitchen verify` is the second part of the "test" command. It runs something called   "busser" to run [bats](https://github.com/sstephenson/bats) tests. I'll get to that in a bit.
 
 Ok, so go ahead and run `bundle exec kitchen test` and lets see what happens:
-NOTE: I'm only going to run it against ubuntu10.04 here, if you don't specify it'll run against them all. You can delete them from the `.kitchen.yml` or specify them with a REGEX after the test.
+
+NOTE: I'm only going to run it against ubuntu10.04 here, if you don't specify it'll run against them all. You can delete them from the `.kitchen.yml` or specify them with a REGEX after the test. I also removed the `Berksfile` and `Berksfile.lock` to make it simpler. I'm betting if you create a `sites-cookooks/` directory you should be able to use that `Berksfile` but that's for another time.
+
+```bash
+[~/vagrant/chef-book/cookbooks/base] % rm Berksfile*
+[~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
+      [default] Booting VM...
+       [default] Waiting for machine to boot. This may take a few minutes...
+       [default] Machine booted and ready!
+       [default] Setting hostname...
+       [default] Mounting shared folders...
+       Vagrant instance <default-ubuntu-1004> created.
+       Finished creating <default-ubuntu-1004> (0m48.25s).
+-----> Converging <default-ubuntu-1004>...
+-----> Installing Chef Omnibus (true)
+       downloading https://www.opscode.com/chef/install.sh
+         to file /tmp/install.sh
+       trying wget...
+       Downloading Chef  for ubuntu...
+       Installing Chef
+       Selecting previously deselected package chef.
+(Reading database ... 60%...
+(Reading database ... 44103 files and directories currently installed.)
+       Unpacking chef (from .../tmp.0JUVszhT/chef__amd64.deb) ...
+       Setting up chef (11.8.0-1.ubuntu.10.04) ...
+       Thank you for installing Chef!
+
+!!!!!! Berksfile, Cheffile, cookbooks/, or metadata.rb must exist in /Users/jasghar/vagrant/chef-book/cookbooks/base
+>>>>>> ------Exception-------
+>>>>>> Class: Kitchen::ActionFailed
+>>>>>> Message: Failed to complete #converge action: [Cookbooks could not be found]
+>>>>>> ----------------------
+>>>>>> Please see .kitchen/logs/kitchen.log for more details
+```
+
+Oh crap! That's a problem eh?  Ok, so open up `metadata.rb` and add something like the following:
+```ruby
+name 'base'
+version '0.1.0'
+maintainer 'JJ Asghar'
+```
+Now run your test again:
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
 -----> Cleaning up any prior instances of <default-ubuntu-1004>
 -----> Destroying <default-ubuntu-1004>...
-       Finished destroying <default-ubuntu-1004> (0m0.01s).
+       [default] Forcing shutdown of VM...
+       [default] Destroying VM and associated drives...
+       Vagrant instance <default-ubuntu-1004> destroyed.
+       Finished destroying <default-ubuntu-1004> (0m8.43s).
 -----> Testing <default-ubuntu-1004>
 -----> Creating <default-ubuntu-1004>...
        Bringing machine 'default' up with 'virtualbox' provider...
@@ -136,37 +180,44 @@ NOTE: I'm only going to run it against ubuntu10.04 here, if you don't specify it
 
 [-- snip --]
 
-       Resolving cookbook dependencies with Berkshelf...
-!!!!!! The `berkshelf' gem is missing and must be installed or cannot be properly activated. Run `gem install berkshelf` or add the following to your Gemfile if you are using Bundler: `gem 'berkshelf'`.
->>>>>> ------Exception-------
->>>>>> Class: Kitchen::ActionFailed
->>>>>> Message: Failed to complete #converge action: [Could not load or activate Berkshelf (cannot load such file -- berkshelf)]
->>>>>> ----------------------
->>>>>> Please see .kitchen/logs/kitchen.log for more details
+      STDERR: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/p/python2.6/libpython2.6_2.6.5-1ubuntu6.1_amd64.deb  404  Not Found [IP: 91.189.92.184 80]
+       E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+       ---- End output of apt-get -q -y install vim=2:7.2.330-1ubuntu3.1 ----
+       Ran apt-get -q -y install vim=2:7.2.330-1ubuntu3.1 returned 100
 
-```
 
-Oh crap! That's a problem eh? So you have two options here, you can remove the `Berksfile` or you can add it to your Gemfile like it says, let's add it. Add it to your Gemfile, like it says and run `bundle install` You should see a signifgant increase in gems used.
+       Resource Declaration:
+       ---------------------
+       # In /tmp/kitchen-chef-solo/cookbooks/base/recipes/default.rb
 
-Run the `bundle exec kitchen test` again:
-```bash
-       [2013-11-07T02:58:44+00:00] INFO: Forking chef instance to converge...
-       Starting Chef Client, version 11.8.0
-       [2013-11-07T02:58:44+00:00] INFO: *** Chef 11.8.0 ***
-       [2013-11-07T02:58:44+00:00] INFO: Chef-client pid: 956
-       [2013-11-07T02:58:44+00:00] INFO: Setting the run_list to ["base::default"] from JSON
-       [2013-11-07T02:58:44+00:00] INFO: Run List is [recipe[base::default]]
-       [2013-11-07T02:58:44+00:00] INFO: Run List expands to [base::default]
-       [2013-11-07T02:58:44+00:00] INFO: Starting Chef Run for default-ubuntu-1004
-       [2013-11-07T02:58:44+00:00] INFO: Running start handlers
-       [2013-11-07T02:58:44+00:00] INFO: Start handlers complete.
-       Compiling Cookbooks...
-       [2013-11-07T02:58:44+00:00] ERROR: Running exception handlers
-       [2013-11-07T02:58:44+00:00] ERROR: Exception handlers complete
-       [2013-11-07T02:58:44+00:00] FATAL: Stacktrace dumped to /tmp/kitchen-chef-solo/cache/chef-stacktrace.out
-       Chef Client failed. 0 resources updated
-       [2013-11-07T02:58:44+00:00] ERROR: Cookbook base not found. If you're loading base from another cookbook, make sure you configure the dependency in your metadata
-       [2013-11-07T02:58:44+00:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
+         2:    package pkg do
+         3:      action [:install]
+         4:   end
+         5: end
+
+
+
+       Compiled Resource:
+       ------------------
+       # Declared in /tmp/kitchen-chef-solo/cookbooks/base/recipes/default.rb:2:in `block in from_file'
+
+       package("vim") do
+         action [:install]
+         retries 0
+         retry_delay 2
+         package_name "vim"
+         version "2:7.2.330-1ubuntu3.1"
+         cookbook_name :base
+         recipe_name "default"
+       end
+
+[-- snip --]
+
+       STDERR: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/p/python2.6/libpython2.6_2.6.5-1ubuntu6.1_amd64.deb  404  Not Found [IP: 91.189.92.184 80]
+       E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+       ---- End output of apt-get -q -y install vim=2:7.2.330-1ubuntu3.1 ----
+       Ran apt-get -q -y install vim=2:7.2.330-1ubuntu3.1 returned 100
+       [2013-11-07T21:19:18+00:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
 >>>>>> Converge failed on instance <default-ubuntu-1004>.
 >>>>>> Please see .kitchen/logs/default-ubuntu-1004.log for more details
 >>>>>> ------Exception-------
@@ -174,5 +225,79 @@ Run the `bundle exec kitchen test` again:
 >>>>>> Message: SSH exited (1) for command: [sudo -E chef-solo --config /tmp/kitchen-chef-solo/solo.rb --json-attributes /tmp/kitchen-chef-solo/dna.json  --log_level info]
 >>>>>> ----------------------
 ```
+Ok, that looks like we need to update the `apt-get` repo, I'll fix this here: (this is a hack, but I just want it to work ;) )
+I'll open the `default.rb` and do:
+```ruby
+execute "apt-get update"
 
-Hmm...that's interesting, what's the next step?
+%w{vim ntp build-essential}.each do |pkg|
+   package pkg do
+     action [:install]
+  end
+end
+
+include_recipe "base::ssh"
+```
+Now run the test again: `bundle exec kitchen test default-ubuntu-1004`
+```bash
+[~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
+-----> Cleaning up any prior instances of <default-ubuntu-1004>
+-----> Destroying <default-ubuntu-1004>...
+       [default] Forcing shutdown of VM...
+       [default] Destroying VM and associated drives...
+       Vagrant instance <default-ubuntu-1004> destroyed.
+       Finished destroying <default-ubuntu-1004> (0m7.39s).
+-----> Testing <default-ubuntu-1004>
+-----> Creating <default-ubuntu-1004>...
+       Bringing machine 'default' up with 'virtualbox' provider...
+       [default] Importing base box 'opscode-ubuntu-10.04'...
+
+[-- snip --]
+
+      * execute[apt-get update] action run[2013-11-07T21:23:31+00:00] INFO: Processing execute[apt-get update] action run (base::default line 1)
+       Hit http://us.archive.ubuntu.com lucid Release.gpg
+       Get:1 http://us.archive.ubuntu.com lucid-updates Release.gpg [198B]
+       Hit http://us.archive.ubuntu.com lucid Release
+       Get:2 http://us.archive.ubuntu.com lucid-updates Release [58.3kB]
+       Get:3 http://security.ubuntu.com lucid-security Release.gpg [198B]
+       Get:4 http://security.ubuntu.com lucid-security Release [57.3kB]
+       Hit http://us.archive.ubuntu.com lucid/main Packages
+       Hit http://us.archive.ubuntu.com lucid/restricted Packages
+       Hit http://us.archive.ubuntu.com lucid/main Sources
+       Hit http://us.archive.ubuntu.com lucid/restricted Sources
+       Hit http://us.archive.ubuntu.com lucid/universe Packages
+       Hit http://us.archive.ubuntu.com lucid/universe Sources
+       Hit http://us.archive.ubuntu.com lucid/multiverse Packages
+       Hit http://us.archive.ubuntu.com lucid/multiverse Sources
+
+[-- snip --]
+
+       [2013-11-07T21:24:05+00:00] INFO: cookbook_file[/etc/ssh/ssh_config] sending reload action to service[ssh] (immediate)
+         * service[ssh] action reload[2013-11-07T21:24:05+00:00] INFO: Processing service[ssh] action reload (base::ssh line 6)
+       [2013-11-07T21:24:05+00:00] INFO: service[ssh] reloaded
+
+           - reload service service[ssh]
+
+       [2013-11-07T21:24:05+00:00] INFO: cookbook_file[/etc/ssh/ssh_config] sending start action to service[ssh] (immediate)
+         * service[ssh] action start[2013-11-07T21:24:05+00:00] INFO: Processing service[ssh] action start (base::ssh line 6)
+        (up to date)
+       [2013-11-07T21:24:05+00:00] INFO: Chef Run complete in 34.624801857 seconds
+       [2013-11-07T21:24:05+00:00] INFO: Running report handlers
+       [2013-11-07T21:24:05+00:00] INFO: Report handlers complete
+       Chef Client finished, 6 resources updated
+       Finished converging <default-ubuntu-1004> (0m59.77s).
+-----> Setting up <default-ubuntu-1004>...
+       Finished setting up <default-ubuntu-1004> (0m0.00s).
+-----> Verifying <default-ubuntu-1004>...
+       Finished verifying <default-ubuntu-1004> (0m0.00s).
+-----> Destroying <default-ubuntu-1004>...
+       [default] Forcing shutdown of VM...
+       [default] Destroying VM and associated drives...
+       Vagrant instance <default-ubuntu-1004> destroyed.
+       Finished destroying <default-ubuntu-1004> (0m7.92s).
+       Finished testing <default-ubuntu-1004> (2m5.08s).
+```
+
+Sweet! It works! Ok, now lets move on to testing...
+
+## bats
