@@ -301,3 +301,5 @@ Now run the test again: `bundle exec kitchen test default-ubuntu-1004`
 Sweet! It works! Ok, now lets move on to testing...
 
 ## bats
+
+bats stands for "Bash Automated Testing System" and for a sysadmin is a great introduction to testing.  You can find the [repo](https://github.com/sstephenson/bats) there. I'm going to explain how to tie bats in with test-kitchen. Seriously, it's great. You've probably been using bash for years, this is just a simple layer on top of that foundation.
