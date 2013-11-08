@@ -332,7 +332,10 @@ Awesome, lets test this out now to see this work. I'll take the example from the
   [ "$result" -eq 4 ]
 }
 ```
+
 Now run it:
+
+```bash
 root@chef-book:~# vim test.bats
 root@chef-book:~# chmod +x test.bats
 root@chef-book:~# ./test.bats
@@ -345,7 +348,9 @@ root@chef-book:~# ./test.bats
 
 2 tests, 2 failures
 ```
+
 Heh, well...ok, so I need to install `dc` and `bc` now...
+
 ```bash
 root@chef-book:~# apt-get install bc dc
 Reading package lists... Done
@@ -369,7 +374,9 @@ Processing triggers for man-db ...
 Setting up bc (1.06.95-2) ...
 Setting up dc (1.06.95-2) ...
 ```
+
 And again...
+
 ```bash
 root@chef-book:~# ./test.bats
  ✓ addition using bc
@@ -377,6 +384,7 @@ root@chef-book:~# ./test.bats
 
 2 tests, 0 failures
 ```
+
 Huzzah! It works. As I said earlier, the tests are simple bash exit status, so if you change something to exit with a status other than 0 you'll get a failure. Try it out, and read the doc, you can do so much more.
 
 ### bats in our cookbook
