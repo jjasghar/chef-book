@@ -303,3 +303,19 @@ Sweet! It works! Ok, now lets move on to testing...
 ## bats
 
 bats stands for "Bash Automated Testing System" and for a sysadmin is a great introduction to testing.  You can find the [repo](https://github.com/sstephenson/bats) there. I'm going to explain how to tie bats in with test-kitchen. Seriously, it's great. You've probably been using bash for years, this is just a simple layer on top of that foundation.
+
+First thing first, lets go into your chef-book vm, and give this a shot; I really do want you to see the beauty of this software.
+```bash
+root@chef-book:~#  git clone https://github.com/sstephenson/bats.git
+Cloning into 'bats'...
+remote: Counting objects: 387, done.
+remote: Compressing objects: 100% (236/236), done.
+remote: Total 387 (delta 176), reused 335 (delta 134)
+Receiving objects: 100% (387/387), 56.06 KiB | 61 KiB/s, done.
+Resolving deltas: 100% (176/176), done.
+root@chef-book:~# cd bats/
+root@chef-book:~/bats#  ./install.sh /usr/local
+Installed Bats to /usr/local/bin/bats
+root@chef-book:~/bats#
+```
+Awesome, lets test this out now.
