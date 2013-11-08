@@ -318,4 +318,129 @@ root@chef-book:~/bats#  ./install.sh /usr/local
 Installed Bats to /usr/local/bin/bats
 root@chef-book:~/bats#
 ```
-Awesome, lets test this out now.
+Awesome, lets test this out now to see this work. I'll take the example from the page, it explains it pretty well. Open up a text editor and create this file:
+```bash
+#!/usr/bin/env bats
+
+@test "addition using bc" {
+  result="$(echo 2+2 | bc)"
+  [ "$result" -eq 4 ]
+}
+
+@test "addition using dc" {
+  result="$(echo 2 2+p | dc)"
+  [ "$result" -eq 4 ]
+}
+```
+Now run it:
+root@chef-book:~# vim test.bats
+root@chef-book:~# chmod +x test.bats
+root@chef-book:~# ./test.bats
+ ✗ addition using bc
+   (in test file /root/test.bats, line 4)
+   /tmp/bats.1897.src: line 4: bc: command not found
+ ✗ addition using dc
+   (in test file /root/test.bats, line 9)
+   /tmp/bats.1897.src: line 9: dc: command not found
+
+2 tests, 2 failures
+```
+Heh, well...ok, so I need to install `dc` and `bc` now...
+```bash
+root@chef-book:~# apt-get install bc dc
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  bc dc
+0 upgraded, 2 newly installed, 0 to remove and 152 not upgraded.
+Need to get 182 kB of archives.
+After this operation, 549 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise/main bc amd64 1.06.95-2 [112 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise/main dc amd64 1.06.95-2 [70.4 kB]
+Fetched 182 kB in 0s (369 kB/s)
+Selecting previously unselected package bc.
+(Reading database ... 53332 files and directories currently installed.)
+Unpacking bc (from .../bc_1.06.95-2_amd64.deb) ...
+Selecting previously unselected package dc.
+Unpacking dc (from .../dc_1.06.95-2_amd64.deb) ...
+Processing triggers for install-info ...
+Processing triggers for man-db ...
+Setting up bc (1.06.95-2) ...
+Setting up dc (1.06.95-2) ...
+```
+And again...
+```bash
+root@chef-book:~# ./test.bats
+ ✓ addition using bc
+ ✓ addition using dc
+
+2 tests, 0 failures
+```
+Huzzah! It works. As I said earlier, the tests are simple bash exit status, so if you change something to exit with a status other than 0 you'll get a failure. Try it out, and read the doc, you can do so much more.
+
+### bats in our cookbook
+
+Ok, so hopefully you've played with bats a bit, because we are going to write a couple tests now. Get to your cookbook where you ran `test-kitchen` from.
+
+Make a directory instead of `test/integration/default` called `bats`, and `cd` into it:
+```bash
+[~/vagrant/chef-book/cookbooks/base/test/integration/default] % mkdir bats
+[~/vagrant/chef-book/cookbooks/base/test/integration/default] % cd bats
+[~/vagrant/chef-book/cookbooks/base/test/integration/default/bats] %
+```
+Create a new file, let's start out with checking to see `vim` is installed. I'm going to call it `vim.bats` for logical reasons, but you can name it whatever you want.
+```bash
+[~/vagrant/chef-book/cookbooks/base/test/integration/default/bats] % vim vim.bats
+```
+And lets write the test!
+```bash
+#!/usr/bin/env bats
+
+@test "confirm vim is there" {
+  run ls /usr/bin/vim
+    [ "$status" -eq  0 ]
+}
+```
+Pretty straight forward eh? Ok, lets test it out.
+```bash
+[~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
+-----> Cleaning up any prior instances of <default-ubuntu-1004>
+-----> Destroying <default-ubuntu-1004>...
+       Finished destroying <default-ubuntu-1004> (0m0.00s).
+-----> Testing <default-ubuntu-1004>
+-----> Creating <default-ubuntu-1004>...
+       Bringing machine 'default' up with 'virtualbox' provider...
+       [default] Importing base box 'opscode-ubuntu-10.04'...
+
+[-- snip --]
+
+-----> Setting up <default-ubuntu-1004>...
+-----> Installing busser and plugins
+Fetching: thor-0.18.1.gem (100%)
+Fetching: busser-0.4.1.gem (100%)
+       Successfully installed thor-0.18.1
+       Successfully installed busser-0.4.1
+       2 gems installed
+       Plugin bats installed (version 0.1.0)
+-----> Running postinstall for bats plugin
+             create  /tmp/bats20131108-1544-11wloex/bats
+             create  /tmp/bats20131108-1544-11wloex/bats.tar.gz
+       Installed Bats to /tmp/kitchen-busser/vendor/bats/bin/bats
+             remove  /tmp/bats20131108-1544-11wloex
+       Finished setting up <default-ubuntu-1004> (0m7.02s).
+-----> Verifying <default-ubuntu-1004>...
+       Suite path directory /tmp/kitchen-busser/suites does not exist, skipping.
+       Uploading /tmp/kitchen-busser/suites/bats/vim.bats (mode=0644)
+-----> Running bats test suite
+ ✓ confirm vim is there
+
+       1 test, 0 failures
+       Finished verifying <default-ubuntu-1004> (0m1.10s).
+-----> Destroying <default-ubuntu-1004>...
+       [default] Forcing shutdown of VM...
+```
+
+Yay! As you can see this ran the normal coverge, but this time uploaded your test and ran it. Pretty sweet eh?
+
+This is only the beginning, but this should be enough for you to start adding things for your cookbook(s), write the test once, always run it so when you refactor you don't forget about something. Well WELL worth it.
