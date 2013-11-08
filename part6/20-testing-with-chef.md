@@ -124,7 +124,7 @@ Now you can do a straight `bundle exec kitchen test` here, but before we do that
 
 Ok, so go ahead and run `bundle exec kitchen test` and lets see what happens:
 
-NOTE: I'm only going to run it against ubuntu10.04 here, if you don't specify it'll run against them all. You can delete them from the `.kitchen.yml` or specify them with a REGEX after the test. I also removed the `Berksfile` and `Berksfile.lock` to make it simpler. I'm betting if you create a `sites-cookooks/` directory you should be able to use that `Berksfile` but that's for another time.
+**NOTE**: I'm only going to run it against ubuntu10.04 here, if you don't specify it'll run against them all. You can delete them from the `.kitchen.yml` or specify them with a REGEX after the test. I also removed the `Berksfile` and `Berksfile.lock` to make it simpler. I'm betting if you create a `sites-cookooks/` directory you should be able to use that `Berksfile` but that's for another time.
 
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % rm Berksfile*
@@ -451,4 +451,4 @@ Fetching: busser-0.4.1.gem (100%)
 
 Yay! As you can see this ran the normal coverge, but this time uploaded your test and ran it. Pretty sweet eh?
 
-This is only the beginning, but this should be enough for you to start adding things for your cookbook(s), write the test once, always run it so when you refactor you don't forget about something. Well WELL worth it.
+This is only the beginning, but this should be enough for you to start adding things for your cookbook(s), write the test once, always run it so when you refactor you don't forget about something. Well, WELL worth it.
