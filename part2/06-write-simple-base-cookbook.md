@@ -3,9 +3,7 @@ A simple cookbook
 
 First off, lets talk about the structure of how chef takes it's instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward eh? As I said in the previous section, recipes are top down compiled bits of software, just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
 
-So the first thing we are going to do is make our life's a little easier. You already have a provisioned box, with `chef-solo` on it, so lets write a wrapper script to call `chef-solo` so we only have to run one command to `converge` the cookbook. 
-
-Note: converge, is used a chef term to run through the list of chef cookbook(s) that you want to run. 
+So the first thing we are going to do is make our life's a little easier. You already have a provisioned box, with `chef-solo` on it, so lets write a wrapper script to call `chef-solo` so we only have to run one command to `converge` the cookbook. `converge` is a chef command that runs through the list of chef cookbook(s) that you want to run. 
 
 Go ahead and create a directory that'll be your core working directory. `core` or `solo` is probably a good term.
 ```bash
@@ -17,15 +15,15 @@ root@chef-book:~/solo#
 
 converge.sh
 -----------
-Go ahead and open a text editor and call the file `converge.sh` and the following to the file:
+Go ahead and create a new file in your text editor called `converge.sh` containing the following:
 ```bash
 #!/bin/bash
 
 chef-solo -c solo.rb -j solo.json
 ```
-Yep, not that hard. I created a more verbose [script](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/) here, but we are going a tad bit different direction than I wanted to do in that post.
+Yep, not that hard. I created a more verbose script [here](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/), but we are going a tad bit different direction than I wanted to do in that post.
 
-Go ahead and `chmod +x converge.sh` and run it.
+Go ahead and run `chmod +x converge.sh` to make it executable, then run it.
 ```bash
 root@chef-book:~/solo# chmod +x converge.sh
 root@chef-book:~/solo# ./converge.sh
