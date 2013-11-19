@@ -83,7 +83,7 @@ root@chef-book:~/solo# mkdir -p cookbooks/base/recipes/
 root@chef-book:~/solo# cd cookbooks/base/recipes/
 root@chef-book:~/solo/cookbooks/base/recipes#
 ```
-Now we need to create the `default.rb` file. Open up your favorite text editor and write the following. Now you'll notice that I'm using `nano` here, it's not my favor, far be it, but this is to show the first installation of software.
+Now we need to create the `default.rb` file. Open up your favorite text editor and write the following. Now you'll notice that I'm using `nano` here, it's not my favorite, far be it, but this is to show the first installation of software.
 ```bash
 root@chef-book:~/solo/cookbooks/base/recipes# nano default.rb
 ```
