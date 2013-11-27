@@ -7,7 +7,7 @@ So you have virtualbox and vagrant running; you feel more comfortable with your 
 # vi: set ft=ruby :
 $script = <<SCRIPT
 apt-get update
-apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 apt-get install git-core curl build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev -y
 if ! [ -a /usr/local/bin/gem ]; then
   cd /tmp
@@ -53,6 +53,6 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
-After it's been pulled down, you should see vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or energy drink, this will take 15 to 30 minutes. I also noticed that my terminal started throwing funky looking characters.  From what I could tell it was doing what it was supposed to, but if this happens you may need to `reset` your terminal or just close and reopen it to `vagrant ssh` into the box. If you are paranoid, you can run `vagrant provision` to repeat the provisioning process just to make sure everything is what you expect before `vagrant ssh`.  Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
+After it's been pulled down, you should see vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or energy drink, this will take 15 to 30 minutes. Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
 
 Move on to [omnibus vs gem](04-omnibus-install-vs-gem-install.md)
