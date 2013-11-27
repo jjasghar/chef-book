@@ -53,9 +53,6 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
-After it's been pulled down, you should see that the machines is `Machine booted and ready!`. You'll be able to go into the box right then and there by `vagrant ssh` or you can `vagrant provision`.
-Then you should see a lot of provisioning text. That's good. Let it run, grab some coffee, or energy drink, what ever is your fancy. I also noticed that my terminal started throwing funky looking characters.  From what I could tell it was doing what it was supposed to, but you might have to close your terminal and reopen in to `vagrant ssh` into the box. If you are truly paranoid, you can `vagrant provision` again, to make sure everything is what you expect before `vagrant ssh`.
-
-NOTE: after the initial import of the box, it'll always go through the provisioning automatically.
+After it's been pulled down, you should see vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or energy drink, this will take 15 to 30 minutes. I also noticed that my terminal started throwing funky looking characters.  From what I could tell it was doing what it was supposed to, but if this happens you may need to `reset` your terminal or just close and reopen it to `vagrant ssh` into the box. If you are paranoid, you can run `vagrant provision` to repeat the provisioning process just to make sure everything is what you expect before `vagrant ssh`.  Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
 
 Move on to [omnibus vs gem](04-omnibus-install-vs-gem-install.md)
