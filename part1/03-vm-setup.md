@@ -45,7 +45,7 @@ Put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
-[default] Box 'vagrant' was not found. Fetching box from specified URL for
+[default] Box 'chef-book' was not found. Fetching box from specified URL for
 the provider 'virtualbox'. Note that if the URL does not have
 a box for this provider, you should interrupt Vagrant now and add
 the box yourself. Otherwise Vagrant will attempt to download the
