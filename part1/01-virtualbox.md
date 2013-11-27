@@ -8,7 +8,7 @@ Go ahead and go [here](https://www.virtualbox.org/wiki/Downloads) and download t
 
 When virtualbox starts for the first time, it may open a wizard for creating a new virtual machine.  You can dismiss the wizard since we will download a base box in the next step.
 
-Next I strongly suggest downloading something called iTerm2 if you are on OSX.  Click [here](http://www.iterm2.com/#/section/downloads) and grab the lastest stable version.
+Next, I strongly suggest downloading something called iTerm2 if you are on OSX.  Click [here](http://www.iterm2.com/#/section/downloads) and grab the lastest stable version.
 
 _NOTE_: You don't have to use this, on OSX, you can use Terminal but iTerm2 is just better in general, trust me.
 
