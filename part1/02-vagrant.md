@@ -1,6 +1,6 @@
 vagrant
 -------
-Vagrant is a great tool designed for developers to create disposable machines with quick turn a quick turn around.  Is our case we want to install the binary NOT the gem, so go [here](http://downloads.vagrantup.com/)
+Vagrant is a great tool designed for developers to create disposable machines with a quick turn around.  Is our case we want to install the binary NOT the gem, so go [here](http://downloads.vagrantup.com/)
 
 After you installed it, go ahead and spin up [Terminal|iTerm2|xterm|cmd] and type `vagrant`. You should see something like the following:
 ```bash
