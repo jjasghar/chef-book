@@ -41,7 +41,7 @@ As you can see it does A LOT. I build ruby as part of the process, and I install
 
 Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
 
-You should be able to put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do a `vagrant up`. You should see something like this:
+Put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do a `vagrant up`. We will use it in step 5. You should see something like this:
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
