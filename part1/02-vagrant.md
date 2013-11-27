@@ -70,7 +70,7 @@ VirtualBox Version: 4.3
 [default] -- /vagrant
 ```
 
-Go ahead and `vagrant ssh` into the box and you'll see that you have a complete box that can run linux commands, basically anything. Type something like `sudo apt-get update && sudo apt-get intsall vim -y` You'll see vim being installed. Start it up with `vim test-file` and write some things in there. `wq` out of it. Go ahead and `logout` of the machine. You should see your original command prompt from your host machine now. Type `vagrant ssh` and you should see the file that you wrote out, `cat test-file`.
+Go ahead and `vagrant ssh` into the box and you'll see that you have a complete box that can run linux commands, basically anything. Type something like `sudo apt-get update && sudo apt-get install vim -y` You'll see vim being installed. Start it up with `vim test-file` and write some things in there. `wq` out of it. Go ahead and `logout` of the machine. You should see your original command prompt from your host machine now. Type `vagrant ssh` and you should see the file that you wrote out, `cat test-file`.
 As you can see you have been able to create a base box ssh into it, and change it around, log out then log back in and not loose any of your data.
 The next step is to destroy it and start over, so in the place you did your `vagrant up` type `vagrant destroy -f` this is a "Do not pass Go" type of destroy, so be careful, you have been warned.
 As you can see with the `vagrant destroy -f`:
