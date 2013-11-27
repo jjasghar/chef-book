@@ -88,6 +88,6 @@ VM must be created before running this command. Run `vagrant up` first.
 ```
 Because the machine is gone. You can simply run `vagrant up` to re-create it. You'll notice that the `test-file` nor vim is there anymore, and that's expected, you blew it up didn't you?  I strongly suggest playing around with `vagrant` the [docs](http://docs.vagrantup.com/v2/) for version 2 are extremely straight forward, and you should spend the time to get comfortable with it. It'll make your chef experience so much better. 
 
-Bonus round: Try to set up an apache/nginx server and use [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant to be able to hit http://localhost:8080 on your workstation and see its default page.
+Bonus round: Try to set up an apache/nginx server and use [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant to be able to hit [http://localhost:8080](http://localhost:8080) on your workstation and see its default page.
 
 Move on to [The beginning of your playground](03-vm-setup.md)
