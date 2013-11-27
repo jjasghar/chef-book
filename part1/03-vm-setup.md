@@ -22,7 +22,7 @@ if ! [ -a /usr/local/bin/gem ]; then
 fi
 echo "America/Chicago" > /etc/timezone # because this is the timezone where I live ;)
 dpkg-reconfigure -f noninteractive tzdata
-mkdir /etc/chef/
+mkdir -p /etc/chef/
 if ! [ -x /opt/chef/bin/chef-solo ]; then
   curl -L https://www.opscode.com/chef/install.sh | sudo bash
 fi
