@@ -37,7 +37,7 @@ Vagrant::Config.run do |config|
 end
 ```
 
-As you can see it does A LOT. I build ruby as part of the provisioning, also I install chef via the omnibus (which we'll talk about in the next section). Initially I want to use the `:shell` provisioning, I dont want to muddy the waters with putting chef-solo in before you can understand everything going on already. With the [docs](http://docs.vagrantup.com/v2/) you should be able to decipher most if not all of what's going on here.
+As you can see it does A LOT. I build ruby as part of the process, and I install chef via the omnibus installer (which we'll talk about in the next section). Initially I want to use the `:shell` provisioner so I don't muddy the waters by adding chef-solo to the mix until we're more familiar with these new tools. With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash scripting, you should be able to decipher what's going on here.
 
 Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
 
