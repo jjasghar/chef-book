@@ -86,7 +86,7 @@ It shuts down the machine, and blows it up. If you attempt to `vagrant ssh` it'l
 VM must be created before running this command. Run `vagrant up` first.
 [~/vagrant/lucid32] %
 ```
-Because the machine is gone. You can simply run `vagrant up` to re-create it. You'll notice that the `test-file` nor vim is there anymore, and that's expected, you blew it up didn't you?  I strongly suggest playing around with `vagrant` the [docs](http://docs.vagrantup.com/v2/) for version 2 are extremely straight forward, and you should spend the time to get comfortable with it. It'll make your chef experance so much better. 
+Because the machine is gone. You can simply run `vagrant up` to re-create it. You'll notice that the `test-file` nor vim is there anymore, and that's expected, you blew it up didn't you?  I strongly suggest playing around with `vagrant` the [docs](http://docs.vagrantup.com/v2/) for version 2 are extremely straight forward, and you should spend the time to get comfortable with it. It'll make your chef experience so much better. 
 
 Bonus round: Try to set up an apache server/nginx server and use the [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant and be able to hit your http://localhost:8080 and see the default page for it.
 
