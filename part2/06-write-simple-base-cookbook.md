@@ -281,16 +281,16 @@ Ok, if you have any chef knowledge, you are probably wondering why we didn't add
 ```
 Don't get me wrong this is extremely important, but I was going to revisit this when we started adding external cookbooks. You made me jump my gun. :P
 
-Now lets go on to the deployer user.
+Now, let's go on to the deployer user.
 
 deployer user
 -------------
 
-If you want to [read](http://docs.opscode.com/resource_user.html) about this here's the [link](http://docs.opscode.com/resource_user.html).
+If you want to [read](http://docs.opscode.com/resource_user.html) about this, here's the [link](http://docs.opscode.com/resource_user.html).
 
-Now first thing first; we need to create ssh-keys, or you can use your own. If you don't know what ssh-keys are, you probably, should read [this](https://wiki.archlinux.org/index.php/SSH_Keys) and if this doesn't make sense....sigh, you probably shouldn't have read this far.
+Now first things first; we need to create ssh-keys or you can use your own. If you don't know what ssh-keys are, you could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
 
-Ok, so I'm lazy so I'll set up my keys with root on the vm that I created:
+Since I'm lazy, I'll set up my keys with root on the vm that I created:
 ```bash
 root@chef-book:~# ssh-keygen
 Generating public/private rsa key pair.
@@ -316,7 +316,7 @@ The key's randomart image is:
 +-----------------+
 root@chef-book:~#
 ```
-Great, now we go to your base cookbook recipe's and we can start the deployer user.
+Great, now we go to your base cookbook recipes and can define the deployer user.
 ```
 root@chef-book:~# cd solo/cookbooks/base/recipes/
 root@chef-book:~/solo/cookbooks/base/recipes# vim deployer.rb
