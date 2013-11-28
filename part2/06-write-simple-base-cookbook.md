@@ -120,7 +120,7 @@ This is important, as you can see it didn't _reinstall_ it. It just checked that
 
 If you want to skip ahead, check out the [resources](http://docs.opscode.com/resource.html) and see what cool things you can do. Don't worry I'll walk y'all through some more.
 
-So let's add a couple more packages to our base recipe (`~/solo/cookbooks/base/recipes/default.rb`), there are two ways you can do this. One is just add line by line, like:
+So let's add a couple more packages to our base recipe (`~/solo/cookbooks/base/recipes/default.rb`). There are two ways you can do this. One is to just add them line by line, like:
 ```ruby
 package 'vim'
 package 'ntp'
