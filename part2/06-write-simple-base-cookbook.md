@@ -224,7 +224,7 @@ Recipe: base::default
   * package[build-essential] action install (up to date)
 Chef Client finished, 0 resources updated
 ```
-Ah you got me. We didn't type in the ssh recipe to the default run did we; good eye. Go ahead and open up `cookbooks/base/recipes/default.rb` and do the following:
+Ah, you got me. We didn't add the ssh recipe to the default run, did we? Go ahead and open up `cookbooks/base/recipes/default.rb` and add the following:
 ```ruby
 %w{vim ntp build-essential}.each do |pkg|
    package pkg do
