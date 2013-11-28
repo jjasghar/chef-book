@@ -3,7 +3,7 @@ A simple cookbook
 
 First off, let's talk about the structure of how chef takes its instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward, eh? As I said in the previous section, recipes are top down compiled instructions just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
 
-So the first thing we are going to do is make our lives a little easier. You already have a provisioned box with `chef-solo` on it, so let's write a wrapper script to call `chef-solo` so we only have to run one command to "converge" the cookbook on a new box. Convergence is what chef calls the process of applying the list of chef cookbooks that you want to run. 
+So the first thing we are going to do is make our lives a little easier. You already have a provisioned box with `chef-solo` on it, so let's write a wrapper script to call `chef-solo` so we only have to run one command to "converge" the cookbook on a new box. Convergence is what chef calls the process of applying the list of recipes that you want to run.
 
 Go ahead and create a directory that'll be your core working directory. `core` or `solo` is probably a good term.
 ```bash
