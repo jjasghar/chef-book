@@ -1,7 +1,7 @@
 chef-solo
 ---------
 
-So we have a working _disposable_ vm with with vagrant now? Great, let's actually start playing with chef.  We're going to start with [chef-solo](http://docs.opscode.com/chef_solo.html), which believe it or not can cover 75-85% of the use cases of chef. Keep this in mind, as you go through this book, because honestly if it fits no need to go farther.
+So we have a working _disposable_ vm with with vagrant now? Great, let's actually start playing with chef.  We're going to start with [chef-solo](http://docs.opscode.com/chef_solo.html), which believe it or not can cover 75-85% of the use cases of chef. Keep this in mind as you go through this book, because honestly if it fits then there is no need to overengineer your solutions.
 
 The first thing to do is make sure that you are running the correct version of `chef-solo`. Type these following commands in to confirm we are set up correctly.
 ```bash
