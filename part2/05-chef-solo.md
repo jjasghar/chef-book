@@ -36,7 +36,7 @@ Chef Client failed. 0 resources updated
 [2013-10-21T14:53:45-05:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
 root@chef-book:~#
 ```
-Yep, it ain't happy. Thats cool, that's expected, I just wanted to make sure you saw it in error state before taking a stab at it.
+Yep, it ain't happy. That's expected at this stage. I just wanted to make sure you saw it in error state before taking a stab at it.
 
 Ok, so we can run a `chef-solo` process/run, now lets actually talk about `chef-solo`. In the simplest terms `chef-solo` is a local provisioning software that runs through some predetermined configuration decisions, and spits out the machine how you say it should. `chef-solo`, nay all of chef, uses a compiled top down set of instuctions, or _recipes_, to build the machine how you want it to be. As you can see with the `Compiling Cookbooks...` line.
 
