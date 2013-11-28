@@ -37,14 +37,14 @@ Perfect, we are ready to start the next part.
 
 solo.rb
 -------
-Next, open up a text editor and create `solo.rb`, yep that file that it was `WARN` about, add the following to it:
+Next, open up a text editor and create `solo.rb`, that file that it complained about. Add the following to it:
 ```ruby
 root = File.absolute_path(File.dirname(__FILE__))
 
 file_cache_path root
 cookbook_path root + '/cookbooks'
 ```
-It's pretty straight forward, it's a ruby script telling chef-solo that the directory that it's running from is where it wants to be, and the `/cookbooks` is the `cookbook_path`.
+It's a pretty straight forward ruby script telling chef-solo that the directory that it's running from is where it wants to be, and that the `cookbook_path` is a subdirectory named `cookbooks`.
 
 solo.json
 ---------
