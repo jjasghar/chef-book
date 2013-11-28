@@ -11,7 +11,7 @@ Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
  * Documentation:  https://help.ubuntu.com/
 Welcome to your Vagrant-built virtual machine.
 Last login: Mon Oct 21 13:49:19 2013 from 10.0.2.2
-vagrant@chef-book:~$ sudo su -
+vagrant@chef-book:~$ sudo -i
 root@chef-book:~# which chef-solo
 /usr/bin/chef-solo
 root@chef-book:~# ls -l /usr/bin/chef-solo
