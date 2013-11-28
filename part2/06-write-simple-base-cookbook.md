@@ -134,7 +134,7 @@ Or you can do:
   end
 end
 ```
-Both are basiclly, the same, the second one is just more rubyish. Go ahead and `cd ~/solo/` and run `./convege.sh` again.
+Both are basicially, the same, the second one is just more rubyish. Go ahead and `cd ~/solo/` and run `./convege.sh` again.
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
