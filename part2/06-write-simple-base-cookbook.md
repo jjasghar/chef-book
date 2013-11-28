@@ -1,7 +1,7 @@
 A simple cookbook
 =================
 
-First off, lets talk about the structure of how chef takes it's instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward eh? As I said in the previous section, recipes are top down compiled bits of software, just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
+First off, let's talk about the structure of how chef takes its instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward eh? As I said in the previous section, recipes are top down compiled bits of software, just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
 
 So the first thing we are going to do is make our life's a little easier. You already have a provisioned box, with `chef-solo` on it, so lets write a wrapper script to call `chef-solo` so we only have to run one command to `converge` the cookbook. `converge` is a chef command that runs through the list of chef cookbook(s) that you want to run. 
 
