@@ -39,7 +39,7 @@ end
 
 As you can see it does A LOT. I build ruby as part of the process, and I install chef via the omnibus installer (which we'll talk about in the next section). Initially I want to use the `:shell` provisioner so I don't muddy the waters by adding chef-solo to the mix until we're more familiar with these new tools. With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash scripting, you should be able to decipher what's going on here. Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
 
-You'll also notice that this provisioning script includes a couple tests to keep from repeating unnecessary steps if it has already been run.  It is important for scripts like these to be [idempotent](http://en.wikipedia.org/wiki/Idempotence), or "can be applied multiple times without changing the result beyond the initial application" as described on wikipedia.
+You'll also notice that this provisioning script includes a couple tests to keep from repeating unnecessary steps if it has already been run.  It is important for scripts like these to be [idempotent](http://en.wikipedia.org/wiki/Idempotence), or that they "can be applied multiple times without changing the result beyond the initial application" as described on wikipedia.
 
 Put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do a `vagrant up`. We will use it in step 5. You should see something like this:
 ```bash
