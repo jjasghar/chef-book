@@ -175,9 +175,9 @@ service { 'sshd':
  hasrestart => true,
 }
 ```
-Lets create this in chef, I'm going to create another recipe and link it to the chef-solo run. Here we go.
+Let's create this in chef. I'm going to create another recipe and link it to the chef-solo run. Here we go.
 
-Oh, you'll need an ssh_config file, copying it from `/etc/ssh/` won't hurt.
+Oh, you'll need an ssh_config file. Copying it from `/etc/ssh/` will be fine.
 
 ```bash
 root@chef-book:~# cd solo/cookbooks/base/recipes/
