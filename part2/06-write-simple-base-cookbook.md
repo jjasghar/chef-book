@@ -68,7 +68,7 @@ Chef Client failed. 0 resources updated
 [2013-10-21T15:21:36-05:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
 root@chef-book:~/base# cat /root/solo/chef-stacktrace.out
 ```
-The most important part about the chef-stacktrace.out is this one:
+The error that stands out in `chef-stacktrace.out` is this one:
 ```ruby
 Chef::Exceptions::CookbookNotFound: Cookbook base not found. If you're loading base from another cookbook, make sure you configure the dependency in your metadata
 ```
