@@ -375,7 +375,7 @@ Recipe: base::ssh
 Chef Client finished, 0 resources updated
 root@chef-book:~/solo#
 ```
-Do'h we did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
+Do'h! We did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
 ```bash
 root@chef-book:~/solo# vim solo.json
 ```
@@ -385,7 +385,7 @@ And change the file to look like this:
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
-Now `./converge` and you should see something like this, being I debugged this as I was writing it, it'll be a tad bit different, but you get the point :):
+Now `./converge` and you should see something like this. Being that I debugged this as I was writing it, it'll be a tad bit different but you get the point:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
