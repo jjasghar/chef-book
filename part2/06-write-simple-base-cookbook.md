@@ -290,7 +290,7 @@ If you want to [read](http://docs.opscode.com/resource_user.html) about this, he
 
 Now first things first; we need to create ssh-keys or you can use your own. If you don't know what ssh-keys are, you could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
 
-Since I'm lazy, I'll set up my keys with root on the vm that I created:
+Since I'm lazy, I'll set up passwordless keys with root on the vm that I created:
 ```bash
 root@chef-book:~# ssh-keygen
 Generating public/private rsa key pair.
