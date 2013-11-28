@@ -24,7 +24,7 @@ echo "America/Chicago" > /etc/timezone # because this is the timezone where I li
 dpkg-reconfigure -f noninteractive tzdata
 mkdir -p /etc/chef/
 if ! [ -x /opt/chef/bin/chef-solo ]; then
-  curl -L https://www.opscode.com/chef/install.sh | sudo bash
+  curl -L https://www.opscode.com/chef/install.sh | bash
 fi
 SCRIPT
 
