@@ -48,7 +48,7 @@ It's a pretty straight forward ruby script telling chef-solo that the directory 
 
 solo.json
 ---------
-Next we need to create the solo.json. Open up another text editor and create `solo.json` and put the following in it:
+Next we need to create solo.json. Open up another text editor and create `solo.json` and put the following in it:
 ```json
 {
     "run_list": [ "recipe[base::default]" ]
