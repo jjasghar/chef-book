@@ -38,9 +38,9 @@ root@chef-book:~#
 ```
 Yep, it ain't happy. That's expected at this stage. I just wanted to make sure you saw it in error state before taking a stab at it.
 
-Ok, so we can run a `chef-solo` process/run, now lets actually talk about `chef-solo`. In the simplest terms `chef-solo` is a local provisioning software that runs through some predetermined configuration decisions, and spits out the machine how you say it should. `chef-solo`, nay all of chef, uses a compiled top down set of instuctions, or _recipes_, to build the machine how you want it to be. As you can see with the `Compiling Cookbooks...` line.
+OK, so we can start a `chef-solo` process/run, now lets actually talk about `chef-solo`. In the simplest terms, `chef-solo` is local provisioning software that runs through some preset configuration operations, and renders out the machine into the state they describe. `chef-solo`, nay all of chef, uses a compiled top down set of instuctions, or _recipes_, to build the machine how you want it to be. You can see that this process starts with the `Compiling Cookbooks...` line.
 
-In a more elegant quote from the [docs](http://docs.opscode.com/chef_solo.html) on the opscode side:
+In a more elegant quote from the [docs](http://docs.opscode.com/chef_solo.html) on the opscode site:
 > chef-solo is an open source version of the chef-client that allows using cookbooks with nodes without requiring access to a server. chef-solo runs locally and requires that a cookbook (and any of its dependencies) be on the same physical disk as the node.
 
 Now let's go on to actually running it successfully!
