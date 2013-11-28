@@ -234,7 +234,7 @@ end
 
 include_recipe "base::ssh"
 ```
-Ok, now go ahead and run `./converge.sh` again, you should see something like this:
+Ok, now go ahead and run `./converge.sh` again. You should see something like this:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
