@@ -21,7 +21,7 @@ Go ahead and create a new file in your text editor called `converge.sh` containi
 
 chef-solo -c solo.rb -j solo.json
 ```
-Yep, not that hard. I created a more verbose script [here](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/), but we are going a tad bit different direction than I wanted to do in that post.
+Yep, not that hard. I created a more verbose script [here](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/), but we are going a tad bit different direction than I wanted to in that post.
 
 Go ahead and run `chmod +x converge.sh` to make it executable, then run it.
 ```bash
