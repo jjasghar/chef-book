@@ -148,7 +148,7 @@ Chef Client finished, 0 resources updated
 root@chef-book:~/solo#
 ```
 
-Congrats man, no you can install packages via chef and confirm that they are there.
+Congrats man, now you can install packages via chef and confirm that they are there.
 
 Next up is the chef version of the puppet "[trifecta](http://docs.puppetlabs.com/puppet_core_types_cheatsheet.pdf)".  In the puppet world it's "Package/file/service: Learn it, live it, love it. If you can only do this, you can still do a lot." Which is very true.  Let's try to leverage this in the chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deploy` user.  I'll first start out with the chef trifecta, then move to the user account.
 
