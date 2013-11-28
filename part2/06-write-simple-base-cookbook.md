@@ -48,15 +48,15 @@ It's a pretty straight forward ruby script telling chef-solo that the directory 
 
 solo.json
 ---------
-Next we need to create solo.json. Open up another text editor and create `solo.json` and put the following in it:
+Next we need to create solo.json. Open up another text editor to create `solo.json` and insert the following:
 ```json
 {
     "run_list": [ "recipe[base::default]" ]
 }
 ```
-This is the "run_list" for `chef-solo`.  It tells it that `chef-solo` needs to go into the base cookbook and run the `default` recipe. You can have as long of a run_list as you want, but this is the first one so lets just start with one.
+This is the "run_list" for `chef-solo`.  It tells `chef-solo` to use the `base` cookbook and run the `default` recipe. You can have as long of a run_list as you want, but let's start with a single recipe for now.
 
-Go ahead and run `./converge.sh` again, it should be different:
+Go ahead and run `./converge.sh` again, the output should be different:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
