@@ -28,6 +28,9 @@ description      'Installs/Configures base'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 ```
+
+As of chef 11.8, the `name` is required for converges to complete. I've searched high and low for the ticket that's associated with this; but here's the general [release notes](http://docs.opscode.com/release_notes.html).  Luckily the error is extremely obvious if you don't have have `name`, and the fix is to add it. ;)
+
 And lets upload it:
 ```bash
 root@chef-book:~/cookbooks/base# cd ..

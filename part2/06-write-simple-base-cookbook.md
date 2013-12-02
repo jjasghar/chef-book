@@ -1,9 +1,9 @@
 A simple cookbook
 =================
 
-First off, lets talk about the structure of how chef takes it's instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward eh? As I said in the previous section, recipes are top down compiled bits of software, just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
+First off, let's talk about the structure of how chef takes its instructions. At the core of a set of instructions there is something called a _recipe_ and a collection of recipes can be in a cookbook. Pretty straight forward, eh? As I said in the previous section, recipes are top down compiled instructions just like if you are reading a cookbook in real life. (enter a joke here about screwing up a food recipe).
 
-So the first thing we are going to do is make our life's a little easier. You already have a provisioned box, with `chef-solo` on it, so lets write a wrapper script to call `chef-solo` so we only have to run one command to `converge` the cookbook. `converge` is a chef command that runs through the list of chef cookbook(s) that you want to run. 
+So the first thing we are going to do is make our lives a little easier. You already have a provisioned box with `chef-solo` on it, so let's write a wrapper script to call `chef-solo` so we only have to run one command to "converge" the cookbook on a new box. Convergence is what chef calls the process of applying the list of recipes that you want to run.
 
 Go ahead and create a directory that'll be your core working directory. `core` or `solo` is probably a good term.
 ```bash
@@ -21,7 +21,7 @@ Go ahead and create a new file in your text editor called `converge.sh` containi
 
 chef-solo -c solo.rb -j solo.json
 ```
-Yep, not that hard. I created a more verbose script [here](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/), but we are going a tad bit different direction than I wanted to do in that post.
+Yep, not that hard. I created a more verbose script [here](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/), but we are going a tad bit different direction than I wanted to in that post.
 
 Go ahead and run `chmod +x converge.sh` to make it executable, then run it.
 ```bash
@@ -37,26 +37,26 @@ Perfect, we are ready to start the next part.
 
 solo.rb
 -------
-Next, open up a text editor and create `solo.rb`, yep that file that it was `WARN` about, add the following to it:
+Next, open up a text editor and create `solo.rb`, that file that it complained about. Add the following to it:
 ```ruby
 root = File.absolute_path(File.dirname(__FILE__))
 
 file_cache_path root
 cookbook_path root + '/cookbooks'
 ```
-It's pretty straight forward, it's a ruby script telling chef-solo that the directory that it's running from is where it wants to be, and the `/cookbooks` is the `cookbook_path`.
+It's a pretty straight forward ruby script telling chef-solo that the directory that it's running from is where it wants to be, and that the `cookbook_path` is a subdirectory named `cookbooks`.
 
 solo.json
 ---------
-Next we need to create the solo.json. Open up another text editor and create `solo.json` and put the following in it:
+Next we need to create solo.json. Open up another text editor to create `solo.json` and insert the following:
 ```json
 {
     "run_list": [ "recipe[base::default]" ]
 }
 ```
-This is the "run_list" for `chef-solo`.  It tells it that `chef-solo` needs to go into the base cookbook and run the `default` recipe. You can have as long of a run_list as you want, but this is the first one so lets just start with one.
+This is the "run_list" for `chef-solo`.  It tells `chef-solo` to use the `base` cookbook and run the `default` recipe. You can have as long of a run_list as you want, but let's start with a single recipe for now.
 
-Go ahead and run `./converge.sh` again, it should be different:
+Go ahead and run `./converge.sh` again, the output should be different:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
@@ -68,7 +68,7 @@ Chef Client failed. 0 resources updated
 [2013-10-21T15:21:36-05:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
 root@chef-book:~/base# cat /root/solo/chef-stacktrace.out
 ```
-The most important part about the chef-stacktrace.out is this one:
+The error that stands out in `chef-stacktrace.out` is this one:
 ```ruby
 Chef::Exceptions::CookbookNotFound: Cookbook base not found. If you're loading base from another cookbook, make sure you configure the dependency in your metadata
 ```
@@ -120,7 +120,7 @@ This is important, as you can see it didn't _reinstall_ it. It just checked that
 
 If you want to skip ahead, check out the [resources](http://docs.opscode.com/resource.html) and see what cool things you can do. Don't worry I'll walk y'all through some more.
 
-So let's add a couple more packages to our base recipe (`~/solo/cookbooks/base/recipes/default.rb`), there are two ways you can do this. One is just add line by line, like:
+So let's add a couple more packages to our base recipe (`~/solo/cookbooks/base/recipes/default.rb`). There are two ways you can do this. One is to just add them line by line, like:
 ```ruby
 package 'vim'
 package 'ntp'
@@ -134,7 +134,7 @@ Or you can do:
   end
 end
 ```
-Both are basiclly, the same, the second one is just more rubyish. Go ahead and `cd ~/solo/` and run `./convege.sh` again.
+Both are basicially, the same, the second one is just more rubyish. Go ahead and `cd ~/solo/` and run `./convege.sh` again.
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
@@ -148,9 +148,9 @@ Chef Client finished, 0 resources updated
 root@chef-book:~/solo#
 ```
 
-Congrats man, no you can install packages via chef and confirm that they are there.
+Congrats man, now you can install packages via chef and confirm that they are there.
 
-Next up is the chef version of the puppet "[trifecta](http://docs.puppetlabs.com/puppet_core_types_cheatsheet.pdf)".  In the puppet world it's "Package/file/service: Learn it, live it, love it. If you can only do this, you can still do a lot." Which is very true.  Let's try to leverage this in the chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deploy` user.  I'll first start out with the chef trifecta, then move to the user account.
+Next up is the chef version of the puppet "[trifecta](http://docs.puppetlabs.com/puppet_core_types_cheatsheet.pdf)".  In the puppet world it's "Package/file/service: Learn it, live it, love it. If you can only do this, you can still do a lot." This is very true.  Let's try to leverage this in the chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deploy` user.  I'll first start out with the chef trifecta, then move to the user account.
 
 chef trifecta
 -------------
@@ -175,9 +175,9 @@ service { 'sshd':
  hasrestart => true,
 }
 ```
-Lets create this in chef, I'm going to create another recipe and link it to the chef-solo run. Here we go.
+Let's create this in chef. I'm going to create another recipe and link it to the chef-solo run. Here we go.
 
-Oh, you'll need an ssh_config file, copying it from `/etc/ssh/` won't hurt.
+Oh, you'll need an ssh_config file. Copying it from `/etc/ssh/` will be fine.
 
 ```bash
 root@chef-book:~# cd solo/cookbooks/base/recipes/
@@ -210,7 +210,7 @@ root@chef-book:~/solo/cookbooks/base# mkdir -p files/default
 root@chef-book:~/solo/cookbooks/base# cd files/default/
 root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 ```
-As you can see the `cookbook_file` is the stanza that tells chef-solo, that you need to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks at. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not template-ized files. We'll get there in a bit.
+As you can see, `cookbook_file` is the stanza that tells chef-solo to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not template-ized files. We'll get there in a bit.
 
 Go ahead and run your `./converge` again, you should see something like this:
 ```bash
@@ -224,7 +224,7 @@ Recipe: base::default
   * package[build-essential] action install (up to date)
 Chef Client finished, 0 resources updated
 ```
-Ah you got me. We didn't type in the ssh recipe to the default run did we; good eye. Go ahead and open up `cookbooks/base/recipes/default.rb` and do the following:
+Ah, you got me. We didn't add the ssh recipe to the default run, did we? Go ahead and open up `cookbooks/base/recipes/default.rb` and add the following:
 ```ruby
 %w{vim ntp build-essential}.each do |pkg|
    package pkg do
@@ -234,7 +234,7 @@ end
 
 include_recipe "base::ssh"
 ```
-Ok, now go ahead and run `./converge.sh` again, you should see something like this:
+Ok, now go ahead and run `./converge.sh` again. You should see something like this:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
@@ -273,7 +273,7 @@ root@chef-book:~/solo#
 
 Nice, we now have the ability to install a package, install a config file, and confirm that the service is up and running.
 
-Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? Well honestly, I wanted to show how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` idea, all you have to do is the following, `vim ~/solo/solo.json` and:
+Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` way, all you have to do is add it to `~/solo/solo.json`:
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]" ]
@@ -281,16 +281,16 @@ Ok, if you have any chef knowledge, you are probably wondering why we didn't add
 ```
 Don't get me wrong this is extremely important, but I was going to revisit this when we started adding external cookbooks. You made me jump my gun. :P
 
-Now lets go on to the deployer user.
+Now, let's go on to the deployer user.
 
 deployer user
 -------------
 
-If you want to [read](http://docs.opscode.com/resource_user.html) about this here's the [link](http://docs.opscode.com/resource_user.html).
+If you want to [read](http://docs.opscode.com/resource_user.html) about this, here's the [link](http://docs.opscode.com/resource_user.html).
 
-Now first thing first; we need to create ssh-keys, or you can use your own. If you don't know what ssh-keys are, you probably, should read [this](https://wiki.archlinux.org/index.php/SSH_Keys) and if this doesn't make sense....sigh, you probably shouldn't have read this far.
+Now first things first; we need to create ssh-keys or you can use your own. If you don't know what ssh-keys are, you could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
 
-Ok, so I'm lazy so I'll set up my keys with root on the vm that I created:
+Since I'm lazy, I'll set up passwordless keys with root on the vm that I created:
 ```bash
 root@chef-book:~# ssh-keygen
 Generating public/private rsa key pair.
@@ -316,7 +316,7 @@ The key's randomart image is:
 +-----------------+
 root@chef-book:~#
 ```
-Great, now we go to your base cookbook recipe's and we can start the deployer user.
+Great, now we go to your base cookbook recipes and can define the deployer user.
 ```
 root@chef-book:~# cd solo/cookbooks/base/recipes/
 root@chef-book:~/solo/cookbooks/base/recipes# vim deployer.rb
@@ -375,7 +375,7 @@ Recipe: base::ssh
 Chef Client finished, 0 resources updated
 root@chef-book:~/solo#
 ```
-Do'h we did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
+Do'h! We did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
 ```bash
 root@chef-book:~/solo# vim solo.json
 ```
@@ -385,7 +385,7 @@ And change the file to look like this:
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
-Now `./converge` and you should see something like this, being I debugged this as I was writing it, it'll be a tad bit different, but you get the point :):
+Now `./converge` and you should see something like this. Being that I debugged this as I was writing it, it'll be a tad bit different but you get the point:
 ```bash
 root@chef-book:~/solo# ./converge.sh
 Starting Chef Client, version 11.6.2
