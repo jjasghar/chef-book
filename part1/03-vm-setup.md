@@ -7,7 +7,7 @@ So you have virtualbox and vagrant running; you feel more comfortable with your 
 # vi: set ft=ruby :
 $script = <<SCRIPT
 apt-get update
-apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 apt-get install git-core curl build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev -y
 if ! [ -a /usr/local/bin/gem ]; then
   cd /tmp
@@ -22,9 +22,9 @@ if ! [ -a /usr/local/bin/gem ]; then
 fi
 echo "America/Chicago" > /etc/timezone # because this is the timezone where I live ;)
 dpkg-reconfigure -f noninteractive tzdata
-mkdir /etc/chef/
-if ! [ -a /etc/chef/client.pem ]; then
-  curl -L https://www.opscode.com/chef/install.sh | sudo bash
+mkdir -p /etc/chef/
+if ! [ -x /opt/chef/bin/chef-solo ]; then
+  curl -L https://www.opscode.com/chef/install.sh | bash
 fi
 SCRIPT
 
@@ -37,15 +37,15 @@ Vagrant::Config.run do |config|
 end
 ```
 
-As you can see it does A LOT. I build ruby as part of the provisioning, also I install chef via the omnibus (which we'll talk about in the next section). Initially I want to use the `:shell` provisioning, I dont want to muddy the waters with putting chef-solo in before you can understand everything going on already. With the [docs](http://docs.vagrantup.com/v2/) you should be able to decipher most if not all of what's going on here.
+As you can see it does A LOT. I build ruby as part of the process, and I install chef via the omnibus installer (which we'll talk about in the next section). Initially I want to use the `:shell` provisioner so I don't muddy the waters by adding chef-solo to the mix until we're more familiar with these new tools. With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash scripting, you should be able to decipher what's going on here. Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
 
-Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
+You'll also notice that this provisioning script includes a couple tests to keep from repeating unnecessary steps if it has already been run.  It is important for scripts like these to be [idempotent](http://en.wikipedia.org/wiki/Idempotence), or that they "can be applied multiple times without changing the result beyond the initial application" as described on wikipedia.
 
-You should be able to put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do a `vagrant up`. You should see something like this:
+Put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do a `vagrant up`. We will use it in step 5. You should see something like this:
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
-[default] Box 'vagrant' was not found. Fetching box from specified URL for
+[default] Box 'chef-book' was not found. Fetching box from specified URL for
 the provider 'virtualbox'. Note that if the URL does not have
 a box for this provider, you should interrupt Vagrant now and add
 the box yourself. Otherwise Vagrant will attempt to download the
@@ -53,9 +53,6 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
-After it's been pulled down, you should see that the machines is `Machine booted and ready!`. You'll be able to go into the box right then and there by `vagrant ssh` or you can `vagrant provision`.
-Then you should see a lot of provisioning text. That's good. Let it run, grab some coffee, or energy drink, what ever is your fancy. I also noticed that my terminal started throwing funky looking characters.  From what I could tell it was doing what it was supposed to, but you might have to close your terminal and reopen in to `vagrant ssh` into the box. If you are truly paranoid, you can `vagrant provision` again, to make sure everything is what you expect before `vagrant ssh`.
-
-NOTE: after the initial import of the box, it'll always go through the provisioning automatically.
+After it's been pulled down, you should see vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or energy drink, this will take 15 to 30 minutes. Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
 
 Move on to [omnibus vs gem](04-omnibus-install-vs-gem-install.md)
