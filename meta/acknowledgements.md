@@ -7,3 +7,5 @@ Jo Liss: from [opinionatedprogrammer.com](http://www.opinionatedprogrammer.com/)
 [Matt Bridges](https://github.com/mattdbridges): For walking through some formatting issues and ran some sanity checks for my writing style.
 
 [Mike Manewitz](https://github.com/manewitz): Watching my back on my horrible english skillz.
+
+[Greg Kitson](https://github.com/awaxa/): My chef co-hort. Walked through my chef-book with a fine tooth comb and came up with a lot of dead cells. Cleaned it up and made 'er beautiful. 
