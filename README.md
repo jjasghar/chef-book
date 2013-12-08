@@ -87,7 +87,7 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 24\. [Integrating with Jenkins or CI in general](part6/24-integrating-with-jenkin-ci.md)
 
 
-## Bulding the PDF
+## Building the PDF
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 I need suggestions here, [pandoc](http://johnmacfarlane.net/pandoc/installing.html) looks extremely promising
 
