@@ -46,7 +46,7 @@ for scripts like these to be [idempotent](http://en.wikipedia.org/wiki/Idempoten
 or that they "can be applied multiple times without changing the result beyond 
 the initial application" as described on wikipedia.
 
-Put this `Vagrantfile` in a new directory, example `~/vagrant/chef-book/` and do 
+Put this `Vagrantfile` in a new directory, for example `~/vagrant/chef-book/` and do 
 a `vagrant up`. We will use it in step 5. You should see something like this:
 
 ```bash
