@@ -9,3 +9,5 @@ Jo Liss: from [opinionatedprogrammer.com](http://www.opinionatedprogrammer.com/)
 [Mike Manewitz](https://github.com/manewitz): Watching my back on my horrible english skillz.
 
 [Greg Kitson](https://github.com/awaxa/): My chef co-hort. Walked through my chef-book with a fine tooth comb and came up with a lot of dead cells. Cleaned it up and made 'er beautiful. 
+
+[KC Braunschweig](https://github.com/kcbraunschweig/): He commited infront of ~150 people at ChefSummit 2013 to help me out, he followed through and when above and beyond anything I could have asked for. Thanks!
