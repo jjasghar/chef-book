@@ -91,5 +91,5 @@ stdin: is not a tty
 [2013-10-22T15:17:26-05:00] INFO: Report handlers complete
 [~/vagrant/chef-book] %
 ```
-Hopefully you get the beauty of the built in provisioner. You can pull the cookbooks that you'd like to test out, edit the run_list and run the provisioning to get the box how you want. Don't get me wrong theres much more to it, the [docs](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) have a ton more to do, but this is just a basic example.
+Hopefully you get the beauty of the built in provisioner. You can pull the cookbooks that you'd like to test out, edit the run_list and run the provisioning to get the box how you want. Don't get me wrong there's much more to it, the [docs](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) have a ton more to do, but this is just a basic example.
 Now lets move on to your most important tool as a chef; [knife](../part3/08-knife.md).
