@@ -1,7 +1,7 @@
 The beginning of your playground
 -------------------------------
 
-So you have virtualbox and vagrant running; you feel more comfortable with your 
+So you have VirtualBox and Vagrant running; you feel more comfortable with your 
 _disposable_ vm, so now here's where some of the fun starts.  
 I have a `Vagrantfile` here that I'm going to use as a base for this book.
 
@@ -60,11 +60,11 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
-After it's been pulled down, you should see vagrant report 
+After it has been pulled down, you should see Vagrant report 
 `Machine booted and ready!`. In a different terminal window, you'll be able to 
 go into the box right then and there by changing to the same directory as the 
 `Vagrantfile` and typing `vagrant ssh`. Now you should see a lot of provisioning 
-output. That's good. Let it run, grab some coffee or energy drink, this will 
+output. That's good. Let it run, grab some coffee or an energy drink, this will 
 take 15 to 30 minutes. Vagrant will automatically attempt to provision your box 
 after it is created for the first time, and when it is recreated after being 
 destroyed.

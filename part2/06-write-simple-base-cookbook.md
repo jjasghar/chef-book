@@ -2,11 +2,13 @@ A simple cookbook
 =================
 
 First off, let's talk about the structure of how chef takes its instructions. 
-At the core of a set of instructions there is something called a _recipe_ and a 
-collection of recipes can be in a cookbook. Pretty straight forward, eh? As I 
-said in the previous section, recipes are top down compiled instructions just 
-like if you are reading a cookbook in real life. (enter a joke here about 
-screwing up a food recipe).
+An instruction is called a _resource_ and it is a single thing Chef can control,
+for example a package to be installed or a template for creating a config file.
+Several resources can be collectively expressed in something called a _recipe_
+and a collection of recipes can be in a cookbook. Pretty straight forward eh?
+As I said in the previous section, recipes are top down compiled bits of
+software, just like if you are reading a cookbook in real life. (enter a joke
+here about screwing up a food recipe).
 
 A first recipe
 --------------
@@ -126,7 +128,6 @@ Open up another text editor to create `core.json` and insert the following:
     "run_list": [ "recipe[base::default]" ]
 }
 ```
-
 This is the "run_list" for `chef-client`.  It tells `chef-client` to use the 
 `base` cookbook and run the `default` recipe. You can have as long of a 
 run_list as you want, but let's start with a single recipe for now.
@@ -247,12 +248,12 @@ Or you can do:
 ```ruby
 %w{vim ntp build-essential}.each do |pkg|
   package pkg do
-    action [:install]
+    action :install
   end
 end
 ```
 
-Both are basically, the same, the second one is just more rubyish. 
+Both are basically, the same, the second one is just more idiomatic Ruby. 
 Go ahead and `cd ~/core/` and run `./convege.sh` again.
 
 ```bash
@@ -275,16 +276,16 @@ Chef Client finished, 0/3 resources updated in 1.174067007 seconds
 root@chef-book:~/core#
 ```
 
-Congrats man, now you can install packages via chef and confirm that they are there.
+Congrats! Now you can install packages via Chef and confirm that they are there.
 
-Next up is the chef version of the puppet 
+Next up is the Chef version of the Puppet 
 "[trifecta](http://docs.puppetlabs.com/puppet_core_types_cheatsheet.pdf)".  
 In the puppet world it's "Package/file/service: Learn it, live it, love it. 
-If you can only do this, you can still do a lot." This is very true.  
-Let's try to leverage this in the chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deploy` user.  
+If you can only do this, you can still do a lot." Which is very true.  
+Let's try to leverage this in the Chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deployer` user.  
 I'll first start out with the chef trifecta, then move to the user account.
 
-chef trifecta
+Chef Trifecta
 -------------
 
 If you looked at the cheat sheet above you would have seen:
@@ -324,18 +325,17 @@ package 'openssh-server' do
   action :install
 end
 
-service "ssh" do
-  action [:enable, :start]
-  supports :status => true, :start => true, :stop => true, :restart => true
+cookbook_file '/etc/ssh/ssh_config' do
+  source 'ssh_config'
+  owner 'root'
+  group 'root'
+  mode '0640'
+  notifies :reload, 'service[ssh]'
 end
 
-cookbook_file "/etc/ssh/ssh_config" do
-  source "ssh_config"
-  owner "root"
-  group "root"
-  mode "0640"
-  notifies :reload, "service[ssh]", :immediately
-  notifies :start, "service[ssh]", :immediately
+service 'ssh' do
+  action [:enable, :start]
+  supports :status => true, :restart => true
 end
 ```
 
@@ -364,8 +364,8 @@ file in this location with these settings and this is the source. You should
 have noticed that you created a `files/default` directory, that's the first 
 location that `cookbook_file` looks. You can create different directories in 
 `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different 
-format per file. Now I should mention that `files` is just for _static_ files, 
-not template-ized files. We'll get there in a bit.
+format for different platforms. Now I should mention that `files` is just for
+_static_ files, not templatized files. We'll get there in a bit.
 
 Go ahead and run your `./converge` again, you should see something like this:
 
@@ -387,11 +387,11 @@ ahead and open up `cookbooks/base/recipes/default.rb` and add the following:
 ```ruby
 %w{vim ntp build-essential}.each do |pkg|
    package pkg do
-     action [:install]
+     action :install
   end
 end
 
-include_recipe "base::ssh"
+include_recipe 'base::ssh'
 ```
 
 Ok, now go ahead and run `./converge.sh` again. You should see something like this:
@@ -427,8 +427,7 @@ Running handlers complete
 Chef Client finished, 3/9 resources updated in 1.358184628 seconds
 ```
 
-Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the file and the main one.
-
+Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the source file in the cookbook with the real file on disk.
 ```bash
 root@chef-book:~/core# vim cookbooks/base/files/default/ssh_config
 root@chef-book:~/core# diff -u /etc/ssh/ssh_config cookbooks/base/files/default/ssh_config
@@ -452,7 +451,7 @@ root@chef-book:~/core#
 
 Nice, we now have the ability to install a package, install a config file, and confirm that the service is up and running.
 
-Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` way, 
+Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, even from other cookbooks. If you want to use the `run_list` way, 
 all you have to do is add it to `~/core/core.json`:
 ```json
 {
@@ -468,7 +467,7 @@ deployer user
 
 If you want to [read](http://docs.opscode.com/resource_user.html) about this, here's the [link](http://docs.opscode.com/resource_user.html).
 
-Now first things first; we need to create ssh-keys or you can use your own. If you don't know what ssh-keys are, you could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
+Now first things first, we need to create ssh keys, or you can use your own. If you don't know what ssh keys are, you  could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
 
 Since I'm lazy, I'll set up passwordless keys with root on the vm that I created:
 ```bash
@@ -503,35 +502,35 @@ root@chef-book:~/core/cookbooks/base/recipes# vim deployer.rb
 ```
 Let's start out the file:
 ```ruby
-group "deployer" do
+group 'deployer' do
   gid 15000
   action :create
 end
 
-user "deployer" do
+user 'deployer' do
   supports :manage_home => true
-  comment "D-Deployer"
+  comment 'D-Deployer'
   uid 15000
   gid 15000
-  home "/home/deployer"
-  shell "/bin/bash"
+  home '/home/deployer'
+  shell '/bin/bash'
 end
 
-directory "/home/deployer/.ssh" do
-  owner "deployer"
-  group "deployer"
+directory '/home/deployer/.ssh' do
+  owner 'deployer'
+  group 'deployer'
   action :create
 end
 
-cookbook_file "/home/deployer/.ssh/authorized_keys" do
-  source "deployer_key.pub"
-  owner "deployer"
-  group "deployer"
+cookbook_file '/home/deployer/.ssh/authorized_keys' do
+  source 'deployer_key.pub'
+  owner 'deployer'
+  group 'deployer'
   action :create_if_missing
-  mode 0600
+  mode '0600'
 end
 ```
-Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy that key you created in and put it as `depolyer_key.pub`.
+Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy that key you created in the cookbook's `files/default/` directory as `deployer_key.pub`.
 ```bash
 root@chef-book:~/core/cookbooks/base/recipes# cd ../files/default/
 root@chef-book:~/core/cookbooks/base/files/default# cp ~/.ssh/id_rsa.pub deployer_key.pub
@@ -553,9 +552,9 @@ Recipe: base::default
   * package[build-essential] action install (up to date)
 Recipe: base::ssh
   * package[openssh-server] action install (up to date)
+  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
   * service[ssh] action enable (up to date)
   * service[ssh] action start (up to date)
-  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
 
 Running handlers:
 Running handlers complete
@@ -563,9 +562,7 @@ Running handlers complete
 Chef Client finished, 0/7 resources updated in 1.221278403 seconds
 root@chef-book:~/core#
 ```
-
-Do'h! We did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
-
+Doh! We did it again: we didn't add it to the recipe. This time, let's add it to the `run_list` instead.
 ```bash
 root@chef-book:~/core# vim core.json
 ```
@@ -577,8 +574,7 @@ And change the file to look like this:
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
-
-Now `./converge` and you should see something like this. Being that I debugged this as I was writing it, it'll be a tad bit different but you get the point:
+Now `./converge` and you should see something like this (I debugged this as I was writing it, it'll be a tad bit different, but you get the point) :
 
 ```bash
 root@chef-book:~/core# ./converge.sh
@@ -646,7 +642,7 @@ applicable law.
 
 deployer@chef-book:~$
 ```
-Badass! Now you can create a default deployer user and change things around as needed. (This will be much more useful later on in the book when we start spinning machines up in the "cloud")
+Badass! Now you can create a default deployer user and change things around as needed. This will be much more useful later on in the book when we start spinning machines up in the "cloud".
 
 Move on to 
-[Running vagrant provisioning vs a local chef-zero run](07-vagrant-provisioning-vs-local-chef-zero.md)
+[Running Vagrant provisioning vs a local chef-zero run](07-vagrant-provisioning-vs-local-chef-zero.md)

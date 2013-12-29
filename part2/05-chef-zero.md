@@ -1,17 +1,17 @@
 chef-zero
 ---------
 
-So we have a working _disposable_ vm with with vagrant now? 
-Great, let's actually start playing with chef.  
+So we have a working _disposable_ vm with with Vagrant now? 
+Great, let's actually start playing with Chef.  
 We're going to start with [chef-zero][cz] (or chef-client that uses a local server), 
-which believe it or not can cover 75-85% of the use cases of chef. 
-Keep this in mind as you go through this book, because honestly if it fits then 
-there is no need to over-engineer your solutions.
+which, believe it or not, can cover 75-85% of the use cases of Chef. 
+Keep this in mind as you go through this book, because if it fits there may be
+no need to go farther.
 
 Since we installed the chef-dk during our vm-setup, we already have the 
 chef-client with chef-zero.
 
-Restart your vagrant box with `vagrant up` if you have stopped or destroyed it. 
+Restart your Vagrant box with `vagrant up` if you have stopped or destroyed it. 
 Type these following commands in to confirm we are set up correctly.
 
 
