@@ -6,7 +6,9 @@ That's where testing comes into play. Watching [this](http://www.youtube.com/wat
 
 ## test-kitchen
 
-test-kitchen is bad ass. There is no other words that bad ass for test-kitchen. It's a wrapper around your vagrant+(virtualbox|lxc|ec2|openstack|others) and runs your tests. I have the utmost respect for [Fletcher Nichol](https://twitter.com/fnichol) and what he has spear headed. I hope I you justice with this setup tutorial.
+[test-kitchen](http://kitchen.ci/) is bad ass. There is no other words that bad ass for test-kitchen. It's a wrapper around your vagrant+(virtualbox|lxc|ec2|openstack|others) and runs your tests. I have the utmost respect for [Fletcher Nichol](https://twitter.com/fnichol) and what he has spear headed. I hope I justify test-kitchen with this setup tutorial.
+
+`test-kitchen` is rapidly moving, I didnt touch this section for about...3 weeks? And there is now great documentation on it. I walk you through the basics, but I'd give http://kitchen.ci/ a gander to learn more in-depth up-to-date tutorials.
 
 I should mention that [Dr Nic](https://twitter.com/drnic) has a good [primer](http://www.youtube.com/watch?v=0sPuAb6nB2o) but I'm focusing on just setting it up here. The following sections will be to use the different software.
 
@@ -18,18 +20,14 @@ Then add something like this to that file:
 ```ruby
 source 'http://rubygems.org'
 
-gem 'kitchen-vagrant', git: 'git://github.com/opscode/kitchen-vagrant.git'
-gem 'test-kitchen', git: 'git://github.com/opscode/test-kitchen.git'
+gem 'kitchen-vagrant'
+gem 'test-kitchen'
 ```
-NOTE: at this time I have to specify a specific branch for test-kitchen, this works for me _so_ far:
-```ruby
-gem 'test-kitchen', git: 'git://github.com/opscode/test-kitchen.git', branch: 'v1.0.0.beta.3'
-```
+There are a ton of "bussers" for test-kithchen now.  I'm just showing how to use vagrant, but you can use any of them that fits your fancy.
+
 Now run `bundle install`:
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle install
-Updating git://github.com/opscode/kitchen-vagrant.git
-Updating git://github.com/opscode/test-kitchen.git
 Fetching gem metadata from http://rubygems.org/........
 Fetching gem metadata from http://rubygems.org/..
 Resolving dependencies...
@@ -39,8 +37,8 @@ Using net-ssh (2.7.0)
 Using net-scp (1.1.2)
 Using safe_yaml (0.9.7)
 Using thor (0.18.1)
-Using test-kitchen (1.0.0.dev) from git://github.com/opscode/test-kitchen.git (at master)
-Using kitchen-vagrant (0.11.2.dev) from git://github.com/opscode/kitchen-vagrant.git (at master)
+Using test-kitchen (1.1.1)
+Using kitchen-vagrant (0.11.2.dev)
 Using bundler (1.3.5)
 Your bundle is complete!
 Use `bundle show [gemname]` to see where a bundled gem is installed.
@@ -124,7 +122,7 @@ Now you can do a straight `bundle exec kitchen test` here, but before we do that
 
 `bundle exec kitchen converge` is the first part of the "test" command. Like at the beginning of the book you used `./converge.sh` this tells `kitchen` to do it for you.
 
-`bundle exec kitchen verify` is the second part of the "test" command. It runs something called   "busser" to run [bats](https://github.com/sstephenson/bats) tests. I'll get to that in a bit.
+`bundle exec kitchen verify` is the second part of the "test" command. It runs something called "busser" to run [bats](https://github.com/sstephenson/bats) tests. Now if you don't want to use bats, there are other ones located [here](https://rubygems.org/search?utf8=%E2%9C%93&query=busser-).
 
 Ok, so go ahead and run `bundle exec kitchen test` and lets see what happens:
 
