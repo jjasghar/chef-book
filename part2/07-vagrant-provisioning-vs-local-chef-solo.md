@@ -1,9 +1,9 @@
-Running vagrant provisioning vs a local chef-solo run
+Running Vagrant provisioning vs a local chef-solo run
 -----------------------------------------------------
 
-With a working `chef-solo` converge, this is a good time to talk about using local chef-solo and running chef outside via vagrant. As I am developing/testing a cookbook I personally prefer the local chef-solo install. It allows for a faster iterations which is great. But when you get your cookbook where you want it to be,`vagrant provision` is the way to go. For fun let's convert the cookbook we wrote `base` to the `Vagrant` file.
+With a working `chef-solo` converge, this is a good time to talk about using local chef-solo and running Chef via Vagrant. As I am developing/testing a cookbook I personally prefer the local chef-solo method. It allows for faster iterations. But when you get your cookbook where you want it to be, `vagrant provision` is the way to go. For fun let's convert the `base` cookbook we wrote to the `Vagrant` file method.
 
-Luckily vagrant has mounted the `/vagrant` directory where you did the `vagrant up` from. Go ahead and do something like the following:
+Luckily Vagrant has mounted the `/vagrant` directory where you did the `vagrant up` from. Go ahead and do something like the following:
 ```bash
 root@chef-book:~/solo# cp -r cookbooks/ /vagrant/
 root@chef-book:~/solo#
@@ -18,7 +18,7 @@ Connection to 127.0.0.1 closed.
 [~/vagrant/chef-book] % ls
 Vagrantfile cookbooks
 ```
-As you can see your `cookbooks` directory is there.  Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
+As you can see your `cookbooks` directory is there. Next you'll need to open up the `vagrantfile` and add the run_list to it so chef-solo can do its magic.
 ```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -56,7 +56,7 @@ Vagrant::Config.run do |config|
   end
 end
 ```
-If you noticed I commented out the `:shell` provisioning and added the `chef_solo` provisioner. Write quit out of this, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
+Notice I commented out the `:shell` provisioning and added the `chef_solo` provisioner. Save this, exit the editor, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
@@ -91,5 +91,6 @@ stdin: is not a tty
 [2013-10-22T15:17:26-05:00] INFO: Report handlers complete
 [~/vagrant/chef-book] %
 ```
-Hopefully you get the beauty of the built in provisioner. You can pull the cookbooks that you'd like to test out, edit the run_list and run the provisioning to get the box how you want. Don't get me wrong there's much more to it, the [docs](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) have a ton more to do, but this is just a basic example.
-Now lets move on to your most important tool as a chef; [knife](../part3/08-knife.md).
+Hopefully you get the beauty of the built in provisioner. You can select the cookbooks that you'd like to test out, edit the run_list and run the provisioning to get the box how you want. Don't get me wrong there's much more to it, the [docs](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) have a ton more, but this is just a basic example.
+
+Now let's move on to your most important tool as a chef; [knife](../part3/08-knife.md).
