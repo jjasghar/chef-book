@@ -4,7 +4,7 @@ Ok, believe it or not, you're a chef now. You can create simple (but extremely u
 Before we go any farther, there is a quote in context that as a new chef you need to always keep in your head (I'm paraphrasing it as best I can here):
 > Every chef should have a knife, it'll be your best friend you'll use it constantly, but always remember it'll cut you in a heart beat.
 
-Please take that to heart, so many times have a screwed up my knife command causing significant pain.
+Please take that to heart; I have many times screwed up a knife command and caused significant pain.
 
 So let's make sure you have knife. Initally we'll start in the chef-book vm, and we'll move on from there. Type the following:
 ```bash
