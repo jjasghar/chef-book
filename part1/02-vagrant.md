@@ -1,6 +1,6 @@
-vagrant
+Vagrant
 -------
-Vagrant is a great tool designed for developers to create disposable machines with a quick turn around.  In our case we want to install the binary NOT the gem, so go [here](http://downloads.vagrantup.com/)
+Vagrant is a great tool designed for developers to create disposable machines with a quick turn around. In our case we want to install the binary NOT the gem, so go [here](http://downloads.vagrantup.com/) (or use your native package manager).
 
 After you installed it, go ahead and spin up [Terminal|iTerm2|xterm|cmd] and type `vagrant`. You should see something like the following:
 ```bash
@@ -31,7 +31,7 @@ For help on any individual command run `vagrant COMMAND -h`
 ```
 If you see this, you are ready for the next step.
 
-I personally like creating a `vagrant/` directory, and place a directory inside each of them for different vms.  The first test to make sure you have everything working is this.
+I personally like creating a `vagrant/` directory, and place a directory inside each of them for different VMs. The first test to make sure you have everything working is this.
 
 ```bash
 [~] % cd ~
@@ -70,10 +70,10 @@ VirtualBox Version: 4.3
 [default] -- /vagrant
 ```
 
-Go ahead and `vagrant ssh` into the box and you'll see that you have a complete box that can run linux commands, basically anything. Type something like `sudo apt-get update && sudo apt-get install vim -y` You'll see vim being installed. Start it up with `vim test-file` and write some things in there. `wq` out of it. Go ahead and `logout` of the machine. You should see your original command prompt from your host machine now. Type `vagrant ssh` and you should see the file that you wrote out, `cat test-file`.
-As you can see you have been able to create a base box ssh into it, and change it around, log out then log back in and not loose any of your data.
-The next step is to destroy it and start over, so in the place you did your `vagrant up` type `vagrant destroy -f` this is a "Do not pass Go" type of destroy, so be careful, you have been warned.
-As you can see with the `vagrant destroy -f`:
+Go ahead and `vagrant ssh` into the box and you'll see that you have a complete box that can run Linux commands, basically anything. Type something like `sudo apt-get update && sudo apt-get install vim -y`. You'll see vim being installed. Start it up with `vim test-file` and write some things in there. `wq` out of it. Go ahead and `logout` of the machine. You should see your original command prompt from your host machine now. Type `vagrant ssh` and you should see the file that you wrote out, `cat test-file`.
+As you can see you have been able to create a base box, ssh into it, change it around, and log out then log back in without losing any of your data.
+The next step is to destroy it and start over, so in the place you did your `vagrant up`, type `vagrant destroy -f`. This is a "Do not pass Go" type of destroy, so be careful, you have been warned.
+When you run `vagrant destroy -f`, you'll see output like:
 ```bash
 [~/vagrant/lucid32] % vagrant destroy -f
 [default] Forcing shutdown of VM...
@@ -86,8 +86,8 @@ It shuts down the machine, and blows it up. If you attempt to `vagrant ssh` it'l
 VM must be created before running this command. Run `vagrant up` first.
 [~/vagrant/lucid32] %
 ```
-Because the machine is gone. You can simply run `vagrant up` to re-create it. You'll notice that the `test-file` nor vim is there anymore, and that's expected, you blew it up didn't you?  I strongly suggest playing around with `vagrant` the [docs](http://docs.vagrantup.com/v2/) for version 2 are extremely straight forward, and you should spend the time to get comfortable with it. It'll make your chef experience so much better. 
+Because the machine is gone. You can simply run `vagrant up` to re-create it. You'll notice that neither the `test-file` nor vim is there anymore, and that's expected, you blew it up didn't you? I strongly suggest playing around with `vagrant`. The [docs](http://docs.vagrantup.com/v2/) for version 2 are extremely straight forward, and you should spend the time to get comfortable with it. It'll make your chef experience so much better. 
 
-Bonus round: Try to set up an apache/nginx server and use [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant to be able to hit [http://localhost:8080](http://localhost:8080) on your workstation and see its default page.
+Bonus round: Try to set up an Apache server/nginx server and use [port forwarding](http://docs.vagrantup.com/v2/networking/forwarded_ports.html) with vagrant so you can hit http://localhost:8080 in your browser and see the default page being served by the VM.
 
 Move on to [The beginning of your playground](03-vm-setup.md)

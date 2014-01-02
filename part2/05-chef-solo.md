@@ -1,9 +1,9 @@
 chef-solo
 ---------
 
-So we have a working _disposable_ vm with with vagrant now? Great, let's actually start playing with chef.  We're going to start with [chef-solo](http://docs.opscode.com/chef_solo.html), which believe it or not can cover 75-85% of the use cases of chef. Keep this in mind as you go through this book, because honestly if it fits then there is no need to overengineer your solutions.
+So we have a working _disposable_ vm with with Vagrant now? Great, let's actually start playing with Chef. We're going to start with [chef-solo](http://docs.opscode.com/chef_solo.html), which, believe it or not, can cover 75-85% of the use cases of Chef. Keep this in mind, as you go through this book, because honestly if it fits there may be no need to go farther.
 
-The first thing to do is make sure that you are running the correct version of `chef-solo`. Restart your vagrant box with `vagrant up` if you have stopped or destroyed it. Type these following commands in to confirm we are set up correctly.
+The first thing to do is make sure that you are running the correct version of `chef-solo`. Restart your Vagrant box with `vagrant up` if you have stopped or destroyed it. Type these following commands in to confirm we are set up correctly.
 ```bash
 14:51:58 [~/vagrant/chef-book] % vagrant ssh
 Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
@@ -17,7 +17,7 @@ root@chef-book:~# which chef-solo
 root@chef-book:~# ls -l /usr/bin/chef-solo
 lrwxrwxrwx 1 root root 23 Oct 21 13:47 /usr/bin/chef-solo -> /opt/chef/bin/chef-solo
 ```
-If you see something like the above, you have chef-solo installed correctly, and you are good to go. If not, I strongly suggest starting over, and trying to get here cleanly.
+If you see something like the above, you have chef-solo installed correctly, and you are good to go. If not, I strongly suggest starting over and trying to get here cleanly.
 
 After this, go ahead and run `chef-solo`.
 ```bash
@@ -36,9 +36,9 @@ Chef Client failed. 0 resources updated
 [2013-10-21T14:53:45-05:00] FATAL: Chef::Exceptions::ChildConvergeError: Chef run process exited unsuccessfully (exit code 1)
 root@chef-book:~#
 ```
-Yep, it ain't happy. That's expected at this stage. I just wanted to make sure you saw it in error state before taking a stab at it.
+Yep, it ain't happy. That's expected at this stage. I just wanted to make sure you saw it in an error state before taking a stab at it.
 
-OK, so we can start a `chef-solo` process/run, now lets actually talk about `chef-solo`. In the simplest terms, `chef-solo` is local provisioning software that runs through some preset configuration operations, and renders out the machine into the state they describe. `chef-solo`, nay all of chef, uses a compiled top down set of instuctions, or _recipes_, to build the machine how you want it to be. You can see that this process starts with the `Compiling Cookbooks...` line.
+OK, so we can start a `chef-solo` process/run, now let's actually talk about `chef-solo`. In the simplest terms, `chef-solo` is configuration management software that runs through some preset configuration operations, and renders the machine in the state they describe. `chef-solo`, nay all of chef, uses a compiled top down set of instuctions, or _recipes_, to build the machine you want. You can see that this process starts with the `Compiling Cookbooks...` line.
 
 In a more elegant quote from the [docs](http://docs.opscode.com/chef_solo.html) on the opscode site:
 > chef-solo is an open source version of the chef-client that allows using cookbooks with nodes without requiring access to a server. chef-solo runs locally and requires that a cookbook (and any of its dependencies) be on the same physical disk as the node.

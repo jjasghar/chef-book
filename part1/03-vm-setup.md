@@ -1,7 +1,7 @@
 The beginning of your playground
 -------------------------------
 
-So you have virtualbox and vagrant running; you feel more comfortable with your _disposable_ vm, so now here's where some of the fun starts.  I have a `Vagrantfile` here that I'm going to use as a base for this book.
+So you have VirtualBox and Vagrant running; you feel more comfortable with your _disposable_ vm, so now here's where some of the fun starts.  I have a `Vagrantfile` here that I'm going to use as a base for this book.
 ```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -37,7 +37,7 @@ Vagrant::Config.run do |config|
 end
 ```
 
-As you can see it does A LOT. I build ruby as part of the process, and I install chef via the omnibus installer (which we'll talk about in the next section). Initially I want to use the `:shell` provisioner so I don't muddy the waters by adding chef-solo to the mix until we're more familiar with these new tools. With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash scripting, you should be able to decipher what's going on here. Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
+As you can see it does A LOT. I build Ruby as part of the process, and I install Chef via the Omnibus installer (which we'll talk about in the next section). Initially I want to use the `:shell` provisioner so I don't muddy the waters by adding chef-solo to the mix until we're more familiar with these new tools. With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash scripting, you should be able to decipher what's going on here. Don't worry, we'll add/hack on this file as we go through this book. This is just the beginning.
 
 You'll also notice that this provisioning script includes a couple tests to keep from repeating unnecessary steps if it has already been run.  It is important for scripts like these to be [idempotent](http://en.wikipedia.org/wiki/Idempotence), or that they "can be applied multiple times without changing the result beyond the initial application" as described on wikipedia.
 
@@ -53,6 +53,6 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
-After it's been pulled down, you should see vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or energy drink, this will take 15 to 30 minutes. Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
+After it's been pulled down, you should see Vagrant report `Machine booted and ready!`. In a different terminal window, you'll be able to go into the box right then and there by changing to the same directory as the Vagrantfile and typing `vagrant ssh`. Now you should see a lot of provisioning output. That's good. Let it run, grab some coffee or an energy drink, this will take 15 to 30 minutes. Vagrant will automatically attempt to provision your box after it is created for the first time, and when it is recreated after being destroyed.
 
 Move on to [omnibus vs gem](04-omnibus-install-vs-gem-install.md)
