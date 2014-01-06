@@ -177,7 +177,7 @@ service { 'sshd':
 ```
 Let's create this in chef. I'm going to create another recipe and link it to the chef-solo run. Here we go.
 
-Oh, you'll need an ssh_config file. Copying it from `/etc/ssh/` will be fine.
+Oh, you'll need an sshd_config file. Copying it from `/etc/ssh/` will be fine.
 
 ```bash
 root@chef-book:~# cd solo/cookbooks/base/recipes/
@@ -194,8 +194,8 @@ service "ssh" do
   supports :status => true, :start => true, :stop => true, :restart => true
 end
 
-cookbook_file "/etc/ssh/ssh_config" do
-  source "ssh_config"
+cookbook_file "/etc/ssh/sshd_config" do
+  source "sshd_config"
   owner "root"
   group "root"
   mode "0640"
@@ -208,7 +208,7 @@ end
 root@chef-book:~/solo/cookbooks/base/recipes# cd ../
 root@chef-book:~/solo/cookbooks/base# mkdir -p files/default
 root@chef-book:~/solo/cookbooks/base# cd files/default/
-root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
+root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/sshd_config ./
 ```
 As you can see, `cookbook_file` is the stanza that tells chef-solo to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not template-ized files. We'll get there in a bit.
 
