@@ -204,6 +204,15 @@ cookbook_file "/etc/ssh/ssh_config" do
 end
 ```
 
+*Note*: If you decided to use Ubuntu 14.04 Trusty Tahr, you will need to modify the `service "ssh"` block as below to call the Upstart provider instead of the shell as in previous versions.
+
+```ruby
+service "ssh" do
+  provider Chef::Provider::Service::Upstart
+  # as before...
+end
+```
+
 ```bash
 root@chef-book:~/solo/cookbooks/base/recipes# cd ../
 root@chef-book:~/solo/cookbooks/base# mkdir -p files/default
