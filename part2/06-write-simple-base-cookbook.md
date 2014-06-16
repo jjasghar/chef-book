@@ -194,8 +194,8 @@ service "ssh" do
   supports :status => true, :start => true, :stop => true, :restart => true
 end
 
-cookbook_file "/etc/ssh/sshd_config" do
-  source "sshd_config"
+cookbook_file "/etc/ssh/ssh_config" do
+  source "ssh_config"
   owner "root"
   group "root"
   mode "0640"
@@ -208,7 +208,7 @@ end
 root@chef-book:~/solo/cookbooks/base/recipes# cd ../
 root@chef-book:~/solo/cookbooks/base# mkdir -p files/default
 root@chef-book:~/solo/cookbooks/base# cd files/default/
-root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/sshd_config ./
+root@chef-book:~/solo/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 ```
 As you can see, `cookbook_file` is the stanza that tells chef-solo to put this file in this location with these settings and this is the source. You should have noticed that you created a `files/default` directory, that's the first location that `cookbook_file` looks. You can create different directories in `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different format per file. Now I should mention that `files` is just for _static_ files, not template-ized files. We'll get there in a bit.
 
@@ -251,7 +251,7 @@ Recipe: base::ssh
   * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
 Chef Client finished, 0 resources updated
 ```
-Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the file and the main one. 
+Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the file and the main one.
 ```bash
 root@chef-book:~/solo# vim cookbooks/base/files/default/ssh_config
 root@chef-book:~/solo# diff -u /etc/ssh/ssh_config cookbooks/base/files/default/ssh_config
