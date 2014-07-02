@@ -5,12 +5,12 @@ With a working `chef-solo` converge, this is a good time to talk about using loc
 
 Luckily vagrant has mounted the `/vagrant` directory where you did the `vagrant up` from. Go ahead and do something like the following:
 ```bash
-root@chef-book:~/solo# cp -r cookbooks/ /vagrant/
-root@chef-book:~/solo#
+root@chef-book:~/core# cp -r cookbooks/ /vagrant/
+root@chef-book:~/core#
 ```
-This will copy the cookbooks directory from your `~/solo` working directory into the host file system. Go ahead and drop out of the vm now.
+This will copy the cookbooks directory from your `~/core` working directory into the host file system. Go ahead and drop out of the vm now.
 ```bash
-root@chef-book:~/solo# exit
+root@chef-book:~/core# exit
 logout
 vagrant@chef-book:~$ exit
 logout

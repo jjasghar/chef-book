@@ -129,14 +129,14 @@ mychefrepo/
 So, lets actually do it.  Go to your `cookbooks` directory in the chef-book vm.
 ```bash
 root@chef-book:~# cd solo/
-root@chef-book:~/solo# cd cookbooks/
-root@chef-book:~/solo/cookbooks# ls
+root@chef-book:~/core# cd cookbooks/
+root@chef-book:~/core/cookbooks# ls
 base
-root@chef-book:~/solo/cookbooks#
+root@chef-book:~/core/cookbooks#
 ```
 Great, now go ahead and go to your `~/` and create a `knife_solo` directory you can play out of.
 ```bash
-root@chef-book:~/solo/cookbooks# cd ~
+root@chef-book:~/core/cookbooks# cd ~
 root@chef-book:~# mkdir knife_solo
 root@chef-book:~# cd knife_solo/
 root@chef-book:~/knife_solo#
@@ -154,7 +154,7 @@ Change directory into the `site-cookbook` directory.
 I'd like to take a quick moment to talk about the _two_ directories that are here. `cookbooks/` and `site-cookbooks/`, the `cookbook/` directory is for [berkshelf](http://berkshelf.com/) or [librarian](https://github.com/applicationsonline/librarian-chef) to put cookbooks before uploading them to your provisioning box. So remember that, `site-cookbooks/` is the place to put _your_ cookbooks that you want to upload. (If you do put them in `cookbooks/` it'll delete them after the run _and_ can't find them either, so it's a waste, don't bother.)
 ```bash
 root@chef-book:~/knife_solo# cd site-cookbooks/
-root@chef-book:~/knife_solo/site-cookbooks# cp -r ~/solo/cookbooks/base/ ./
+root@chef-book:~/knife_solo/site-cookbooks# cp -r ~/core/cookbooks/base/ ./
 ```
 Great, now go up a directory to the `nodes/` directory, and create a file called `localhost.json`
 ```bash
