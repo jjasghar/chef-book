@@ -17,6 +17,7 @@ echo "America/Chicago" > /etc/timezone # because this is the timezone where I li
 dpkg-reconfigure -f noninteractive tzdata
 if ! [ -x /usr/bin/chef ]; then
   cd /tmp
+  rm -rf *deb*
   wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.1.0-1_amd64.deb
   dpkg -i chefdk_0.1.0-1_amd64.deb
 fi
