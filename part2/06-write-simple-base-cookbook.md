@@ -42,30 +42,6 @@ Save that file, and now run `chef-client`:
 root@chef-book:~# chef-client -z whatever.rb
 [2014-06-28T12:50:37-07:00] WARN: No config file found or specified on command line, using command line options.
 [2014-06-28T12:50:37-07:00] WARN: No cookbooks directory found at or above current directory.  Assuming /root.
-[2014-06-28T12:50:37-07:00] WARN:
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-SSL validation of HTTPS requests is disabled. HTTPS connections are still
-encrypted, but chef is not able to detect forged replies or man in the middle
-attacks.
-
-To fix this issue add an entry like this to your configuration file:
-
-```
-  # Verify all HTTPS connections (recommended)
-  ssl_verify_mode :verify_peer
-
-  # OR, Verify only connections to chef-server
-  verify_api_cert true
-```
-
-To check your SSL configuration, or troubleshoot errors, you can use the
-`knife ssl check` command like so:
-
-```
-  knife ssl check -c
-```
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 Starting Chef Client, version 11.14.0.alpha.1
 resolving cookbooks for run list: []
