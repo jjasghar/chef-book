@@ -37,20 +37,17 @@ attacks.
 
 To fix this issue add an entry like this to your configuration file:
 
-```
   # Verify all HTTPS connections (recommended)
   ssl_verify_mode :verify_peer
 
   # OR, Verify only connections to chef-server
   verify_api_cert true
-```
 
 To check your SSL configuration, or troubleshoot errors, you can use the
 `knife ssl check` command like so:
 
-```
   knife ssl check -c
-```
+
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
