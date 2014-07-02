@@ -66,7 +66,7 @@ Chef Client finished, 1/1 resources updated in 1.363444007 seconds
 root@chef-book:~#
 ```
 
-Note: I removed the SSL warnings from the output, let's just ignore those for 
+*Note*: I removed the SSL warnings from the output, let's just ignore those for 
 now.  Or you can fork this and add a step to fix the error once and for all.
 
 Now you can verify that there's a new file, `/tmp/x.txt`.  
@@ -209,26 +209,41 @@ again, it should look like this:
 
 ```bash
 root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 1 resources
 Recipe: base::default
   * package[vim] action install (up to date)
-Chef Client finished, 0 resources updated
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 0/1 resources updated in 2.859733579 seconds
 root@chef-book:~/core#
 ```
 
-This is important, as you can see it didn't _reinstall_ it. It just checked that `vim` was installed and then it moved on. Badass.
+This is important, as you can see it didn't _reinstall_ it. It just checked 
+that `vim` was installed and then it moved on. Badass.
 
-If you want to skip ahead, check out the [resources](http://docs.opscode.com/resource.html) and see what cool things you can do. Don't worry I'll walk y'all through some more.
+If you want to skip ahead, check out the 
+[resources](http://docs.opscode.com/resource.html) and see what cool things you 
+can do. Don't worry I'll walk y'all through some more.
 
-So let's add a couple more packages to our base recipe (`~/core/cookbooks/base/recipes/default.rb`). There are two ways you can do this. One is to just add them line by line, like:
+So let's add a couple more packages to our base recipe 
+(`~/core/cookbooks/base/recipes/default.rb`). 
+There are two ways you can do this. One is to just add them line by line, like:
+
 ```ruby
 package 'vim'
 package 'ntp'
 package 'build-essential'
 ```
+
 Or you can do:
+
 ```ruby
 %w{vim ntp build-essential}.each do |pkg|
   package pkg do
@@ -242,14 +257,21 @@ Go ahead and `cd ~/core/` and run `./convege.sh` again.
 
 ```bash
 root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 3 resources
 Recipe: base::default
   * package[vim] action install (up to date)
   * package[ntp] action install (up to date)
   * package[build-essential] action install (up to date)
-Chef Client finished, 0 resources updated
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 0/3 resources updated in 1.174067007 seconds
 root@chef-book:~/core#
 ```
 
