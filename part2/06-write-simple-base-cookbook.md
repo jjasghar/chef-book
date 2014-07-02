@@ -66,6 +66,9 @@ Chef Client finished, 1/1 resources updated in 1.363444007 seconds
 root@chef-book:~#
 ```
 
+Note: I removed the SSL warnings from the output, let's just ignore those for 
+now.  Or you can fork this and add a step to fix the error once and for all.
+
 Now you can verify that there's a new file, `/tmp/x.txt`.  
 Does it contain what you expect?
 
@@ -98,7 +101,7 @@ containing the following:
 ```bash
 #!/bin/bash
 
-chef-server -z -j solo.json
+chef-client -z -j core.json
 ```
 
 Go ahead and run `chmod +x converge.sh` to make it executable, then run it.
@@ -143,7 +146,7 @@ root@chef-book:~/base# cat /root/core/chef-stacktrace.out
 
 The error that stands out in `chef-stacktrace.out` is this one:
 
-```ruby
+```
 Chef::Exceptions::CookbookNotFound: Cookbook base not found. If you're loading base from another cookbook, make sure you configure the dependency in your metadata
 ```
 
@@ -181,17 +184,29 @@ you should see something like this:
 ```bash
 root@chef-book:~/core/cookbooks/base/recipes# cd ~/core
 root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 1 resources
 Recipe: base::default
   * package[vim] action install
     - install version 2:7.3.429-2ubuntu2.1 of package vim
 
-Chef Client finished, 1 resources updated
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 1/1 resources updated in 18.117095411 seconds
 root@chef-book:~/core#
+
 ```
-Congratulations! You have successfully installed the greatest editor using `chef-solo`! Don't believe me? type `vim`. Go ahead and run `./converge.sh` again, it should look like this:
+
+Congratulations! You have successfully installed the greatest editor using 
+`chef-client`! Don't believe me? type `vim`. Go ahead and run `./converge.sh` 
+again, it should look like this:
+
 ```bash
 root@chef-book:~/core# ./converge.sh
 Starting Chef Client, version 11.6.2
