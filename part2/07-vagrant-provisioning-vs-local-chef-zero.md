@@ -35,26 +35,17 @@ One day someone will be nice and update this tutorial to use
 [v-c-z]: https://github.com/andrewgross/vagrant-chef-zero
 
 Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
+
 ```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $script = <<SCRIPT
 apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 apt-get install git-core curl build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev -y
-if ! [ -a /usr/local/bin/gem ]; then
-  cd /tmp
-  wget http://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p0.tar.gz
-  tar -xvzf ruby-2.0.0-p0.tar.gz
-  cd ruby-2.0.0-p0/
-  ./configure --prefix=/usr/local
-  make
-  make install
-  cd /tmp
-  rm -rf ruby-2.0.0-p0*
-fi
+
 echo "America/Chicago" > /etc/timezone # because this is the timezone where I live ;)
 dpkg-reconfigure -f noninteractive tzdata
-mkdir /etc/chef/
 if ! [ -a /etc/chef/client.pem ]; then
   curl -L https://www.opscode.com/chef/install.sh | sudo bash
 fi
@@ -65,14 +56,18 @@ Vagrant::Config.run do |config|
   config.vm.box = "chef-book"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.host_name = 'chef-book'
-
   #config.vm.provision :shell, :inline => $script
   config.vm.provision "chef_solo" do |chef|
     chef.add_recipe "base"
   end
 end
+
 ```
-If you noticed I commented out the `:shell` provisioning and added the `chef_solo` provisioner. Write quit out of this, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
+
+If you noticed I commented out the `:shell` provisioning and added the 
+`chef_solo` provisioner. 
+Write quit out of this, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
+
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
