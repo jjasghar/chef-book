@@ -29,7 +29,10 @@ As you can see your `cookbooks` directory is there.
 
 *Note:* Normally I'd recommend using chef-zero for all local provisioning, 
 but vagrant currently supports chef-solo, which is similar enough.  
-One day someone will be nice and update this tutorial to use that provisioner.
+One day someone will be nice and update this tutorial to use 
+[that provisioner][v-c-z].
+
+[v-c-z]: https://github.com/andrewgross/vagrant-chef-zero
 
 Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
 ```ruby
