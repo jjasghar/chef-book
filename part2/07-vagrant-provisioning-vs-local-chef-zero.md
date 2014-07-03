@@ -27,6 +27,8 @@ Vagrantfile cookbooks
 ```
 As you can see your `cookbooks` directory is there.  
 
+
+
 *Note:* Normally I'd recommend using chef-zero for all local provisioning, 
 but vagrant currently supports chef-solo, which is similar enough.  
 One day someone will be nice and update this tutorial to use 
@@ -52,7 +54,7 @@ fi
 ntpdate tick.uh.edu
 SCRIPT
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "chef-book"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.host_name = 'chef-book'
@@ -62,11 +64,13 @@ Vagrant::Config.run do |config|
   end
 end
 
+
 ```
 
 If you noticed I commented out the `:shell` provisioning and added the 
 `chef_solo` provisioner. 
-Write quit out of this, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
+Write quit out of this, and run `vagrant halt` then `vagrant up` and 
+`vagrant provision` and you should see something like this:
 
 ```bash
 [~/vagrant/chef-book] % vagrant up
