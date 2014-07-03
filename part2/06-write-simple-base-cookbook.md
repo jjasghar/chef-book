@@ -295,8 +295,8 @@ package { 'openssh-server':
  ensure => installed,
 }
 
-file { '/etc/ssh/sshd_config':
- source  => 'puppet:///modules/sshd/sshd_config',
+file { '/etc/ssh/ssh_config':
+ source  => 'puppet:///modules/sshd/ssh_config',
  owner   => 'root',
  group   => 'root',
  mode    => '0640',
@@ -314,7 +314,7 @@ service { 'sshd':
 Let's create this in chef. I'm going to create another recipe and link it to the
 chef run. Here we go.
 
-Oh, you'll need an `sshd_config` file. Copying it from `/etc/ssh/` will be fine.
+Oh, you'll need an `ssh_config` file. Copying it from `/etc/ssh/` will be fine.
 
 ```bash
 root@chef-book:~# cd core/cookbooks/base/recipes/
@@ -359,7 +359,7 @@ root@chef-book:~/core/cookbooks/base# cd files/default/
 root@chef-book:~/core/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 ```
 
-As you can see, `cookbook_file` is the stanza that tells chef-solo to put this
+As you can see, `cookbook_file` is the stanza that tells chef to put this
 file in this location with these settings and this is the source. You should 
 have noticed that you created a `files/default` directory, that's the first l
 ocation that `cookbook_file` looks. You can create different directories in 
