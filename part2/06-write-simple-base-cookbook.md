@@ -537,10 +537,14 @@ root@chef-book:~/core/cookbooks/base/recipes# cd ../files/default/
 root@chef-book:~/core/cookbooks/base/files/default# cp ~/.ssh/id_rsa.pub deployer_key.pub
 ```
 And let's converge.
+
 ```bash
 root@chef-book:~# cd ~/core/
 root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default", "base::ssh"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 6 resources
 Recipe: base::default
@@ -552,23 +556,36 @@ Recipe: base::ssh
   * service[ssh] action enable (up to date)
   * service[ssh] action start (up to date)
   * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
-Chef Client finished, 0 resources updated
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 0/7 resources updated in 1.221278403 seconds
 root@chef-book:~/core#
 ```
+
 Do'h! We did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
+
 ```bash
 root@chef-book:~/core# vim core.json
 ```
+
 And change the file to look like this:
+
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
+
 Now `./converge` and you should see something like this. Being that I debugged this as I was writing it, it'll be a tad bit different but you get the point:
+
 ```bash
 root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default", "base::ssh", "base::deployer"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 10 resources
 Recipe: base::default
@@ -581,24 +598,38 @@ Recipe: base::ssh
   * service[ssh] action start (up to date)
   * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
 Recipe: base::deployer
-  * group[deployer] action create (up to date)
-  * user[deployer] action create (up to date)
-  * directory[/home/deployer/.ssh] action create (up to date)
+  * group[deployer] action create
+    - create group[deployer]
+
+  * user[deployer] action create
+    - create user user[deployer]
+
+  * directory[/home/deployer/.ssh] action create
+    - create new directory /home/deployer/.ssh
+    - change owner from '' to 'deployer'
+    - change group from '' to 'deployer'
+
   * cookbook_file[/home/deployer/.ssh/authorized_keys] action create_if_missing
     - create new file /home/deployer/.ssh/authorized_keys
-    - update content in file /home/deployer/.ssh/authorized_keys from none to d8b45a
-        --- /home/deployer/.ssh/authorized_keys 2013-10-23 11:04:00.880898901 -0500
-        +++ /tmp/.authorized_keys20131023-3087-wza2om 2013-10-23 11:04:00.880898901 -0500
-        @@ -0,0 +1 @@
-        +ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkm+Ak5Vmyjq4AzoiqN7NXjPLHgsb62TMYg8TkXB72HDOqqI6e32GVqLRqi4ML08rsQQhRKM/XmGC4LbUplcBt/uPDIidPcT/tl16/M6d9vfvCtQwXvVCxB3gkh61UlxJPayYyJgIeNTVTsgKIiR3+q0KSvGLqpmlCob1tsTgVLFhRKojjUs9OasmY0he4niDQAcMrGYCGiA/I0pTqjcc8NE98bZvqFLlrXEGZP2qvssREfAUYWKm3xK24Viv6VGasNEry3BkhqKUG2JO7QokUp6Chn7PXBElOi2XY9QWG5cEPeb83RZjUEuTaTmYuNBVs9Aewewd5gRXDbj+vrOqx root@chef-book
+    - update content in file /home/deployer/.ssh/authorized_keys from none to 8efa71
+        --- /home/deployer/.ssh/authorized_keys	2014-07-02 20:38:02.304652072 -0700
+        +++ /tmp/.authorized_keys20140702-2386-bxkwv9	2014-07-02 20:38:02.312651972 -0700
+        @@ -1 +1,2 @@
+        +ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5IsTC7C/s56KS5Xs1+MeFfH852r+6DRqayRhOSopiYkg5M6vBULtPBGRYf6o6OfbEyPqbQdHlAv+MFmwTBnIUGM3dcKwCmwGib8/Bzrei2SU8FhZAptwrXvfG7xgvY1VSGNFnilA8zDV05WO2gtEVk1xGQMyqBh5hTj4xamp415yWGVVCP8SxlkvAGf/lTVX9sC+kcm3RPTdCrkPTqPGm64H+G5TSo/9XQhP1ie5xgC78/lO3Duq3onTOGHc9fbfCik9icuIfOfc5RAYm2x63iKgkl34XVYq6G4Ua70wSYQBzTTClTD1jbp0ZTgt1IUvfsboGyr42HdxnwU1TtB8/ root@chef-book
     - change mode from '' to '0600'
     - change owner from '' to 'deployer'
     - change group from '' to 'deployer'
 
-Chef Client finished, 1 resources updated
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 4/11 resources updated in 1.430636575 seconds
 root@chef-book:~/core#
 ```
+
 Now let's test this out.
+
 ```bash
 root@chef-book:~/core# ssh deployer@localhost
 Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
@@ -617,4 +648,5 @@ deployer@chef-book:~$
 ```
 Badass! Now you can create a default deployer user and change things around as needed. (This will be much more useful later on in the book when we start spinning machines up in the "cloud")
 
-Move on to [Running vagrant provisioning vs a local chef-solo run](07-vagrant-provisioning-vs-local-chef-zero.md)
+Move on to 
+[Running vagrant provisioning vs a local chef-zero run](07-vagrant-provisioning-vs-local-chef-zero.md)
