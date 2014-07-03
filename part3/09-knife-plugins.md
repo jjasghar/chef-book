@@ -122,7 +122,7 @@ mychefrepo/
 
 `knife solo prepare root@hostname`: which checks for the version of chef-solo on the box, and if it's too low installs the newest.
 
-`knife solo cook root@hostname`: runs the cookbooks that you put in the `nodes/hostname.json` `run_list` which is just like the `run_list` like the `solo.json` from earlier.
+`knife solo cook root@hostname`: runs the cookbooks that you put in the `nodes/hostname.json` `run_list` which is just like the `run_list` like the `core.json` from earlier.
 
 `knife solo bootstrap root@hostname`: combines the prepare and cook into one command. In theory you can have a `node/hostname.json` set up and run one command and provision a box exactly how you want. Pretty neat eh?
 
@@ -161,7 +161,7 @@ Great, now go up a directory to the `nodes/` directory, and create a file called
 root@chef-book:~/knife_solo/site-cookbooks# cd ../nodes/
 root@chef-book:~/knife_solo/nodes# vim localhost.json
 ```
-Add the save `solo.json` file that you had from the chef-solo section.
+Add the save `core.json` file that you had from the chef-solo section.
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]

@@ -397,8 +397,10 @@ include_recipe "base::ssh"
 Ok, now go ahead and run `./converge.sh` again. You should see something like this:
 
 ```bash
-root@chef-book:~/core# ./converge.sh
-Starting Chef Client, version 11.6.2
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: ["base::default"]
+Synchronizing Cookbooks:
+  - base
 Compiling Cookbooks...
 Converging 6 resources
 Recipe: base::default
@@ -407,10 +409,22 @@ Recipe: base::default
   * package[build-essential] action install (up to date)
 Recipe: base::ssh
   * package[openssh-server] action install (up to date)
-  * service[ssh] action enable (up to date)
+  * service[ssh] action enable
+    - enable service service[ssh]
+
   * service[ssh] action start (up to date)
-  * cookbook_file[/etc/ssh/ssh_config] action create (up to date)
-Chef Client finished, 0 resources updated
+  * cookbook_file[/etc/ssh/ssh_config] action create
+    - change mode from '0644' to '0640'
+
+  * service[ssh] action reload
+    - reload service service[ssh]
+
+  * service[ssh] action start (up to date)
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 3/9 resources updated in 1.358184628 seconds
 ```
 
 Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the file and the main one.
@@ -438,7 +452,8 @@ root@chef-book:~/core#
 
 Nice, we now have the ability to install a package, install a config file, and confirm that the service is up and running.
 
-Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` way, all you have to do is add it to `~/core/solo.json`:
+Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, or even cookbooks. If you want to use the `run_list` way, 
+all you have to do is add it to `~/core/core.json`:
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]" ]
@@ -483,7 +498,7 @@ root@chef-book:~#
 ```
 Great, now we go to your base cookbook recipes and can define the deployer user.
 ```
-root@chef-book:~# cd solo/cookbooks/base/recipes/
+root@chef-book:~# cd core/cookbooks/base/recipes/
 root@chef-book:~/core/cookbooks/base/recipes# vim deployer.rb
 ```
 Let's start out the file:
@@ -542,7 +557,7 @@ root@chef-book:~/core#
 ```
 Do'h! We did it again, we didn't add it to the recipe. This time, let's add it to the `run_list`.
 ```bash
-root@chef-book:~/core# vim solo.json
+root@chef-book:~/core# vim core.json
 ```
 And change the file to look like this:
 ```json
