@@ -25,7 +25,13 @@ Connection to 127.0.0.1 closed.
 [~/vagrant/chef-book] % ls
 Vagrantfile cookbooks
 ```
-As you can see your `cookbooks` directory is there.  Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
+As you can see your `cookbooks` directory is there.  
+
+*Note:* Normally I'd recommend using chef-zero for all local provisioning, 
+but vagrant currently supports chef-solo, which is similar enough.  
+One day someone will be nice and update this tutorial to use that provisioner.
+
+Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
 ```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
