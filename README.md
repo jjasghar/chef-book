@@ -34,7 +34,7 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 3\. [vm setup](part1/03-vm-setup.md)
 
-4\. [omnibus install vs gem install](part1/04-chef-dk-install.md)
+4\. [Chef DK](part1/04-chef-dk-install.md)
 
 ### Part two
 
