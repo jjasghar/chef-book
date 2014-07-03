@@ -27,14 +27,27 @@ Vagrantfile cookbooks
 ```
 As you can see your `cookbooks` directory is there.  
 
+## Vagrant Chef Zero
 
+Chef Zero is new, and therefore we need to install a 
+[custom provisioner][v-c-z] for vagrant:
 
-*Note:* Normally I'd recommend using chef-zero for all local provisioning, 
-but vagrant currently supports chef-solo, which is similar enough.  
-One day someone will be nice and update this tutorial to use 
-[that provisioner][v-c-z].
+```
+vagrant plugin install vagrant-chef-zero
+```
+
+It'll give you a message like this:
+
+```
+Installing the 'vagrant-chef-zero' plugin. This can take a few minutes...
+Installed the plugin 'vagrant-chef-zero (0.7.1)'!
+```
+
+Lord it over your friends.  They will respect you.
 
 [v-c-z]: https://github.com/andrewgross/vagrant-chef-zero
+
+## Vagrant File
 
 Next you'll need to open up the `Vagrantfile` and add the run_list to it so chef-solo can do it's magic.
 
@@ -59,7 +72,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.host_name = 'chef-book'
   #config.vm.provision :shell, :inline => $script
-  config.vm.provision "chef_solo" do |chef|
+  config.vm.provision "chef_client" do |chef|
     chef.add_recipe "base"
   end
 end
