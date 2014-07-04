@@ -13,3 +13,5 @@ Jo Liss: from [opinionatedprogrammer.com](http://www.opinionatedprogrammer.com/)
 [KC Braunschweig](https://github.com/kcbraunschweig/): He commited infront of ~150 people at ChefSummit 2013 to help me out, he followed through and when above and beyond anything I could have asked for. Thanks!
 
 [Christian Höltje](https://github.com/docwhat): Fixed some of my nasty phrasing...
+
+[Dave Dash](https://github.com/davedash): Updated from chef-solo to chef-zero, amazing, thank you for keeping the book up to date with accepted and agreed upon useage!
