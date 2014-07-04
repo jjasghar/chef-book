@@ -13,7 +13,7 @@ root@chef-book:~#
 
 Next, let's create a `Berksfile`. Go to a your base cookbook and type `berks init .` you should see something like this:
 ```bash
-root@chef-book:~/solo# berks init .
+root@chef-book:~/core# berks init .
 By default, this cookbook was generated to support bundler, however, bundler is not installed.
 To skip support for bundler, use --no-bundler
 To install bundler: gem install bundler

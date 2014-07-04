@@ -34,15 +34,15 @@ The third situation is a sad but true one. You're an Intermediate Linux Sysadmin
 
 3\. [vm setup](part1/03-vm-setup.md)
 
-4\. [omnibus install vs gem install](part1/04-omnibus-install-vs-gem-install.md)
+4\. [Chef DK](part1/04-chef-dk-install.md)
 
 ### Part two
 
-5\. [chef-solo](part2/05-chef-solo.md)
+5\. [chef-zero](part2/05-chef-zero.md)
 
 6\. [Write a simple base cookbook](part2/06-write-simple-base-cookbook.md)
 
-7\. [vagrant provisioning vs local chef-solo](part2/07-vagrant-provisioning-vs-local-chef-solo.md)
+7\. [vagrant provisioning vs local chef-zero](part2/07-vagrant-provisioning-vs-local-chef-zero.md)
 
 ### Part three
 
