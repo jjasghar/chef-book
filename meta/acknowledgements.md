@@ -15,3 +15,5 @@ Jo Liss: from [opinionatedprogrammer.com](http://www.opinionatedprogrammer.com/)
 [Christian Höltje](https://github.com/docwhat): Fixed some of my nasty phrasing...
 
 [Dave Dash](https://github.com/davedash): Updated from chef-solo to chef-zero, amazing, thank you for keeping the book up to date with accepted and agreed upon useage!
+
+[Sean Carolan](https://github.com/scarolan): My chef buddy who over a beer asked to take a look, he did, realized my style was off and made some great suggestions on getting me back on track.
