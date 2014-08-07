@@ -314,8 +314,6 @@ service { 'sshd':
 Let's create this in chef. I'm going to create another recipe and link it to the
 chef run. Here we go.
 
-Oh, you'll need an `ssh_config` file. Copying it from `/etc/ssh/` will be fine.
-
 ```bash
 root@chef-book:~# cd core/cookbooks/base/recipes/
 root@chef-book:~/core/cookbooks/base/recipes# vim ssh.rb
@@ -352,6 +350,8 @@ service "ssh" do
 end
 ```
 
+Oh, you'll need an `ssh_config` file. Copying it from `/etc/ssh/` will be fine.
+
 ```bash
 root@chef-book:~/core/cookbooks/base/recipes# cd ../
 root@chef-book:~/core/cookbooks/base# mkdir -p files/default
@@ -361,8 +361,8 @@ root@chef-book:~/core/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 
 As you can see, `cookbook_file` is the stanza that tells chef to put this
 file in this location with these settings and this is the source. You should 
-have noticed that you created a `files/default` directory, that's the first l
-ocation that `cookbook_file` looks. You can create different directories in 
+have noticed that you created a `files/default` directory, that's the first 
+location that `cookbook_file` looks. You can create different directories in 
 `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different 
 format per file. Now I should mention that `files` is just for _static_ files, 
 not template-ized files. We'll get there in a bit.
