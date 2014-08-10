@@ -1,4 +1,4 @@
-chef-solo
+chef-zero
 ---------
 
 So we have a working _disposable_ vm with with vagrant now? 
