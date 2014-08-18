@@ -15,7 +15,7 @@ A first recipe
 
 Before we jump into a cookbook, let's look at creating a simple recipe.
 
-Log in as root into your vagrant vm and edit a file called `whatever.rb`:
+Log in as root into your Vagrant VM and edit a file called `whatever.rb`:
 
 ```bash
 ~/vagrant/chef-book$ vagrant ssh                                                                                                                               davedash@immacomputer
@@ -253,8 +253,8 @@ Or you can do:
 end
 ```
 
-Both are basically, the same, the second one is just more idiomatic Ruby. 
-Go ahead and `cd ~/core/` and run `./convege.sh` again.
+Both have the same effect. The second example demonstrates that the recipe is *just ruby*, so you can take advantage of array literals and iterators, and also that you can specify and `action` for the package resource (we choose the default `install` action).
+Go ahead and `cd ~/core/` and run `./converge.sh` again.
 
 ```bash
 root@chef-book:~/core# ./converge.sh
@@ -276,14 +276,15 @@ Chef Client finished, 0/3 resources updated in 1.174067007 seconds
 root@chef-book:~/core#
 ```
 
-Congrats! Now you can install packages via Chef and confirm that they are there.
+Congrats! You can now install packages via Chef and confirm that they are there.
 
 Next up is the Chef version of the Puppet 
 "[trifecta](http://docs.puppetlabs.com/puppet_core_types_cheatsheet.pdf)".  
-In the puppet world it's "Package/file/service: Learn it, live it, love it. 
-If you can only do this, you can still do a lot." Which is very true.  
-Let's try to leverage this in the Chef world.  In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So lets create a `deployer` user.  
-I'll first start out with the chef trifecta, then move to the user account.
+In the Puppet world there is a phrase: "Package/file/service: Learn it, live it, love it. 
+If you can only do this, you can still do a lot." Which is very true.
+
+Let's try to leverage this idea with Chef. In the real world you probably don't want to log into your boxes as `vagrant ssh` right? So let's create a `deployer` user.  
+I'll first start out with the Chef trifecta, then move to the user account.
 
 Chef Trifecta
 -------------
@@ -312,8 +313,8 @@ service { 'sshd':
 }
 ```
 
-Let's create this in chef. I'm going to create another recipe and link it to the
-chef run. Here we go.
+Let's create this in Chef. I'm going to create another recipe and link it to the
+Chef run. Here we go:
 
 ```bash
 root@chef-book:~# cd core/cookbooks/base/recipes/
@@ -359,15 +360,15 @@ root@chef-book:~/core/cookbooks/base# cd files/default/
 root@chef-book:~/core/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
 ```
 
-As you can see, `cookbook_file` is the stanza that tells chef to put this
-file in this location with these settings and this is the source. You should 
-have noticed that you created a `files/default` directory, that's the first 
-location that `cookbook_file` looks. You can create different directories in 
+As you can see, `cookbook_file` is the stanza that tells Chef to put *this
+file* in *this location* with *these settings* and *this is the source*. You should 
+have noticed that you created a `files/default` directory. That is the first 
+location that `cookbook_file` checks. You can create different directories in 
 `files/` like `ubuntu` or `ubuntu12.04` or `redhat` so you can have a different 
 format for different platforms. Now I should mention that `files` is just for
-_static_ files, not templatized files. We'll get there in a bit.
+_static_ files, not templatized files. We'll get to those in a bit.
 
-Go ahead and run your `./converge` again, you should see something like this:
+Go ahead and run your `./converge` again; you should see something like this:
 
 ```bash
 root@chef-book:~/core# ./converge.sh
