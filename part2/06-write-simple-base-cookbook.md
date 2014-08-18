@@ -317,8 +317,7 @@ Let's create this in Chef. I'm going to create another recipe and link it to the
 Chef run. Here we go:
 
 ```bash
-root@chef-book:~# cd core/cookbooks/base/recipes/
-root@chef-book:~/core/cookbooks/base/recipes# vim ssh.rb
+root@chef-book:~/core# vim cookbooks/base/recipes/ssh.rb
 ```
 
 ```ruby
@@ -354,10 +353,8 @@ end
 Oh, you'll need an `ssh_config` file. Copying it from `/etc/ssh/` will be fine.
 
 ```bash
-root@chef-book:~/core/cookbooks/base/recipes# cd ../
-root@chef-book:~/core/cookbooks/base# mkdir -p files/default
-root@chef-book:~/core/cookbooks/base# cd files/default/
-root@chef-book:~/core/cookbooks/base/files/default# cp /etc/ssh/ssh_config ./
+root@chef-book:~/core# mkdir -p cookbooks/base/files/default
+root@chef-book:~/core# cp /etc/ssh/ssh_config cookbooks/base/files/default/
 ```
 
 As you can see, `cookbook_file` is the stanza that tells Chef to put *this
