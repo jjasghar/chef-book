@@ -72,7 +72,41 @@ to build a machine how
 you want it to be. You can see that this process starts with 
 the `Compiling Cookbooks...` line.  But there's nothing to compile.
 
-Now let's go on to actually running it successfully!
+Let's take a minute to silence those SSL warnings. Since we're working locally
+with throwaway VMs, we can tell Chef to only use SSL when communicating with
+their hosted API. We do this by creating a configuration file used by chef-zero:
+
+```bash
+root@chef-book:~# mkdir -p ~/.chef
+root@chef-book:~# vim ~/.chef/knife.rb
+```
+
+and add the following line:
+
+```ruby
+verify_api_cert true
+```
+
+Re-run chef-client and the SSL warnings should be gone.
+
+```bash
+root@chef-book:~# chef-client -z
+[2014-06-28T12:42:31-07:00] WARN: No cookbooks directory found at or above current directory.  Assuming /root.
+Starting Chef Client, version 11.14.0.alpha.1
+resolving cookbooks for run list: []
+Synchronizing Cookbooks:
+Compiling Cookbooks...
+[2014-06-28T12:42:33-07:00] WARN: Node chef-book has an empty run list.
+Converging 0 resources
+
+Running handlers:
+Running handlers complete
+
+Chef Client finished, 0/0 resources updated in 1.523881501 seconds
+root@chef-book:~#
+```
+
+Now let's go on to actually making Chef do something!
 
 Move on to [A simple cookbook](06-write-simple-base-cookbook.md)
 

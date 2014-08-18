@@ -42,7 +42,6 @@ Save that file, and now run `chef-client`:
 
 ```bash
 root@chef-book:~# chef-client -z whatever.rb
-[2014-06-28T12:50:37-07:00] WARN: No config file found or specified on command line, using command line options.
 [2014-06-28T12:50:37-07:00] WARN: No cookbooks directory found at or above current directory.  Assuming /root.
 
 Starting Chef Client, version 11.14.0.alpha.1
@@ -67,9 +66,6 @@ Running handlers complete
 Chef Client finished, 1/1 resources updated in 1.363444007 seconds
 root@chef-book:~#
 ```
-
-*Note*: I removed the SSL warnings from the output, let's just ignore those for 
-now.  Or you can fork this and add a step to fix the error once and for all.
 
 Now you can verify that there's a new file, `/tmp/x.txt`.  
 Does it contain what you expect?
@@ -111,7 +107,6 @@ Go ahead and run `chmod +x converge.sh` to make it executable, then run it.
 ```bash
 root@chef-book:~/core# chmod +x converge.sh
 root@chef-book:~/core# ./converge.sh
-[2014-06-28T13:00:05-07:00] WARN: No config file found or specified on command line, using command line options.
 [2014-06-28T13:00:05-07:00] FATAL: Cannot load configuration from core.json
 root@chef-book:~#
 ```
