@@ -4,7 +4,7 @@
 NOTE: This book was inspired by [another post](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/) I made. If you want some background click that link. :)
 
 ## The Prerequisites (skills) you need before reading this book
-First and foremost, I'm writing this for Linux/Unix-based operatng stems. Chef can run on Windows and OSX, but that's not what I want to focus on.
+First and foremost, I'm writing this for Linux/Unix-based operatng systems. Chef can run on Windows and OSX, but that's not what I want to focus on.
 So please if these commands don't make sense to you, you should probably look for another book before reading this one.
 
 - `cd` OR `ls` OR `mkdir` or `grep`
