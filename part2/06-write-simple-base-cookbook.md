@@ -464,7 +464,7 @@ Now first things first, we need to create ssh keys, or you can use your own. If 
 
 Since I'm lazy, I'll set up passwordless keys with root on the vm that I created:
 ```bash
-root@chef-book:~# ssh-keygen
+root@chef-book:~/core# ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/root/.ssh/id_rsa):
 Created directory '/root/.ssh'.
@@ -490,8 +490,7 @@ root@chef-book:~#
 ```
 Great, now we go to your base cookbook recipes and can define the deployer user.
 ```
-root@chef-book:~# cd core/cookbooks/base/recipes/
-root@chef-book:~/core/cookbooks/base/recipes# vim deployer.rb
+root@chef-book:~/core# vim cookbooks/base/recipes/deployer.rb
 ```
 Let's start out the file:
 ```ruby
@@ -523,15 +522,13 @@ cookbook_file '/home/deployer/.ssh/authorized_keys' do
   mode '0600'
 end
 ```
-Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy that key you created in the cookbook's `files/default/` directory as `deployer_key.pub`.
+Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy the ssh key you created in a previous step into the cookbook's `files/default/` directory as `deployer_key.pub`.
 ```bash
-root@chef-book:~/core/cookbooks/base/recipes# cd ../files/default/
-root@chef-book:~/core/cookbooks/base/files/default# cp ~/.ssh/id_rsa.pub deployer_key.pub
+root@chef-book:~/core# cp ~/.ssh/id_rsa.pub cookbooks/base/files/default/deployer_key.pub
 ```
 And let's converge.
 
 ```bash
-root@chef-book:~# cd ~/core/
 root@chef-book:~/core# ./converge.sh
 Starting Chef Client, version 11.14.0.alpha.1
 resolving cookbooks for run list: ["base::default", "base::ssh"]
