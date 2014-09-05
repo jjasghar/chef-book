@@ -72,7 +72,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.host_name = 'chef-book'
   #config.vm.provision :shell, :inline => $script
-  config.vm.provision "chef_client" do |chef|
+  config.vm.provision "chef_solo" do |chef|
     chef.add_recipe "base"
   end
 end
