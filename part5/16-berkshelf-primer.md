@@ -51,7 +51,7 @@ Nice! Go ahead and upload it if neeed, add it to your `run_list` and run `chef-s
 
 ## knife-solo
 
-Remember that [knife-solo](part3/09-knife-plugins.md#knife-solo) thing? I mentioned the _cookbooks_ directory. This is the temp location that berks dumps the cookboks you want to push up. Keep this in mind as you start to play with it.
+Remember that [knife-solo](../part3/09-knife-plugins.md#knife-solo) thing? I mentioned the _cookbooks_ directory. This is the temp location that berks dumps the cookboks you want to push up. Keep this in mind as you start to play with it.
 
 With knife-solo you can add the above to the `Berksfile` that was created, and it'll automatically install what you are looking for, something like this:
 ```bash

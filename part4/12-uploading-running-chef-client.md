@@ -6,11 +6,11 @@ root@chef-book:~# knife status
 1 minute  ago, chef-book, chef-book, 10.0.2.15, ubuntu 12.04.
 root@chef-book:~#
 ```
-If `knife` can talk to your chef server you are good to go. If not, [hop back](README.md#contents) a couple sections and try to figure out what broke. Don't worry I'll be here when you get back.
+If `knife` can talk to your chef server you are good to go. If not, [hop back](../README.md#contents) a couple sections and try to figure out what broke. Don't worry I'll be here when you get back.
 
 Perfect, lets start off.
 
-Remember that cookbook you created? Way back in [Part 2-6](part2/6-write-simple-base-cookbook.md) we're gonna upload that one first off. Go ahead and look at your `knife.rb` for me:
+Remember that cookbook you created? Way back in [Part 2-6](../part2/06-write-simple-base-cookbook.md) we're gonna upload that one first off. Go ahead and look at your `knife.rb` for me:
 ```bash
 root@chef-book:~# cat .chef/knife.rb
 log_level                :info
