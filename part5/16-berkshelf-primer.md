@@ -27,7 +27,7 @@ Successfully initialized
 ```
 Go ahead and add the following to your `Berksfile`:
 ```ruby
-site :opscode
+source "https://supermarket.chef.io"
 
 cookbook 'mysql'
 cookbook 'nginx', '~> 0.101.5'
