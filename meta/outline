@@ -11,7 +11,7 @@ Chef-zero
 Write simple "base" cookbook
   Ntp vim/rc bashrc zshrc
   tri-fect
-Tie in vagrant provisioning vs local chef-zero
+Tie in Vagrant provisioning vs local chef-zero
 
 Part three
 Knife

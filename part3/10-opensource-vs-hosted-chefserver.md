@@ -11,11 +11,13 @@ During the rest of the book, if I reference talking to a chef server, it should 
 In order to run [Open Source](http://www.opscode.com/chef/install/) chef server, you need either Ubuntu, or Enterprise Linux. Also you need a machine that is has at least 4 gigs of RAM. This is unfortunate because that is not possible with the Free Tier on AWS.  There is a great tutorial on the [docs](http://docs.opscode.com/install_server.html) page, but I'll go through it here.
 
 ### How to build it
+
 After you build it, [this](http://docs.opscode.com/chef/manage_server_open_source.html) resource is invaluable.  But the beauty of chef server, is as soon as you get it set up and `knife` can talk to it, you really don't ever have to touch it again.
 
 First thing you need is a 4 gig of RAM on a box. So if you are looking at EC2, you have to use at least a m1.medium, which yes, it is 3.75 gigs, but for testing and learning that is ok.  If you are looking at production, you should seriously look at greater than 4 gigs. 
 
 After you get in the box, the next step is getting the binary, all you have to is go to [here](http://www.opscode.com/chef/install/) or run this on the box: (my box is 12.04 ubuntu 64 bit if you want to mimic me)
+
 ```bash
 ubuntu@ip-10-141-164-25:~$ sudo su -
 root@ip-10-141-164-25:~# wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chef-server_11.0.8-1.ubuntu.12.04_amd64.deb
@@ -34,6 +36,7 @@ root@ip-10-141-164-25:~#
 ```
 
 Now install it :)
+
 ```bash
 root@ip-10-141-164-25:~# dpkg -i chef-server_11.0.8-1.ubuntu.12.04_amd64.deb
 Selecting previously unselected package chef-server.
@@ -49,11 +52,15 @@ Processing triggers for initramfs-tools ...
 update-initramfs: Generating /boot/initrd.img-3.2.0-54-virtual
 root@ip-10-141-164-25:~#
 ```
+
 And as it says, run `sudo chef-server-ctl reconfigure` to get it going :)
+
 ```bash
 root@ip-10-141-164-25:~# sudo chef-server-ctl reconfigure
 ```
+
 You'll notice that it's running chef-solo, and setting everything up for you.
+
 ```bash
 
 [-- snip --]
@@ -108,7 +115,9 @@ Chef Client finished, 270 resources updated
 chef-server Reconfigured!
 root@ip-10-141-164-25:~#
 ```
+
 Next check to make sure that nginx is now running on your box, it's the front end for chef server.
+
 ```bash
 root@ip-10-141-164-25:~# ps waux | grep nginx
 root      4166  0.0  0.0   4176   356 ?        Ss   15:30   0:00 runsv nginx
@@ -127,10 +136,13 @@ You'll see a Login page, the default user name and password is: admin/p@ssw0rd1 
 The next screen that pops up is the Public and Private key for the main admin user to talking to your new chef server. These keys are _EXTREMELY_ important. Copy it out of your web browser, put it in at least 2 locations, because you really should have a backup.
 
 I'm going to run this from my chef-book vm. Go ahead and create a `admin.pem` in your `~/.chef/` directory:
+
 ```bash
 root@chef-book:~/.chef# vim admin.pem
 ```
+
 Next, edit your `knife.rb` to look something like this:
+
 ```ruby
 log_level                :info
 log_location             STDOUT
@@ -145,15 +157,20 @@ cookbook_copyright       "My company that want's the copyright"
 cookbook_license         "apachev2"
 cookbook_email           "jj.asghar@peopleadmin.com"
 ```
+
 Make sure you change the `chef_server_url` to the machine you just spun up. Go ahead and run `knife status`.
+
 You should see something like this:
+
 ```bash
 root@chef-book:~/.chef# knife status
 ERROR: Your private key could not be loaded from /root/.chef
 Check your configuration file and ensure that your private key is readable
 root@chef-book:~/.chef#
 ```
+
 You didn't put your private key in `.chef` did you? ;) Grab that `admin.pem` and put in in that location, and run `knife client list` you should see something like this:
+
 ```bash
 root@chef-book:~# knife client list
 chef-validator
@@ -177,11 +194,13 @@ Go ahead and find the `Sign In` page, I did it by refreshing the page. It seems 
 Now we need a key right? Lets get one going.  Go ahead and click "Administrative" at the top, and click your user. Click "Reset Key" on the left hand side, and you should see something that looks extremely familiar. Go ahead and copy that off in 2 locations because that's how you talk to your Org at opscode.
 
 Go ahead and click on "Organizations" and click on the little Gear by your organization name. There is a drop down box that allows a creation of a `knife.rb`, and take that data and put it in your `knife.rb`. The most important parts obviously is the `chef_server_url` and the `client_key` make sure that's correct, and run your `knife client list` and you should see:
+
 ```bash
 root@chef-book:~/.chef# knife client list
 jonathanasghar-validator
 root@chef-book:~/.chef#
 ```
+
 Congrats, you just got Hosted Chef running. Yes significantly easier than Open source chef, but where's the fun in that?
 
 Now there are a ton more things you can do with the different chef servers, but for now I'm going to focus only on open source. Open source is actually just a subset of Hosted, so everything you learn from now on should be functional. (some way or another in Hosted)

@@ -1,9 +1,11 @@
 # chef-book
+
 (Read this first)
 
 NOTE: This book was inspired by [another post](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/) I made. If you want some background click that link. :)
 
 ## The Prerequisites (skills) you need before reading this book
+
 First and foremost, I'm writing this for Linux/Unix-based operatng systems. Chef can run on Windows and OSX, but that's not what I want to focus on.
 So please if these commands don't make sense to you, you should probably look for another book before reading this one.
 
@@ -18,6 +20,7 @@ Like most technology how-to books, I want to get to the meat of the system as qu
 I am writing this to be "open-source" so if there is a place that should be fleshed out better, don't hesitated to put a comment in, or hell, make a [pull request](https://github.com/jjasghar/chef-book/pulls) and flesh it out yourself!
 
 ## The situations you might be in that brought you to read/look for this book
+
 The first situation is the one that I came from.  I started my journey with Chef about 2-3 years ago, initially as a scripter, then at another company supporing a `chef_repo` that was already way too complex. I had no idea what I was looking at and was overwhelmed. I had previousy used [Puppet](http://puppetlabs.com/) extensively but Chef just seemed baffling. I did my damnedest to read all the blog posts, [wiki](https://wiki.opscode.com/display/chef/Home) sites, and how-tos I could find. I eventually threw up my hands and said "no". If you feel overwhelmed with chef and yet [this](http://www.youtube.com/watch?v=UpHKVkLDBtU) video still intrigues you, hopefully this book will make your journey easier. I'm writing this book to my past self who would have KILLED for all this information in one location.
 
 The second situation is a simpler one: you're a new junior Linux Sysadmin (or Developer), and your team uses Chef. You have no idea what you are looking at, and your boss just told you to create a new cookbook to control something. This book will walk you through you building a test environment and hopefully give you a foundation to confidently write your first cookbook!
@@ -86,18 +89,21 @@ The third situation is a sad but true one. You're an intermediate Linux Sysadmin
 
 24\. [Integrating with Jenkins or CI in general](part6/24-integrating-with-jenkin-ci.md)
 
-
 ## Building the PDF
+
 TODO: probably going to steal [upgradingrails4](https://github.com/alindeman/upgradingtorails4) system. Need to play with it.
 I need suggestions here, [pandoc](http://johnmacfarlane.net/pandoc/installing.html) looks extremely promising
 
 Even more promising: https://github.com/schacon/git-scribe
 
 ## Directories
+
 meta: stuff for the book that isn't the book.
 
 ## Acknowledgements
+
 To [everyone](meta/acknowledgements.md) I bugged and poked about helping me out, thanks so much.
 
 ## License
+
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.

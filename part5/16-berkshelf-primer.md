@@ -4,7 +4,9 @@
 > If you’re familiar with Bundler, then Berkshelf is a breeze.
 
 A great example is straight from the main site:
+
 ## Install
+
 ```bash
 root@chef-book:~# gem install berkshelf
 1 gem installed
@@ -12,6 +14,7 @@ root@chef-book:~#
 ```
 
 Next, let's create a `Berksfile`. Go to a your base cookbook and type `berks init .` you should see something like this:
+
 ```bash
 root@chef-book:~/core# berks init .
 By default, this cookbook was generated to support bundler, however, bundler is not installed.
@@ -25,14 +28,18 @@ To install bundler: gem install bundler
       create  Vagrantfile
 Successfully initialized
 ```
+
 Go ahead and add the following to your `Berksfile`:
+
 ```ruby
 source "https://supermarket.chef.io"
 
 cookbook 'mysql'
 cookbook 'nginx', '~> 0.101.5'
 ```
+
 Then run `berks install` to grab the depenancies:
+
 ```bash
 root@chef-book:~/cookbooks# cd base/
 root@chef-book:~/cookbooks/base# berks install
@@ -47,6 +54,7 @@ Installing rsyslog (1.9.0) from site: 'http://cookbooks.opscode.com/api/v1/cookb
 Installing ohai (1.0.2) from site: 'http://cookbooks.opscode.com/api/v1/cookbooks'
 root@chef-book:~/cookbooks/base#
 ```
+
 Nice! Go ahead and upload it if neeed, add it to your `run_list` and run `chef-solo` or `chef-client` you should get mysql and nginx installed.
 
 ## knife-solo
@@ -54,13 +62,17 @@ Nice! Go ahead and upload it if neeed, add it to your `run_list` and run `chef-s
 Remember that [knife-solo](../part3/09-knife-plugins.md#knife-solo) thing? I mentioned the _cookbooks_ directory. This is the temp location that berks dumps the cookboks you want to push up. Keep this in mind as you start to play with it.
 
 With knife-solo you can add the above to the `Berksfile` that was created, and it'll automatically install what you are looking for, something like this:
+
 ```bash
 [~/do]% vim nodes/162.244.68.215.json
 ```
+
 ```json
 {"run_list":["recipe[nginx::default]","recipe[mysql::default]"]}
 ```
+
 Then:
+
 ```bash
 [~/do] % knife solo cook root@162.243.68.215
 Running Chef on 162.243.68.215...

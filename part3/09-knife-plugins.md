@@ -1,4 +1,5 @@
 # knife plugins
+
 There are a TON more of [knife-plugins](http://docs.opscode.com/plugin_knife.html), then officially posted on the docs site.  [Github](https://github.com/search?q=knife+plugin&type=Repositories&ref=searchresults) is a great place to look but I'm going to focus on 4 here. 
 
 So far all the knife plugins I've seen are ruby gems.  So before you can use any of these be sure you have an ability to use `gem install`.
@@ -12,9 +13,11 @@ knife ec2, is the amazon version of knife rackspace if you will, there aren't te
 knife spork is a great tool for multiple chefs working with one chef-server. I'm only going to touch on it briefly, being again, we _shouldn't_ have a chef-server running....yet.
 
 ## knife solo
+
 So [knife solo](http://matschaffer.github.io/knife-solo/) as I say above is a poor mans chef-server. In a nutshell it takes your local directory/cookbooks, uploads them to your box, and runs chef-solo. This is different than how [chef-server|chef-client] so keep that in mind as you work with it.  Lets get it working :)
 
 First thing first, installation. You can either add it to a Gemfile, or in my case I like just using 'gem install knife-solo`.  Notice the "-" between the name. You should see something like this:
+
 ```bash
 root@chef-book:~# gem install knife-solo
 Fetching: mixlib-config-1.1.2.gem (100%)
@@ -109,6 +112,7 @@ You can already leverage `knife solo` with the cookbook you created. Lets do tha
 There are three/four main commands with `knife solo`.
 
 `knife solo init mychefrepo`: it creates a directory structure that `knife solo` needs to be able to upload and run your cookbooks. example:
+
 ```
 mychefrepo/
 ├── .chef
@@ -127,6 +131,7 @@ mychefrepo/
 `knife solo bootstrap root@hostname`: combines the prepare and cook into one command. In theory you can have a `node/hostname.json` set up and run one command and provision a box exactly how you want. Pretty neat eh?
 
 So, lets actually do it.  Go to your `cookbooks` directory in the chef-book vm.
+
 ```bash
 root@chef-book:~# cd solo/
 root@chef-book:~/core# cd cookbooks/
@@ -134,14 +139,18 @@ root@chef-book:~/core/cookbooks# ls
 base
 root@chef-book:~/core/cookbooks#
 ```
+
 Great, now go ahead and go to your `~/` and create a `knife_solo` directory you can play out of.
+
 ```bash
 root@chef-book:~/core/cookbooks# cd ~
 root@chef-book:~# mkdir knife_solo
 root@chef-book:~# cd knife_solo/
 root@chef-book:~/knife_solo#
 ```
+
 Now type the `knife solo init .` command to make it `knife solo`ized. 
+
 ```bash
 root@chef-book:~/knife_solo# knife solo init .
 Creating kitchen...
@@ -149,25 +158,33 @@ Creating knife.rb in kitchen...
 Creating cupboards...
 root@chef-book:~/knife_solo#
 ```
+
 Change directory into the `site-cookbook` directory.
 
 I'd like to take a quick moment to talk about the _two_ directories that are here. `cookbooks/` and `site-cookbooks/`, the `cookbook/` directory is for [berkshelf](http://berkshelf.com/) or [librarian](https://github.com/applicationsonline/librarian-chef) to put cookbooks before uploading them to your provisioning box. So remember that, `site-cookbooks/` is the place to put _your_ cookbooks that you want to upload. (If you do put them in `cookbooks/` it'll delete them after the run _and_ can't find them either, so it's a waste, don't bother.)
+
 ```bash
 root@chef-book:~/knife_solo# cd site-cookbooks/
 root@chef-book:~/knife_solo/site-cookbooks# cp -r ~/core/cookbooks/base/ ./
 ```
+
 Great, now go up a directory to the `nodes/` directory, and create a file called `localhost.json`
+
 ```bash
 root@chef-book:~/knife_solo/site-cookbooks# cd ../nodes/
 root@chef-book:~/knife_solo/nodes# vim localhost.json
 ```
+
 Add the save `core.json` file that you had from the chef-solo section.
+
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
+
 Just because I want to make sure this goes off without a hitch, go ahead and confirm your public key is in `.ssh/authorized_keys` for root as root. Yes, I realize that's confusing, but read the following commands to make sense of it:
+
 ```bash
 root@chef-book:~/knife_solo/nodes# cd
 root@chef-book:~# cd .ssh/
@@ -192,14 +209,18 @@ logout
 Connection to localhost closed.
 root@chef-book:~/.ssh#
 ```
+
 If that works, we're ready to start playing with `knife solo`.
 
 Hop up to `~/knife_solo`.
+
 ```base
 root@chef-book:~/knife_solo/site-cookbooks# cd ..
 root@chef-book:~/knife_solo#
 ```
+
 Lets start with a `knife solo prepare` just to see it work:
+
 ```bash
 root@chef-book:~/knife_solo# knife solo prepare root@localhost
 Bootstrapping Chef...
@@ -215,9 +236,11 @@ Setting up chef (11.6.2-1.ubuntu.12.04) ...
 Thank you for installing Chef!
 root@chef-book:~/knife_solo#
 ```
+
 As you can see it does check the version of chef, then download and install the newsest for you.
 
 Now lets go on to `knife solo cook`:
+
 ```bash
 root@chef-book:~/knife_solo# knife solo cook root@localhost
 Running Chef on localhost...
@@ -245,14 +268,17 @@ Recipe: base::deployer
 Chef Client finished, 0 resources updated
 root@chef-book:~/knife_solo#
 ```
+
 CHA-CHING! Awesome. Bonus Round: use `knife solo bootstrap`.
 
 Now image this with a "cloud" box that you have root access to.  You just provisioned a box with recipes you wrote.
 
 ## knife rackspace/knife ec2
+
 [knife rackspace](https://github.com/opscode/knife-rackspace) and [knife ec2](https://github.com/opscode/knife-ec2) are front ends to talk to the respected cloud providers.  They both install with a gem:
 
 ### knife rackspace
+
 ```bash
 root@chef-book:~# gem install knife-rackspace
 Fetching: eventmachine-1.0.0.beta.3.gem (100%)
@@ -307,6 +333,7 @@ Successfully uninstalled knife-rackspace-0.5.12
 $> gem list --local | grep knife-rackspace
 knife-rackspace (0.6.2)
 ```
+
 To confirm you only have one edition running. Keep this in mind.
 
 After installing it, you need to add this to your `knife.rb` file:
@@ -319,6 +346,7 @@ knife[:rackspace_api_key] = "Your Rackspace API Key"
 Run `knife rackspace server list` and you should see your cloud machines.
 
 Go ahead and attempt to spin up a box:
+
 ```bash
 root@chef-book:~# knife rackspace server create --server-name test -f 4
 Instance ID: 17c3d362-6930-452f-86f4-7f4ce0a9453e
@@ -388,11 +416,13 @@ Bootstrapping Chef on 192.43.66.2
  Environment: _default
 root@chef-book:~#
 ```
+
 Bonus Round: Try running the `knife rackspace server list` and maybe `knife solo bootstrap` would work here? 
 
 ### knife ec2
 
 `knife ec2` is pretty much the same game, you can install it via the gem. I installed knife-rackspace on my chef-book vm and they have a lot of the same dependancies, so there aren't a lot of gems to fetch.
+
 ```bash
 root@chef-book:~# gem install knife-ec2
 Fetching: knife-ec2-0.6.4.gem (100%)
@@ -403,12 +433,16 @@ Done installing documentation for knife-ec2 (0 sec).
 1 gem installed
 root@chef-book:~#
 ```
+
 You'll need to edit your `knife.rb` file and add these lines to it:
+
 ```ruby
 knife[:aws_access_key_id] = "Your AWS Access Key ID"
 knife[:aws_secret_access_key] = "Your AWS Secret Access Key"
 ```
+
 You have more or less the same tools as `knife rackspace` but here's an example:
+
 ```bash
 root@chef-book:~# knife ec2 server create -I ami-7000f019 -f m1.small
 ```
@@ -511,6 +545,7 @@ ERROR: The version 5.1.5 exists on the server and is not frozen. Uploading will 
 As you can see with the error, it's pretty self explaintory.
 
 The second step is to bump the version:
+
 ```bash
 knife spork bump nagios patch
 Git: Pulling latest changes from /Users/jasghar/repo/chef_repo/environments

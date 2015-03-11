@@ -18,7 +18,7 @@ Before we jump into a cookbook, let's look at creating a simple recipe.
 Log in as root into your Vagrant VM and edit a file called `whatever.rb`:
 
 ```bash
-~/vagrant/chef-book$ vagrant ssh                                                                                                                               davedash@immacomputer
+[~/vagrant/chef-book] % vagrant ssh
 Welcome to Ubuntu 12.04.4 LTS (GNU/Linux 3.2.0-23-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com/
@@ -68,8 +68,8 @@ root@chef-book:~#
 ```
 
 Now you can verify that there's a new file, `/tmp/x.txt`.  
-Does it contain what you expect?
 
+Does it contain what you expect?
 
 Let's make things easier
 ------------------------
@@ -123,11 +123,13 @@ Open up another text editor to create `core.json` and insert the following:
     "run_list": [ "recipe[base::default]" ]
 }
 ```
+
 This is the "run_list" for `chef-client`.  It tells `chef-client` to use the 
 `base` cookbook and run the `default` recipe. You can have as long of a 
 run_list as you want, but let's start with a single recipe for now.
 
 Go ahead and run `./converge.sh` again, the output should be different:
+
 ```bash
 root@chef-book:~/core# ./converge.sh
 Starting Chef Client, version 11.6.2
@@ -196,7 +198,6 @@ Running handlers complete
 
 Chef Client finished, 1/1 resources updated in 18.117095411 seconds
 root@chef-book:~/core#
-
 ```
 
 Congratulations! You have successfully installed the greatest editor using 
@@ -249,6 +250,7 @@ end
 ```
 
 Both have the same effect. The second example demonstrates that the recipe is *just ruby*, so you can take advantage of array literals and iterators, and also that you can specify and `action` for the package resource (we choose the default `install` action).
+
 Go ahead and `cd ~/core/` and run `./converge.sh` again.
 
 ```bash
@@ -421,6 +423,7 @@ Chef Client finished, 3/9 resources updated in 1.358184628 seconds
 ```
 
 Ok, so let's take this one step farther. Go ahead and open up `cookbooks/base/files/default/ssh_config` and put a comment at the top of the file. Diff the source file in the cookbook with the real file on disk.
+
 ```bash
 root@chef-book:~/core# vim cookbooks/base/files/default/ssh_config
 root@chef-book:~/core# diff -u /etc/ssh/ssh_config cookbooks/base/files/default/ssh_config
@@ -446,11 +449,13 @@ Nice, we now have the ability to install a package, install a config file, and c
 
 Ok, if you have any chef knowledge, you are probably wondering why we didn't add this to the `run_list`. That's a great question, why not? I wanted to demonstrate how different recipes can call other recipes, even from other cookbooks. If you want to use the `run_list` way, 
 all you have to do is add it to `~/core/core.json`:
+
 ```json
 {
     "run_list": [ "recipe[base::default]","recipe[base::ssh]" ]
 }
 ```
+
 Don't get me wrong this is extremely important, but I was going to revisit this when we started adding external cookbooks. You made me jump my gun. :P
 
 Now, let's go on to the deployer user.
@@ -463,6 +468,7 @@ If you want to [read](http://docs.opscode.com/resource_user.html) about this, he
 Now first things first, we need to create ssh keys, or you can use your own. If you don't know what ssh keys are, you  could start [here](https://wiki.archlinux.org/index.php/SSH_Keys). If this doesn't make sense....sigh, you probably shouldn't have read this far.
 
 Since I'm lazy, I'll set up passwordless keys with root on the vm that I created:
+
 ```bash
 root@chef-book:~/core# ssh-keygen
 Generating public/private rsa key pair.
@@ -487,12 +493,17 @@ The key's randomart image is:
 |*o..             |
 +-----------------+
 root@chef-book:~#
+
 ```
+
 Great, now we go to your base cookbook recipes and can define the deployer user.
+
 ```
 root@chef-book:~/core# vim cookbooks/base/recipes/deployer.rb
 ```
+
 Let's start out the file:
+
 ```ruby
 group 'deployer' do
   gid 15000
@@ -522,10 +533,13 @@ cookbook_file '/home/deployer/.ssh/authorized_keys' do
   mode '0600'
 end
 ```
+
 Well that seems pretty straight forward right? Walk through it, the `directory` is new, but other than that we've used everything else. Next copy the ssh key you created in a previous step into the cookbook's `files/default/` directory as `deployer_key.pub`.
+
 ```bash
 root@chef-book:~/core# cp ~/.ssh/id_rsa.pub cookbooks/base/files/default/deployer_key.pub
 ```
+
 And let's converge.
 
 ```bash
@@ -552,7 +566,9 @@ Running handlers complete
 Chef Client finished, 0/7 resources updated in 1.221278403 seconds
 root@chef-book:~/core#
 ```
+
 Doh! We did it again: we didn't add it to the recipe. This time, let's add it to the `run_list` instead.
+
 ```bash
 root@chef-book:~/core# vim core.json
 ```
@@ -564,6 +580,7 @@ And change the file to look like this:
     "run_list": [ "recipe[base::default]","recipe[base::ssh]","recipe[base::deployer]" ]
 }
 ```
+
 Now `./converge` and you should see something like this (I debugged this as I was writing it, it'll be a tad bit different, but you get the point) :
 
 ```bash

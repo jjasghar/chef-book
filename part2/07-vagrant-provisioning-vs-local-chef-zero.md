@@ -11,11 +11,14 @@ is the way to go. For fun let's convert the `base` cookbook we wrote to the
 `Vagrant` file method.
 
 Luckily Vagrant has mounted the `/vagrant` directory where you did the `vagrant up` from. Go ahead and do something like the following:
+
 ```bash
 root@chef-book:~/core# cp -r cookbooks/ /vagrant/
 root@chef-book:~/core#
 ```
+
 This will copy the cookbooks directory from your `~/core` working directory into the host file system. Go ahead and drop out of the vm now.
+
 ```bash
 root@chef-book:~/core# exit
 logout
@@ -25,12 +28,13 @@ Connection to 127.0.0.1 closed.
 [~/vagrant/chef-book] % ls
 Vagrantfile cookbooks
 ```
+
 As you can see your `cookbooks` directory is there.  
 
 ## Vagrant Chef Zero
 
 Chef Zero is new, and therefore we need to install a 
-[custom provisioner][v-c-z] for vagrant:
+[custom provisioner][v-c-z] for Vagrant:
 
 ```
 vagrant plugin install vagrant-chef-zero
@@ -79,7 +83,9 @@ end
 
 
 ```
+
 Notice I commented out the `:shell` provisioning and added the `chef_solo` provisioner. Save this, exit the editor, and run `vagrant halt` then `vagrant up` and if needed `vagrant provision` and you should see something like this:
+
 ```bash
 [~/vagrant/chef-book] % vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
@@ -114,6 +120,7 @@ stdin: is not a tty
 [2013-10-22T15:17:26-05:00] INFO: Report handlers complete
 [~/vagrant/chef-book] %
 ```
+
 Hopefully you get the beauty of the built in provisioner. You can select the cookbooks that you'd like to test out, edit the run_list and run the provisioning to get the box how you want. Don't get me wrong there's much more to it, the [docs](http://docs.vagrantup.com/v2/provisioning/chef_solo.html) have a ton more, but this is just a basic example.
 
 Now let's move on to your most important tool as a chef; [knife](../part3/08-knife.md).
