@@ -2,7 +2,9 @@ chef-zero
 ---------
 
 So we have a working _disposable_ vm with with Vagrant now? 
+
 Great, let's actually start playing with Chef.  
+
 We're going to start with [chef-zero][cz] (or chef-client that uses a local server), 
 which, believe it or not, can cover 75-85% of the use cases of Chef. 
 Keep this in mind as you go through this book, because if it fits there may be
@@ -14,12 +16,10 @@ chef-client with chef-zero.
 Restart your Vagrant box with `vagrant up` if you have stopped or destroyed it. 
 Type these following commands in to confirm we are set up correctly.
 
-
 Let's run chef-zero:
 
 ```bash
-
-~/vagrant/chef-book $ vagrant ssh                                                                                                                               davedash@immacomputer
+[~/vagrant/chef-book] % vagrant ssh
 Welcome to Ubuntu 12.04.4 LTS (GNU/Linux 3.2.0-23-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com/
@@ -63,7 +63,6 @@ Running handlers complete
 
 Chef Client finished, 0/0 resources updated in 1.523881501 seconds
 root@chef-book:~#
-
 ```
 
 A few complaints about SSL, but other than that... nothing really happened. 

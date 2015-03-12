@@ -36,6 +36,7 @@ As you can see it does A LOT. I install the Chef-DK
 (which we'll talk about in the next section). Initially I want to use the 
 `:shell` provisioner so I don't muddy the waters by adding chef-zero to the mix 
 until we're more familiar with these new tools. 
+
 With the [docs](http://docs.vagrantup.com/v2/) and some familiarity with bash 
 scripting, you should be able to decipher what's going on here. Don't worry, 
 we'll add/hack on this file as we go through this book. This is just the beginning.
@@ -60,6 +61,7 @@ full box prior to discovering this error.
 Downloading or copying the box...
 Progress:
 ```
+
 After it has been pulled down, you should see Vagrant report 
 `Machine booted and ready!`. In a different terminal window, you'll be able to 
 go into the box right then and there by changing to the same directory as the 

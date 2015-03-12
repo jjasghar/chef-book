@@ -1,5 +1,6 @@
 knife
 =====
+
 Ok, believe it or not, you're a chef now. You can create simple (but extremely useful) recipes to get provisioning done. You may have even started to pull down cookbooks from the [community](http://community.opscode.com/) and started playing around with them. The next step is the main tool of all chefs: [knife](http://docs.opscode.com/knife.html). 
 Before we go any further, there is a quote that you always need to keep in your head (I'm paraphrasing it as best I can here):
 > Every chef should have a knife, it'll be your best friend, you'll use it constantly, but always remember it'll cut you in a heart beat.
@@ -7,6 +8,7 @@ Before we go any further, there is a quote that you always need to keep in your 
 Please take that to heart; I have many times screwed up a `knife` command and caused significant pain.
 
 So let's make sure you have knife. Initally we'll start in the chef-book vm, and move on from there. Type the following:
+
 ```bash
 root@chef-book:~# knife
 ERROR: You need to pass a sub-command (e.g., knife SUB-COMMAND)
@@ -56,12 +58,14 @@ knife xargs [COMMAND]
 
 root@chef-book:~#
 ```
+
 Holy crap that's a lot of stuff. I'm not going to go through each and every one, but if you saw it, then you're ready to start. If not...well you might want to confirm Chef is installed correctly on your VM.
 
 knife.rb
 -------
 
 The [knife.rb](http://docs.opscode.com/config_rb_knife.html) file is the configuration file for using `knife`. Apropos, right? Lets start setting one up. If you clicked on the link you'll see that there are a good number of options, but we'll go through the basic configurations you should set. By the way, let's start doing this in the chef-book VM, but you could easily do the same configuration on a Mac/Linux box too.
+
 ```bash
 root@chef-book:~# mkdir .chef
 root@chef-book:~# touch .chef/knife.rb
@@ -86,6 +90,7 @@ cookbook_email           "jj.asghar@peopleadmin.com"
 So this is just an example, but it will be useful when we move on to the chef-server and knife plugins. The most important of these are probably `log_level` (how much data you want to see), `log_location` (where to log it), `cookbook_path` (the path to your cookbooks), and the `cookbook_[copyright|licence|email]` (because if you fill them out here you want need to do it for `knife cookbook create`).
 
 So let's talk about `knife cookbook create`. Originally you created a simple cookbook by making the directories and adding the files manually. Good ol' `knife` creates that foundation for you. As an example:
+
 ```bash
 root@chef-book:~# mkdir cookbooks
 root@chef-book:~# cd cookbooks/

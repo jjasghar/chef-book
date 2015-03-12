@@ -6,26 +6,31 @@ That's where testing comes into play. Watching [this](http://www.youtube.com/wat
 
 ## test-kitchen
 
-[test-kitchen](http://kitchen.ci/) is bad ass. There is no other words that bad ass for test-kitchen. It's a wrapper around your vagrant+(virtualbox|lxc|ec2|openstack|others) and runs your tests. I have the utmost respect for [Fletcher Nichol](https://twitter.com/fnichol) and what he has spear headed. I hope I justify test-kitchen with this setup tutorial.
+[test-kitchen](http://kitchen.ci/) is bad ass. There is no other words that bad ass for test-kitchen. It's a wrapper around your Vagrant+(virtualbox|lxc|ec2|openstack|others) and runs your tests. I have the utmost respect for [Fletcher Nichol](https://twitter.com/fnichol) and what he has spear headed. I hope I justify test-kitchen with this setup tutorial.
 
 `test-kitchen` is rapidly moving, I didnt touch this section for about...3 weeks? And there is now great documentation on it. I walk you through the basics, but I'd give http://kitchen.ci/ a gander to learn more in-depth up-to-date tutorials.
 
 I should mention that [Dr Nic](https://twitter.com/drnic) has a good [primer](http://www.youtube.com/watch?v=0sPuAb6nB2o) but I'm focusing on just setting it up here. The following sections will be to use the different software.
 
 First step will be to get test-kitchen installed. As of this writing it's a ruby gem, so you should create a `Gemfile` in your base cookbook folder. Something like this:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % vim Gemfile
 ```
+
 Then add something like this to that file:
+
 ```ruby
 source 'http://rubygems.org'
 
 gem 'kitchen-vagrant'
 gem 'test-kitchen'
 ```
-There are a ton of "bussers" for test-kithchen now.  I'm just showing how to use vagrant, but you can use any of them that fits your fancy.
+
+There are a ton of "bussers" for test-kithchen now.  I'm just showing how to use Vagrant, but you can use any of them that fits your fancy.
 
 Now run `bundle install`:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle install
 Fetching gem metadata from http://rubygems.org/........
@@ -46,6 +51,7 @@ Use `bundle show [gemname]` to see where a bundled gem is installed.
 ```
 
 You should have a `kitchen` binary now, test it out with something like this:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen
 Commands:
@@ -70,6 +76,7 @@ Commands:
 ```
 
 Awesome! Now we need to initalize the repo, that's done by this:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen init
       create  .kitchen.yml
@@ -81,6 +88,7 @@ Awesome! Now we need to initalize the repo, that's done by this:
 ```
 
 Go ahead and open up that `.kitchen.yml`:
+
 ```yml
 ---
 driver_plugin: vagrant
@@ -111,9 +119,10 @@ suites:
   attributes: {}
 ```
 
-As you can see it has some pre-built boxes from opscode, and by default it uses the vagrant driver. That's cool, that's all we expect here.
+As you can see it has some pre-built boxes from opscode, and by default it uses the Vagrant driver. That's cool, that's all we expect here.
 
 Note the `run_list` you need to add the `run_list` for your cook book here, in my case:
+
 ```
 run_list: ["base::default"]
 ```
@@ -161,12 +170,15 @@ Ok, so go ahead and run `bundle exec kitchen test` and lets see what happens:
 ```
 
 Oh crap! That's a problem eh?  Ok, so open up `metadata.rb` and add something like the following:
+
 ```ruby
 name 'base'
 version '0.1.0'
 maintainer 'JJ Asghar'
 ```
+
 Now run your test again:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
 -----> Cleaning up any prior instances of <default-ubuntu-1004>
@@ -227,8 +239,11 @@ Now run your test again:
 >>>>>> Message: SSH exited (1) for command: [sudo -E chef-solo --config /tmp/kitchen-chef-solo/solo.rb --json-attributes /tmp/kitchen-chef-solo/dna.json  --log_level info]
 >>>>>> ----------------------
 ```
+
 Ok, that looks like we need to update the `apt-get` repo, I'll fix this here: (this is a hack, but I just want it to work ;) )
+
 I'll open the `default.rb` and do:
+
 ```ruby
 execute "apt-get update"
 
@@ -240,7 +255,9 @@ end
 
 include_recipe "base::ssh"
 ```
+
 Now run the test again: `bundle exec kitchen test default-ubuntu-1004`
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
 -----> Cleaning up any prior instances of <default-ubuntu-1004>
@@ -307,6 +324,7 @@ Sweet! It works! Ok, now lets move on to testing...
 bats stands for "Bash Automated Testing System" and for a sysadmin is a great introduction to testing.  You can find the [repo](https://github.com/sstephenson/bats) there. I'm going to explain how to tie bats in with test-kitchen. Seriously, it's great. You've probably been using bash for years, this is just a simple layer on top of that foundation.
 
 First thing first, lets go into your chef-book vm, and give this a shot; I really do want you to see the beauty of this software.
+
 ```bash
 root@chef-book:~#  git clone https://github.com/sstephenson/bats.git
 Cloning into 'bats'...
@@ -320,7 +338,9 @@ root@chef-book:~/bats#  ./install.sh /usr/local
 Installed Bats to /usr/local/bin/bats
 root@chef-book:~/bats#
 ```
+
 Awesome, lets test this out now to see this work. I'll take the example from the page, it explains it pretty well. Open up a text editor and create this file:
+
 ```bash
 #!/usr/bin/env bats
 
@@ -394,16 +414,21 @@ Huzzah! It works. As I said earlier, the tests are simple bash exit status, so i
 Ok, so hopefully you've played with bats a bit, because we are going to write a couple tests now. Get to your cookbook where you ran `test-kitchen` from.
 
 Make a directory instead of `test/integration/default` called `bats`, and `cd` into it:
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base/test/integration/default] % mkdir bats
 [~/vagrant/chef-book/cookbooks/base/test/integration/default] % cd bats
 [~/vagrant/chef-book/cookbooks/base/test/integration/default/bats] %
 ```
+
 Create a new file, let's start out with checking to see `vim` is installed. I'm going to call it `vim.bats` for logical reasons, but you can name it whatever you want.
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base/test/integration/default/bats] % vim vim.bats
 ```
+
 And lets write the test!
+
 ```bash
 #!/usr/bin/env bats
 
@@ -412,7 +437,9 @@ And lets write the test!
     [ "$status" -eq  0 ]
 }
 ```
+
 Pretty straight forward eh? Ok, lets test it out.
+
 ```bash
 [~/vagrant/chef-book/cookbooks/base] % bundle exec kitchen test default-ubuntu-1004
 -----> Cleaning up any prior instances of <default-ubuntu-1004>

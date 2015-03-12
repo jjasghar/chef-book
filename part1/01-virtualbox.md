@@ -1,5 +1,6 @@
 VirtualBox
 ----------
+
 So, you've decided to take the plunge. Great!
 
 First we need to get your environment set up. I chose VirtualBox and Vagrant as my playground and I'll start walking you through it here. Virtualbox is a desktop virtual machine environment, and Vagrant is a command line interface that allows you to easily spin up new VMs in Virtualbox (or with other providers).
