@@ -14,7 +14,7 @@ In order to run [Open Source](http://www.opscode.com/chef/install/) chef server,
 
 After you build it, [this](http://docs.opscode.com/chef/manage_server_open_source.html) resource is invaluable.  But the beauty of chef server, is as soon as you get it set up and `knife` can talk to it, you really don't ever have to touch it again.
 
-First thing you need is a 4 gig of RAM on a box. So if you are looking at EC2, you have to use at least a m1.medium, which yes, it is 3.75 gigs, but for testing and learning that is ok.  If you are looking at production, you should seriously look at greater than 4 gigs. 
+First thing you need is 4 gigs of RAM on a box. So if you are looking at EC2, you have to use at least a m1.medium, which yes, it is 3.75 gigs, but for testing and learning that is ok.  If you are looking at production, you should seriously look at greater than 4 gigs. 
 
 After you get in the box, the next step is getting the binary, all you have to is go to [here](http://www.opscode.com/chef/install/) or run this on the box: (my box is 12.04 ubuntu 64 bit if you want to mimic me)
 
