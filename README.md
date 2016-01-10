@@ -1,6 +1,6 @@
 # chef-book
 
-(Read this first)
+# This is pretty out of date now. Please checkout http://learn.chef.io as a great learning resource!
 
 NOTE: This book was inspired by [another post](http://jjasghar.github.io/blog/2013/10/18/people-keep-asking-me-how-to-start-with-chef/) I made. If you want some background click that link. :)
 
